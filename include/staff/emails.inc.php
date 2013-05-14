@@ -43,10 +43,10 @@ else
 
 ?>
 <div style="width:700;padding-top:5px; float:left;">
- <h2>Email Addresses</h2>
+ <h2>Endereços de E-mail</h2>
  </div>
 <div style="float:right;text-align:right;padding-top:5px;padding-right:5px;">
-    <b><a href="emails.php?a=add" class="Icon newEmail">Add New Email</a></b></div>
+    <b><a href="emails.php?a=add" class="Icon newEmail">Adicionar novo e-mail</a></b></div>
 <div class="clear"></div>
 <form action="emails.php" method="POST" name="emails">
  <?php csrf_token(); ?>
@@ -58,10 +58,10 @@ else
         <tr>
             <th width="7">&nbsp;</th>        
             <th width="400"><a <?php echo $email_sort; ?> href="emails.php?<?php echo $qstr; ?>&sort=email">Email</a></th>
-            <th width="120"><a  <?php echo $priority_sort; ?> href="emails.php?<?php echo $qstr; ?>&sort=priority">Priority</a></th>
-            <th width="250"><a  <?php echo $dept_sort; ?> href="emails.php?<?php echo $qstr; ?>&sort=dept">Department</a></th>
-            <th width="110" nowrap><a  <?php echo $created_sort; ?>href="emails.php?<?php echo $qstr; ?>&sort=created">Created</a></th>
-            <th width="150" nowrap><a  <?php echo $updated_sort; ?>href="emails.php?<?php echo $qstr; ?>&sort=updated">Last Updated</a></th>
+            <th width="120"><a  <?php echo $priority_sort; ?> href="emails.php?<?php echo $qstr; ?>&sort=priority">Prioridade</a></th>
+            <th width="250"><a  <?php echo $dept_sort; ?> href="emails.php?<?php echo $qstr; ?>&sort=dept">Departamento</a></th>
+            <th width="110" nowrap><a  <?php echo $created_sort; ?>href="emails.php?<?php echo $qstr; ?>&sort=created">Data de criação</a></th>
+            <th width="150" nowrap><a  <?php echo $updated_sort; ?>href="emails.php?<?php echo $qstr; ?>&sort=updated">Última atualização</a></th>
         </tr>
     </thead>
     <tbody>
@@ -97,10 +97,10 @@ else
      <tr>
         <td colspan="6">
             <?php if($res && $num){ ?>
-            Select:&nbsp;
-            <a id="selectAll" href="#ckb">All</a>&nbsp;&nbsp;
-            <a id="selectNone" href="#ckb">None</a>&nbsp;&nbsp;
-            <a id="selectToggle" href="#ckb">Toggle</a>&nbsp;&nbsp;
+            Selecione:&nbsp;
+            <a id="selectAll" href="#ckb">Todos</a>&nbsp;&nbsp;
+            <a id="selectNone" href="#ckb">Nenhum</a>&nbsp;&nbsp;
+            <a id="selectToggle" href="#ckb">Alternar</a>&nbsp;&nbsp;
             <?php }else{
                 echo 'No help emails found';
             } ?>
@@ -113,7 +113,7 @@ if($res && $num): //Show options..
     echo '<div>&nbsp;Page:'.$pageNav->getPageLinks().'&nbsp;</div>';
 ?>
 <p class="centered" id="actions">
-    <input class="button" type="submit" name="delete" value="Delete Email(s)" >
+    <input class="button" type="submit" name="delete" value="Deletar Email(s)" >
 </p>
 <?php
 endif;
@@ -121,21 +121,21 @@ endif;
 </form>
 
 <div style="display:none;" class="dialog" id="confirm-action">
-    <h3>Please Confirm</h3>
+    <h3>Por favor confirme</h3>
     <a class="close" href="">&times;</a>
     <hr/>
     <p class="confirm-action" style="display:none;" id="delete-confirm">
-        <font color="red"><strong>Are you sure you want to DELETE selected emails?</strong></font>
-        <br><br>Deleted emails CANNOT be recovered.
+        <font color="red"><strong>Você tem certeza de querer DELETAR os e-mails selecionados?</strong></font>
+        <br><br>E-mails deletados não podem ser recuperados.
     </p>
-    <div>Please confirm to continue.</div>
+    <div>Por favor confirme para continuar.</div>
     <hr style="margin-top:1em"/>
     <p class="full-width">
         <span class="buttons" style="float:left">
-            <input type="button" value="No, Cancel" class="close">
+            <input type="button" value="Não, Cancelar" class="close">
         </span>
         <span class="buttons" style="float:right">
-            <input type="button" value="Yes, Do it!" class="confirm">
+            <input type="button" value="Sim, Confirmar!" class="confirm">
         </span>
      </p>
     <div class="clear"></div>

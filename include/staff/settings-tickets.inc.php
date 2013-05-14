@@ -3,7 +3,7 @@ if(!defined('OSTADMININC') || !$thisstaff || !$thisstaff->isAdmin() || !$config)
 if(!($maxfileuploads=ini_get('max_file_uploads')))
     $maxfileuploads=DEFAULT_MAX_FILE_UPLOADS;
 ?>
-<h2>Ticket Settings and Options</h2>
+<h2>Opções e Configurações dos Tickets</h2>
 <form action="settings.php?t=tickets" method="post" id="save">
 <?php csrf_token(); ?>
 <input type="hidden" name="t" value="tickets" >
@@ -11,28 +11,28 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
     <thead>
         <tr>
             <th colspan="2">
-                <h4>Ticket Settings</h4>
-                <em>Global ticket settings and options.</em>
+                <h4>Configurações dos Tickets</h4>
+                <em>Opções e Configurações Globais dos Tickets.</em>
             </th>
         </tr>
     </thead>
     <tbody>
-        <tr><td width="220" class="required">Ticket IDs:</td>
+        <tr><td width="220" class="required">IDs dos Tickets:</td>
             <td>
                 <input type="radio" name="random_ticket_ids"  value="0" <?php echo !$config['random_ticket_ids']?'checked="checked"':''; ?> />
-                Sequential
+                Sequencial
                 <input type="radio" name="random_ticket_ids"  value="1" <?php echo $config['random_ticket_ids']?'checked="checked"':''; ?> />
-                Random  <em>(highly recommended)</em>
+                Aletatório  <em>(Altamente recomendável)</em>
             </td>
         </tr>
 
         <tr>
             <td width="180" class="required">
-                Default SLA:
+                SLA Padrão:
             </td>
             <td>
                 <select name="default_sla_id">
-                    <option value="0">&mdash; None &mdash;</option>
+                    <option value="0">&mdash; Nunca &mdash;</option>
                     <?php
                     if($slas=SLA::getSLAs()) {
                         foreach($slas as $id => $name) {
@@ -48,7 +48,7 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
             </td>
         </tr>
         <tr>
-            <td width="180" class="required">Default Priority:</td>
+            <td width="180" class="required">Prioridade Padrão:</td>
             <td>
                 <select name="default_priority_id">
                     <?php
@@ -62,128 +62,128 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
              </td>
         </tr>
         <tr>
-            <td>Maximum <b>Open</b> Tickets:</td>
+            <td>Máximo Tickets <b>Abertos</b>:</td>
             <td>
                 <input type="text" name="max_open_tickets" size=4 value="<?php echo $config['max_open_tickets']; ?>">
-                per email/user. <em>(Helps with spam and email flood control - enter 0 for unlimited)</em>
+                por email/usuário. <em>(Ajuda com controle de spam e e-mail - digite 0 para ilimitado)</em>
             </td>
         </tr>
         <tr>
-            <td>Ticket Auto-lock Time:</td>
+            <td>Tempo Automático para Fechamento dos Tickets:</td>
             <td>
                 <input type="text" name="autolock_minutes" size=4 value="<?php echo $config['autolock_minutes']; ?>">
                 <font class="error"><?php echo $errors['autolock_minutes']; ?></font>
-                <em>(Minutes to lock a ticket on activity - enter 0 to disable locking)</em>
+                <em>(Minutos para bloquear um ticket ativo - digite 0 para desabiltar)</em>
             </td>
         </tr>
         <tr>
-                    <td width="180">Web Tickets Priority:</td>
+                    <td width="180">Prioridade dos Tickets da Web:</td>
                     <td>
                         <input type="checkbox" name="allow_priority_change" value="1" <?php echo $config['allow_priority_change'] ?'checked="checked"':''; ?>>
-                        <em>(Allow user to overwrite/set priority)</em>
+                        <em>(Permitir usuários setar/editar prioridades)</em>
                     </td>
                 </tr>
                 <tr>
-                    <td width="180">Emailed Tickets Priority:</td>
+                    <td width="180">Prioridade dos Tickets Enviados por E-mail:</td>
                     <td>
                         <input type="checkbox" name="use_email_priority" value="1" <?php echo $config['use_email_priority'] ?'checked="checked"':''; ?> >
-                        <em>(Use email priority when available)</em>
+                        <em>(Use a prioridade de e-mail quando disponível)</em>
             </td>
         </tr>
         <tr>
-            <td width="180">Show Related Tickets:</td>
+            <td width="180">Visualizar Tickets Relacionados:</td>
             <td>
                 <input type="checkbox" name="show_related_tickets" value="1" <?php echo $config['show_related_tickets'] ?'checked="checked"':''; ?> >
-                <em>(Show all related tickets on user login - otherwise access is restricted to one ticket view per login)</em>
+                <em>(Visualiza todos os tickets relacionados de um usário - caso contrário o acesso é restrito por sessão)</em>
             </td>
         </tr>
         <tr>
-            <td width="180">Show Notes Inline:</td>
+            <td width="180">Visualizar Notas Internas:</td>
             <td>
                 <input type="checkbox" name="show_notes_inline" value="1" <?php echo $config['show_notes_inline'] ?'checked="checked"':''; ?> >
-                <em>(Show internal notes  inline)</em>
+                <em>(Visualiza as notas internas)</em>
               </td>
         </tr>
         <tr><td>Clickable URLs:</td>
             <td>
               <input type="checkbox" name="clickable_urls" <?php echo $config['clickable_urls']?'checked="checked"':''; ?>>
-               <em>(converts URLs in ticket thread to clickable links)</em>
+               <em>(Converte URLs em links clicáveis)</em>
             </td>
         </tr>
         <tr>
-            <td>Human Verification:</td>
+            <td>Verificação Anti-Robô:</td>
             <td>
                 <input type="checkbox" name="enable_captcha" <?php echo $config['enable_captcha']?'checked="checked"':''; ?>>
-                Enable CAPTCHA on new web tickets.<em>(requires GDLib)</em> &nbsp;<font class="error">&nbsp;<?php echo $errors['enable_captcha']; ?></font><br/>
+                Habilita o CAPTCHA para os tickets web.<em>(é necessário a GDLib)</em> &nbsp;<font class="error">&nbsp;<?php echo $errors['enable_captcha']; ?></font><br/>
             </td>
         </tr>
         <tr>
-            <td>Reopened Tickets:</td>
+            <td>Tickets Reabertos:</td>
             <td>
                 <input type="checkbox" name="auto_assign_reopened_tickets" <?php echo $config['auto_assign_reopened_tickets']?'checked="checked"':''; ?>>
-                Auto-assign reopened tickets to the last available respondent.
+                Atribuir automaticamente tickets reabertos através de uma fila.
             </td>
         </tr>
         <tr>
-            <td>Assigned Tickets:</td>
+            <td>Tickets Atribuídos:</td>
             <td>
                 <input type="checkbox" name="show_assigned_tickets" <?php echo $config['show_assigned_tickets']?'checked="checked"':''; ?>>
-                Show assigned tickets on open queue.
+                Visualizar tickets atribuídos.
             </td>
         </tr>
         <tr>
-            <td>Answered Tickets:</td>
+            <td>Tickets Respondidos:</td>
             <td>
                 <input type="checkbox" name="show_answered_tickets" <?php echo $config['show_answered_tickets']?'checked="checked"':''; ?>>
-                Show answered tickets on open queue.
+                Visualizar tickets respondidos.
             </td>
         </tr>
         <tr>
-            <td>Ticket Activity Log:</td>
+            <td>Log de Atividades dos Tickets:</td>
             <td>
                 <input type="checkbox" name="log_ticket_activity" <?php echo $config['log_ticket_activity']?'checked="checked"':''; ?>>
-                Log ticket activity as internal notes.
+                Gardar atividades dos tickets como notas internas.
             </td>
         </tr>
         <tr>
-            <td>Staff Identity Masking:</td>
+            <td>Mascarando Identiade Pessoal:</td>
             <td>
                 <input type="checkbox" name="hide_staff_name" <?php echo $config['hide_staff_name']?'checked="checked"':''; ?>>
-                Hide staff's name on responses.
+                Ocultar o nome das equipes na respota
             </td>
         </tr>
         <tr>
             <th colspan="2">
-                <em><b>Attachments</b>:  Size and max. uploads setting mainly apply to web tickets.</em>
+                <em><b>Anexos</b>:  Tamanho máximo. Imagens de configuração se aplicam principalmente aos bilhetes web.</em>
             </th>
         </tr>
         <tr>
-            <td width="180">Allow Attachments:</td>
+            <td width="180">Permitir Anexos:</td>
             <td>
-              <input type="checkbox" name="allow_attachments" <?php echo $config['allow_attachments']?'checked="checked"':''; ?>><b>Allow Attachments</b>
-                &nbsp; <em>(Global Setting)</em>
+              <input type="checkbox" name="allow_attachments" <?php echo $config['allow_attachments']?'checked="checked"':''; ?>><b>Permitir anexos</b>
+                &nbsp; <em>(Configurações globais)</em>
                 &nbsp;<font class="error">&nbsp;<?php echo $errors['allow_attachments']; ?></font>
             </td>
         </tr>
         <tr>
-            <td width="180">Emailed/API Attachments:</td>
+            <td width="180">Anexos de Emais/API:</td>
             <td>
-                <input type="checkbox" name="allow_email_attachments" <?php echo $config['allow_email_attachments']?'checked="checked"':''; ?>> Accept emailed/API attachments.
+                <input type="checkbox" name="allow_email_attachments" <?php echo $config['allow_email_attachments']?'checked="checked"':''; ?>> Permitir anexos de email/API.
                     &nbsp;<font class="error">&nbsp;<?php echo $errors['allow_email_attachments']; ?></font>
             </td>
         </tr>
         <tr>
-            <td width="180">Online/Web Attachments:</td>
+            <td width="180">Online/Anexos Web:</td>
             <td>
                 <input type="checkbox" name="allow_online_attachments" <?php echo $config['allow_online_attachments']?'checked="checked"':''; ?> >
-                    Allow web upload &nbsp;&nbsp;&nbsp;&nbsp;
+                   Permitir upload web &nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="checkbox" name="allow_online_attachments_onlogin" <?php echo $config['allow_online_attachments_onlogin'] ?'checked="checked"':''; ?> >
-                    Limit to authenticated users only. <em>(User must be logged in to upload files)</em>
+                    Limitar somente à usuários autenticados. <em>(Só usuários logados podem fazer upload)</em>
                     <font class="error">&nbsp;<?php echo $errors['allow_online_attachments']; ?></font>
             </td>
         </tr>
         <tr>
-            <td>Max. User File Uploads:</td>
+            <td>Quantidade Máxima de Arquivos po Usuário:</td>
             <td>
                 <select name="max_user_file_uploads">
                     <?php
@@ -194,12 +194,12 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
                         <?php
                     } ?>
                 </select>
-                <em>(Number of files the user is allowed to upload simultaneously)</em>
+                <em>(Número de arquivos que o usuário tem permissão para enviar simultaneamente)</em>
                 &nbsp;<font class="error">&nbsp;<?php echo $errors['max_user_file_uploads']; ?></font>
             </td>
         </tr>
         <tr>
-            <td>Max. Staff File Uploads:</td>
+            <td>Quantidade Máxima de Arquivos por Equipe:</td>
             <td>
                 <select name="max_staff_file_uploads">
                     <?php
@@ -210,41 +210,41 @@ if(!($maxfileuploads=ini_get('max_file_uploads')))
                         <?php
                     } ?>
                 </select>
-                <em>(Number of files the staff is allowed to upload simultaneously)</em>
+                <em>(Número de arquivos que a equipe tem permissão para fazer upload simultaneamente)</em>
                 &nbsp;<font class="error">&nbsp;<?php echo $errors['max_staff_file_uploads']; ?></font>
             </td>
         </tr>
         <tr>
-            <td width="180">Maximum File Size:</td>
+            <td width="180">Tamanho Máximo do Arquivo:</td>
             <td>
-                <input type="text" name="max_file_size" value="<?php echo $config['max_file_size']; ?>"> in bytes.
-                    <em>(System Max. <?php echo Format::file_size(ini_get('upload_max_filesize')); ?>)</em>
+                <input type="text" name="max_file_size" value="<?php echo $config['max_file_size']; ?>"> em bytes.
+                    <em>(Tamanho máximo do sistema. <?php echo Format::file_size(ini_get('upload_max_filesize')); ?>)</em>
                     <font class="error">&nbsp;<?php echo $errors['max_file_size']; ?></font>
             </td>
         </tr>
         <tr>
-            <td width="180">Ticket Response Files:</td>
+            <td width="180">Arquivo de Resposta dos Tickets:</td>
             <td>
-                <input type="checkbox" name="email_attachments" <?php echo $config['email_attachments']?'checked="checked"':''; ?> >Email attachments to the user
+                <input type="checkbox" name="email_attachments" <?php echo $config['email_attachments']?'checked="checked"':''; ?> >Enviar e-mail anexados ao usuário
             </td>
         </tr>
         <tr>
             <th colspan="2">
-                <em><strong>Accepted File Types</strong>: Limit the type of files users are allowed to submit.
+                <em><strong>Aceitar os Seguintes Tipos de Arquivos</strong>: Limitar os tipos de arquivos que os usuários estão autorizados a enviar.
                 <font class="error">&nbsp;<?php echo $errors['allowed_filetypes']; ?></font></em>
             </th>
         </tr>
         <tr>
             <td colspan="2">
-                <em>Enter allowed file extensions separated by a comma. e.g .doc, .pdf. To accept all files enter wildcard <b><i>.*</i></b>&nbsp;i.e dotStar (NOT Recommended).</em><br>
+                <em>Digite as extensões dos arquivos permitidos  e separadas por uma vírgula. Ex.: doc,. pdf. Para aceitar todos os arquivos digitar caractere curinga<b><i>.*</i></b>&nbsp; (Não Recomendável).</em><br>
                 <textarea name="allowed_filetypes" cols="21" rows="4" style="width: 65%;" wrap="hard" ><?php echo $config['allowed_filetypes']; ?></textarea>
             </td>
         </tr>
     </tbody>
 </table>
 <p style="padding-left:250px;">
-    <input class="button" type="submit" name="submit" value="Save Changes">
-    <input class="button" type="reset" name="reset" value="Reset Changes">
+    <input class="button" type="submit" name="submit" value="Salvar Alterações">
+    <input class="button" type="reset" name="reset" value="Resetar Alterações">
 </p>
 </form>
 

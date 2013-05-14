@@ -16,7 +16,7 @@
 require 'secure.inc.php';
 //Basic url validation + token check.
 if (!($url=trim($_GET['url'])) || !Validator::is_url($url) || !$ost->validateLinkToken($_GET['auth']))
-    exit('Invalid url');
+    exit('URL inválida');
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>

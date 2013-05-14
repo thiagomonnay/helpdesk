@@ -25,20 +25,20 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
  <input type="hidden" name="do" value="<?php echo $action; ?>">
  <input type="hidden" name="a" value="<?php echo Format::htmlchars($_REQUEST['a']); ?>">
  <input type="hidden" name="id" value="<?php echo $info['id']; ?>">
- <h2>Help Topic</h2>
+ <h2>Tópico de Ajuda</h2>
  <table class="form_table" width="940" border="0" cellspacing="0" cellpadding="2">
     <thead>
         <tr>
             <th colspan="2">
                 <h4><?php echo $title; ?></h4>
-                <em>Help Topic Information</em>
+                <em>Informações do tópico de ajuda</em>
             </th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td width="180" class="required">
-               Topic:
+               Tópico:
             </td>
             <td>
                 <input type="text" size="30" name="topic" value="<?php echo $info['topic']; ?>">
@@ -50,28 +50,28 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                 Status:
             </td>
             <td>
-                <input type="radio" name="isactive" value="1" <?php echo $info['isactive']?'checked="checked"':''; ?>>Active
-                <input type="radio" name="isactive" value="0" <?php echo !$info['isactive']?'checked="checked"':''; ?>>Disabled
+                <input type="radio" name="isactive" value="1" <?php echo $info['isactive']?'checked="checked"':''; ?>>Habilitado
+                <input type="radio" name="isactive" value="0" <?php echo !$info['isactive']?'checked="checked"':''; ?>>Desabilitado
                 &nbsp;<span class="error">*&nbsp;</span>
             </td>
         </tr>
         <tr>
             <td width="180" class="required">
-                Type:
+                Tipo:
             </td>
             <td>
-                <input type="radio" name="ispublic" value="1" <?php echo $info['ispublic']?'checked="checked"':''; ?>>Public
-                <input type="radio" name="ispublic" value="0" <?php echo !$info['ispublic']?'checked="checked"':''; ?>>Private/Internal
+                <input type="radio" name="ispublic" value="1" <?php echo $info['ispublic']?'checked="checked"':''; ?>>Público
+                <input type="radio" name="ispublic" value="0" <?php echo !$info['ispublic']?'checked="checked"':''; ?>>Privado/Interno
                 &nbsp;<span class="error">*&nbsp;</span>
             </td>
         </tr>
         <tr>
             <td width="180">
-                Parent Topic:
+                Tópico principal:
             </td>
             <td>
                 <select name="pid">
-                    <option value="">&mdash; Select Parent Topic &mdash;</option>
+                    <option value="">&mdash; Selecione o tópico principal &mdash;</option>
                     <?php
                     $sql='SELECT topic_id, topic FROM '.TOPIC_TABLE
                         .' WHERE topic_pid=0 '
@@ -83,19 +83,19 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                         }
                     }
                     ?>
-                </select> (<em>optional</em>)
+                </select> (<em>opcional</em>)
                 &nbsp;<span class="error">&nbsp;<?php echo $errors['pid']; ?></span>
             </td>
         </tr>
 
-        <tr><th colspan="2"><em>New ticket options</em></th></tr>
+        <tr><th colspan="2"><em>Novas opções do ticket</em></th></tr>
         <tr>
             <td width="180" class="required">
-                Priority:
+                Prioridade:
             </td>
             <td>
                 <select name="priority_id">
-                    <option value="">&mdash; Select Priority &mdash;</option>
+                    <option value="">&mdash; Selecione prioridade &mdash;</option>
                     <?php
                     $sql='SELECT priority_id,priority_desc FROM '.PRIORITY_TABLE.' pri ORDER by priority_urgency DESC';
                     if(($res=db_query($sql)) && db_num_rows($res)){
@@ -111,11 +111,11 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <td width="180" class="required">
-                Department:
+                Departamento:
             </td>
             <td>
                 <select name="dept_id">
-                    <option value="">&mdash; Select Department &mdash;</option>
+                    <option value="">&mdash; Selecione o departamento &mdash;</option>
                     <?php
                     $sql='SELECT dept_id,dept_name FROM '.DEPT_TABLE.' dept ORDER by dept_name';
                     if(($res=db_query($sql)) && db_num_rows($res)){
@@ -131,11 +131,11 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <td width="180">
-                SLA Plan:
+                Plano SLA:
             </td>
             <td>
                 <select name="sla_id">
-                    <option value="0">&mdash; Department's Default &mdash;</option>
+                    <option value="0">&mdash; Departamentos padrão &mdash;</option>
                     <?php
                     if($slas=SLA::getSLAs()) {
                         foreach($slas as $id =>$name) {
@@ -146,16 +146,16 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                     ?>
                 </select>
                 &nbsp;<span class="error">&nbsp;<?php echo $errors['sla_id']; ?></span>
-                <em>(Overwrites department's SLA)</em>
+                <em>(Substitui SLA dos )</em>
             </td>
         </tr>
         <tr>
             <td width="180">
-                Auto-assign To:
+                Auto-atribuir para:
             </td>
             <td>
                 <select name="assign">
-                    <option value="0">&mdash; Unassigned &mdash;</option>
+                    <option value="0">&mdash; Não atribuído &mdash;</option>
                                 
 
                     <?php
@@ -195,17 +195,17 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <td width="180">
-                Ticket auto-response:
+                Auto-resposta do ticket:
             </td>
             <td>
                 <input type="checkbox" name="noautoresp" value="1" <?php echo $info['noautoresp']?'checked="checked"':''; ?> >
-                    <strong>Disable</strong> new ticket auto-response for this topic (Overwrites Dept. settings).
+                    <strong>Desabilitada</strong> novo ticket de auto-resposta para este tópico (Substitui as configurações Técnica).
             </td>
         </tr>
 
         <tr>
             <th colspan="2">
-                <em><strong>Admin Notes</strong>: Internal notes about the help topic.&nbsp;</em>
+                <em><strong>Notas admnistrativas</strong>: Notas internas sobre o tópico de ajuda.&nbsp;</em>
             </th>
         </tr>
         <tr>
@@ -217,7 +217,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
 </table>
 <p style="padding-left:225px;">
     <input type="submit" name="submit" value="<?php echo $submit_text; ?>">
-    <input type="reset"  name="reset"  value="Reset">
-    <input type="button" name="cancel" value="Cancel" onclick='window.location.href="helptopics.php"'>
+    <input type="reset"  name="reset"  value="Resetar">
+    <input type="button" name="cancel" value="Cancelar" onclick='window.location.href="helptopics.php"'>
 </p>
 </form>

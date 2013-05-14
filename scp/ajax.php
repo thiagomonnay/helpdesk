@@ -17,7 +17,7 @@
 # HTTP/Forbidden status rather than the actual login page.
 # XXX: This should be moved to the AjaxController class
 function staffLoginPage($msg='Unauthorized') {
-    Http::response(403,'Must login: '.Format::htmlchars($msg));
+    Http::response(403,'Você deve logar: '.Format::htmlchars($msg));
     exit;
 }
 
@@ -28,7 +28,7 @@ ini_set('display_errors','0'); //Disable error display
 ini_set('display_startup_errors','0');
 
 //TODO: disable direct access via the browser? i,e All request must have REFER?
-if(!defined('INCLUDE_DIR'))	Http::response(500, 'Server configuration error');
+if(!defined('INCLUDE_DIR'))	Http::response(500, 'Erro de confihuração do servidor');
 
 require_once INCLUDE_DIR.'/class.dispatcher.php';
 require_once INCLUDE_DIR.'/class.ajax.php';

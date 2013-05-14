@@ -352,7 +352,7 @@ Class ThreadEntry {
                  XXX: We're doing it here because it will eventually become a thread post comment (hint: comments coming!)
                  XXX: logNote must watch for possible loops
                */
-                $this->getTicket()->logNote('File Upload Error', $error, 'SYSTEM', false);
+                $this->getTicket()->logNote('Erro no UPLOAD do arquivo', $error, 'SYSTEM', false);
             }
 
         }
@@ -598,9 +598,9 @@ class Message extends ThreadEntry {
     function add($vars, &$errors) {
 
         if(!$vars || !is_array($vars) || !$vars['ticketId'])
-            $errors['err'] = 'Missing or invalid data';
+            $errors['err'] = 'Dados inválidos';
         elseif(!$vars['message'])
-            $errors['message'] = 'Message required';
+            $errors['message'] = 'Mensagem é obrigatória';
 
         if($errors) return false;
 
@@ -642,9 +642,9 @@ class Response extends ThreadEntry {
     function add($vars, &$errors) {
 
         if(!$vars || !is_array($vars) || !$vars['ticketId'])
-            $errors['err'] = 'Missing or invalid data';
+            $errors['err'] = 'Dados inválidos';
         elseif(!$vars['response'])
-            $errors['response'] = 'Response required';
+            $errors['response'] = 'Resposta é obrigatória';
 
         if($errors) return false;
 
@@ -687,9 +687,9 @@ class Note extends ThreadEntry {
 
         //Check required params.
         if(!$vars || !is_array($vars) || !$vars['ticketId'])
-            $errors['err'] = 'Missing or invalid data';
+            $errors['err'] = 'Dados inválidos';
         elseif(!$vars['note'])
-            $errors['note'] = 'Note required';
+            $errors['note'] = 'Notas são obrigatórias';
 
         if($errors) return false;
 

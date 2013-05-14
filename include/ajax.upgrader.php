@@ -35,7 +35,7 @@ class UpgraderAjaxAPI extends AjaxController {
         }
 
         if($upgrader->isAborted()) {
-            Http::response(416, "We have a problem ... wait a sec.");
+            Http::response(416, "Estamos com problemas ... aguarde um segundo.");
             exit;
         }
 
@@ -48,22 +48,22 @@ class UpgraderAjaxAPI extends AjaxController {
                 $version = $upgrader->getNextVersion();
                 if($upgrader->upgrade()) {
                     //We're simply reporting progress here - call back will report next action'
-                    Http::response(200, "Upgraded to $version ... post-upgrade checks!");
+                    Http::response(200, "Atualizado para versão $version ... verfifique os procedimentos pós-atualização!");
                     exit;
                 }
             } else { 
                 //Abort: Upgrade pending but NOT upgradable - invalid or wrong hash.
-                $upgrader->abort(sprintf('Upgrade Failed: Invalid or wrong hash [%s]',$ost->getDBSignature()));
+                $upgrader->abort(sprintf('Falha na atualização: Inválido ou desconhecido o hash [%s]',$ost->getDBSignature()));
             }
         } elseif(!$ost->isUpgradePending()) {
             $upgrader->setState('done');
             session_write_close();
-            Http::response(201, "We're done!");
+            Http::response(201, "Pronto!");
             exit;
         }
 
         if($upgrader->isAborted() || $upgrader->getErrors()) {
-            Http::response(416, "We have a problem ... wait a sec.");
+            Http::response(416, "Estamos com problemas ... aguarde um segundo.");
             exit;
         }
 

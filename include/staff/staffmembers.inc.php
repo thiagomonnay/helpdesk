@@ -54,12 +54,12 @@ $qstr.='&order='.($order=='DESC'?'ASC':'DESC');
 $query="$select $from $where GROUP BY staff.staff_id ORDER BY $order_by LIMIT ".$pageNav->getStart().",".$pageNav->getLimit();
 //echo $query;
 ?>
-<h2>Staff Members</h2>
+<h2>Usuários da Equipe</h2>
 <div style="width:700; float:left;">
     <form action="staff.php" method="GET" name="filter">
      <input type="hidden" name="a" value="filter" >
         <select name="did" id="did">
-             <option value="0">&mdash; All Department &mdash;</option>
+             <option value="0">&mdash; Todos os Departamentos &mdash;</option>
              <?php
              $sql='SELECT dept.dept_id, dept.dept_name,count(staff.staff_id) as users  '.
                   'FROM '.DEPT_TABLE.' dept '.
@@ -74,7 +74,7 @@ $query="$select $from $where GROUP BY staff.staff_id ORDER BY $order_by LIMIT ".
              ?>
         </select>
         <select name="gid" id="gid">
-            <option value="0">&mdash; All Groups &mdash;</option>
+            <option value="0">&mdash; Todos os Grupos &mdash;</option>
              <?php
              $sql='SELECT grp.group_id, group_name,count(staff.staff_id) as users '.
                   'FROM '.GROUP_TABLE.' grp '.
@@ -89,7 +89,7 @@ $query="$select $from $where GROUP BY staff.staff_id ORDER BY $order_by LIMIT ".
              ?>
         </select>
         <select name="tid" id="tid">
-            <option value="0">&mdash; All Teams &mdash;</option>
+            <option value="0">&mdash; Todas as Equipes &mdash;</option>
              <?php
              $sql='SELECT team.team_id, team.name, count(member.staff_id) as users FROM '.TEAM_TABLE.' team '.
                   'INNER JOIN '.TEAM_MEMBER_TABLE.' member ON(member.team_id=team.team_id) '.
@@ -103,10 +103,10 @@ $query="$select $from $where GROUP BY staff.staff_id ORDER BY $order_by LIMIT ".
              ?>
         </select>
         &nbsp;&nbsp;
-        <input type="submit" name="submit" value="Apply"/>
+        <input type="submit" name="submit" value="Aplicar Filtros"/>
     </form>
  </div>
-<div style="float:right;text-align:right;padding-right:5px;"><b><a href="staff.php?a=add" class="Icon newstaff">Add New Staff</a></b></div>
+<div style="float:right;text-align:right;padding-right:5px;"><b><a href="staff.php?a=add" class="Icon newstaff">Adicionar Novo Usuário</a></b></div>
 <div class="clear"></div>
 <?php
 $res=db_query($query);
@@ -124,13 +124,13 @@ else
     <thead>
         <tr>
             <th width="7px">&nbsp;</th>        
-            <th width="200"><a <?php echo $name_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=name">Name</a></th>
-            <th width="100"><a <?php echo $username_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=username">UserName</a></th>
+            <th width="200"><a <?php echo $name_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=name">Nome Completo</a></th>
+            <th width="100"><a <?php echo $username_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=username">Nome do usuário</a></th>
             <th width="100"><a  <?php echo $status_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=status">Status</a></th>
-            <th width="120"><a  <?php echo $group_sort; ?>href="staff.php?<?php echo $qstr; ?>&sort=group">Group</a></th>
-            <th width="150"><a  <?php echo $dept_sort; ?>href="staff.php?<?php echo $qstr; ?>&sort=dept">Department</a></th>
-            <th width="100"><a <?php echo $created_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=created">Created</a></th>
-            <th width="145"><a <?php echo $login_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=login">Last Login</a></th>
+            <th width="120"><a  <?php echo $group_sort; ?>href="staff.php?<?php echo $qstr; ?>&sort=group">Equipe</a></th>
+            <th width="150"><a  <?php echo $dept_sort; ?>href="staff.php?<?php echo $qstr; ?>&sort=dept">Departamento</a></th>
+            <th width="100"><a <?php echo $created_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=created">Data de criação</a></th>
+            <th width="145"><a <?php echo $login_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=login">Último login</a></th>
         </tr>
     </thead>
     <tbody>
@@ -160,10 +160,10 @@ else
      <tr>
         <td colspan="8">
             <?php if($res && $num){ ?>
-            Select:&nbsp;
-            <a id="selectAll" href="#ckb">All</a>&nbsp;&nbsp;
-            <a id="selectNone" href="#ckb">None</a>&nbsp;&nbsp;
-            <a id="selectToggle" href="#ckb">Toggle</a>&nbsp;&nbsp;
+            Selecione:&nbsp;
+            <a id="selectAll" href="#ckb">Todos</a>&nbsp;&nbsp;
+            <a id="selectNone" href="#ckb">Nenhum</a>&nbsp;&nbsp;
+            <a id="selectToggle" href="#ckb">Alternar</a>&nbsp;&nbsp;
             <?php }else{
                 echo 'No staff members found!';
             } ?>
@@ -176,11 +176,11 @@ if($res && $num): //Show options..
     echo '<div>&nbsp;Page:'.$pageNav->getPageLinks().'&nbsp;</div>';
 ?>
 <p class="centered" id="actions">
-    <input class="button" type="submit" name="enable" value="Enable" >
+    <input class="button" type="submit" name="enable" value="Ativar" >
     &nbsp;&nbsp;
-    <input class="button" type="submit" name="disable" value="Lock" >
+    <input class="button" type="submit" name="disable" value="Desativar" >
     &nbsp;&nbsp;
-    <input class="button" type="submit" name="delete" value="Delete">
+    <input class="button" type="submit" name="delete" value="Deletar">
 </p>
 <?php
 endif;
@@ -188,28 +188,28 @@ endif;
 </form>
 
 <div style="display:none;" class="dialog" id="confirm-action">
-    <h3>Please Confirm</h3>
+    <h3>Por favor confirme</h3>
     <a class="close" href="">&times;</a>
     <hr/>
     <p class="confirm-action" style="display:none;" id="enable-confirm">
-        Are you sure want to <b>enable</b> (unlock) selected staff?
+        Tens a certeza de querer <b>ativar</b> (desbloquear) o usuário selecionado?
     </p>
     <p class="confirm-action" style="display:none;" id="disable-confirm">
-        Are you sure want to <b>disable</b> (lock) selected staff?
-        <br><br>Locked staff won't be able to login to Staff Control Panel.
+        Tens a certeza de querer <b>desativar</b> (bloquear) o usuário selecionado?
+        <br><br>Usuário bloqueado não será capaz de acessar o painel de controle pessoal.
     </p>
     <p class="confirm-action" style="display:none;" id="delete-confirm">
-        <font color="red"><strong>Are you sure you want to DELETE selected staff?</strong></font>
-        <br><br>Deleted staff CANNOT be recovered.
+        <font color="red"><strong>Tens a certeza de querer DELETAR o usuário selecionado?</strong></font>
+        <br><br>Usuário deletado não poderá ser recuperado
     </p>
-    <div>Please confirm to continue.</div>
+    <div>Por favor confirme para continuar.</div>
     <hr style="margin-top:1em"/>
     <p class="full-width">
         <span class="buttons" style="float:left">
-            <input type="button" value="No, Cancel" class="close">
+            <input type="button" value="Não, Cancelar" class="close">
         </span>
         <span class="buttons" style="float:right">
-            <input type="button" value="Yes, Do it!" class="confirm">
+            <input type="button" value="Sim, Confirmar!" class="confirm">
         </span>
      </p>
     <div class="clear"></div>

@@ -18,26 +18,26 @@ require_once('staff.inc.php');
 $msg='';
 $staff=Staff::lookup($thisstaff->getId());
 if($_POST && $_POST['id']!=$thisstaff->getId()) { //Check dummy ID used on the form.
- $errors['err']='Internal Error. Action Denied';
+ $errors['err']='Erro interno, acesso negado';
 } elseif(!$errors && $_POST) { //Handle post
 
     if(!$staff)
-        $errors['err']='Unknown or invalid staff';
+        $errors['err']='Usuário desconhecido ou inválido';
     elseif($staff->updateProfile($_POST,$errors)){
-        $msg='Profile updated successfully';
+        $msg='Perfil atualizado com sucesso';
         $thisstaff->reload();
         $staff->reload();
         $_SESSION['TZ_OFFSET']=$thisstaff->getTZoffset();
         $_SESSION['TZ_DST']=$thisstaff->observeDaylight();
     }elseif(!$errors['err'])
-        $errors['err']='Profile update error. Try correcting the errors below and try again!';
+        $errors['err']='Erro ao atualizar o perfil. Verifique os erros e tente novamente!';
 }
 
 //Forced password Change.
 if($thisstaff->forcePasswdChange() && !$errors['err'])
-    $errors['err']=sprintf('<b>Hi %s</b> - You must change your password to continue!',$thisstaff->getFirstName());
+    $errors['err']=sprintf('<b>Hi %s</b> - Você deve alterar sua senha para poder continuar!',$thisstaff->getFirstName());
 elseif($thisstaff->onVacation() && !$warn)
-    $warn=sprintf('<b>Welcome back %s</b>! You are listed as \'on vacation\' Please let your manager know that you are back.',$thisstaff->getFirstName());
+    $warn=sprintf('<b>Welcome back %s</b>! Você está listado no sistema como \'de férias\' Por favor informe ao seu gerente a sua volta.',$thisstaff->getFirstName());
 
 $inc='profile.inc.php';
 $nav->setTabActive('dashboard');

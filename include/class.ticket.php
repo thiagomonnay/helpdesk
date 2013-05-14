@@ -1590,37 +1590,37 @@ class Ticket {
             return false;
 
         $fields=array();
-        $fields['name']     = array('type'=>'string',   'required'=>1, 'error'=>'Name required');
-        $fields['email']    = array('type'=>'email',    'required'=>1, 'error'=>'Valid email required');
-        $fields['subject']  = array('type'=>'string',   'required'=>1, 'error'=>'Subject required');
-        $fields['topicId']  = array('type'=>'int',      'required'=>1, 'error'=>'Help topic required');
-        $fields['priorityId'] = array('type'=>'int',    'required'=>1, 'error'=>'Priority required');
-        $fields['slaId']    = array('type'=>'int',      'required'=>0, 'error'=>'Select SLA');
-        $fields['phone']    = array('type'=>'phone',    'required'=>0, 'error'=>'Valid phone # required');
-        $fields['duedate']  = array('type'=>'date',     'required'=>0, 'error'=>'Invalid date - must be MM/DD/YY');
+        $fields['name']     = array('type'=>'string',   'required'=>1, 'error'=>'O nome é requerido');
+        $fields['email']    = array('type'=>'email',    'required'=>1, 'error'=>'Um e-mail válido é requerido');
+        $fields['subject']  = array('type'=>'string',   'required'=>1, 'error'=>'O assunto é requerido');
+        $fields['topicId']  = array('type'=>'int',      'required'=>1, 'error'=>'O tópico de ajuda é requerido');
+        $fields['priorityId'] = array('type'=>'int',    'required'=>1, 'error'=>'A prioridade é requerida');
+        $fields['slaId']    = array('type'=>'int',      'required'=>0, 'error'=>'Selecione um SLA');
+        $fields['phone']    = array('type'=>'phone',    'required'=>0, 'error'=>'Um número de telefone válido é requerido');
+        $fields['duedate']  = array('type'=>'date',     'required'=>0, 'error'=>'Data inválida -  DD/MM/YY');
 
-        $fields['note']     = array('type'=>'text',     'required'=>1, 'error'=>'Reason for the update required');
+        $fields['note']     = array('type'=>'text',     'required'=>1, 'error'=>'As razões para a atualização são requeridas');
 
         if(!Validator::process($fields, $vars, $errors) && !$errors['err'])
-            $errors['err'] = 'Missing or invalid data - check the errors and try again';
+            $errors['err'] = 'Dados em falta ou inválidos - verifique os erros e tente outra vez';
 
         if($vars['duedate']) {
             if($this->isClosed())
-                $errors['duedate']='Duedate can NOT be set on a closed ticket';
+                $errors['duedate']='Data de expiração não pode ser definida em um ticket fechado';
             elseif(!$vars['time'] || strpos($vars['time'],':')===false)
-                $errors['time']='Select time';
+                $errors['time']='Selecione o tempo';
             elseif(strtotime($vars['duedate'].' '.$vars['time'])===false)
-                $errors['duedate']='Invalid duedate';
+                $errors['duedate']='Data de expiração inválida';
             elseif(strtotime($vars['duedate'].' '.$vars['time'])<=time())
-                $errors['duedate']='Due date must be in the future';
+                $errors['duedate']='Data de vencimento deve ser definida';
         }
 
         //Make sure phone extension is valid
         if($vars['phone_ext'] ) {
             if(!is_numeric($vars['phone_ext']) && !$errors['phone'])
-                $errors['phone']='Invalid phone ext.';
+                $errors['phone']='Ramal inválido.';
             elseif(!$vars['phone']) //make sure they just didn't enter ext without phone #
-                $errors['phone']='Phone number required';
+                $errors['phone']='O número do telefone é requerido';
         }
 
         if($errors) return false;
@@ -1646,9 +1646,9 @@ class Ticket {
             return false;
 
         if(!$vars['note'])
-            $vars['note']=sprintf('Ticket Updated by %s', $thisstaff->getName());
+            $vars['note']=sprintf('Ticket atualizado por %s', $thisstaff->getName());
 
-        $this->logNote('Ticket Updated', $vars['note'], $thisstaff);
+        $this->logNote('Ticket Atualizado', $vars['note'], $thisstaff);
         $this->reload();
 
         //Clear overdue flag if duedate or SLA changes and the ticket is no longer overdue.
@@ -1816,7 +1816,7 @@ class Ticket {
             if(TicketFilter::isBanned($vars['email'])) {
                 $errors['err']='Ticket denied. Error #403';
                 $errors['errno'] = 403;
-                $ost->logWarning('Ticket denied', 'Banned email - '.$vars['email']);
+                $ost->logWarning('Ticket Negado', 'E-mail Banido - '.$vars['email']);
                 return 0;
             }
 
@@ -1826,9 +1826,9 @@ class Ticket {
                     && ($openTickets=$client->getNumOpenTickets())
                     && ($openTickets>=$cfg->getMaxOpenTickets()) ) {
 
-                $errors['err']="You've reached the maximum open tickets allowed.";
-                $ost->logWarning('Ticket denied -'.$vars['email'],
-                        sprintf('Max open tickets (%d) reached for %s ',
+                $errors['err']="Você alcancou o número máximo de ticket abertos permitidos.";
+                $ost->logWarning('Ticket negado -'.$vars['email'],
+                        sprintf('Máximo de tickets abertos (%d) alcançado para %s ',
                             $cfg->getMaxOpenTickets(), $vars['email']));
 
                 return 0;
@@ -1840,10 +1840,10 @@ class Ticket {
         // Make sure email contents should not be rejected
         if($ticket_filter
                 && ($filter=$ticket_filter->shouldReject())) {
-            $errors['err']='Ticket denied. Error #403';
+            $errors['err']='Ticket negado. Erro #403';
             $errors['errno'] = 403;
             $ost->logWarning('Ticket denied',
-                    sprintf('Ticket rejected ( %s) by filter "%s"',
+                    sprintf('Ticket rejeitado ( %s) pelo filtro "%s"',
                         $vars['email'], $filter->getName()));
 
             return 0;
@@ -1851,33 +1851,33 @@ class Ticket {
 
         $id=0;
         $fields=array();
-        $fields['name']     = array('type'=>'string',   'required'=>1, 'error'=>'Name required');
-        $fields['email']    = array('type'=>'email',    'required'=>1, 'error'=>'Valid email required');
-        $fields['subject']  = array('type'=>'string',   'required'=>1, 'error'=>'Subject required');
-        $fields['message']  = array('type'=>'text',     'required'=>1, 'error'=>'Message required');
+        $fields['name']     = array('type'=>'string',   'required'=>1, 'error'=>'O nome é requerido');
+        $fields['email']    = array('type'=>'email',    'required'=>1, 'error'=>'Um e-mail válido é requerido');
+        $fields['subject']  = array('type'=>'string',   'required'=>1, 'error'=>'O assunto é requerido');
+        $fields['message']  = array('type'=>'text',     'required'=>1, 'error'=>'A mensagem é requerida');
         switch (strtolower($origin)) {
             case 'web':
-                $fields['topicId']  = array('type'=>'int',  'required'=>1, 'error'=>'Select help topic');
+                $fields['topicId']  = array('type'=>'int',  'required'=>1, 'error'=>'Selecione os tópicos de ajuda');
                 break;
             case 'staff':
-                $fields['deptId']   = array('type'=>'int',  'required'=>1, 'error'=>'Dept. required');
-                $fields['topicId']  = array('type'=>'int',  'required'=>1, 'error'=>'Topic required');
-                $fields['duedate']  = array('type'=>'date', 'required'=>0, 'error'=>'Invalid date - must be MM/DD/YY');
+                $fields['deptId']   = array('type'=>'int',  'required'=>1, 'error'=>'O Dept. é requerido');
+                $fields['topicId']  = array('type'=>'int',  'required'=>1, 'error'=>'O tópico é requerido');
+                $fields['duedate']  = array('type'=>'date', 'required'=>0, 'error'=>'Data inválida - edite para DD/MM/YY');
             case 'api':
-                $fields['source']   = array('type'=>'string', 'required'=>1, 'error'=>'Indicate source');
+                $fields['source']   = array('type'=>'string', 'required'=>1, 'error'=>'Indique a origem');
                 break;
             case 'email':
-                $fields['emailId']  = array('type'=>'int',  'required'=>1, 'error'=>'Email unknown');
+                $fields['emailId']  = array('type'=>'int',  'required'=>1, 'error'=>'Email desconhecido');
                 break;
             default:
                 # TODO: Return error message
-                $errors['err']=$errors['origin'] = 'Invalid origin given';
+                $errors['err']=$errors['origin'] = 'A origem atribuída é inválida';
         }
-        $fields['priorityId']   = array('type'=>'int',      'required'=>0, 'error'=>'Invalid Priority');
-        $fields['phone']        = array('type'=>'phone',    'required'=>0, 'error'=>'Valid phone # required');
+        $fields['priorityId']   = array('type'=>'int',      'required'=>0, 'error'=>'Prioridade inválida');
+        $fields['phone']        = array('type'=>'phone',    'required'=>0, 'error'=>'Um número de telefone # válido é requerido');
 
         if(!Validator::process($fields, $vars, $errors) && !$errors['err'])
-            $errors['err'] ='Missing or invalid data - check the errors and try again';
+            $errors['err'] ='Dados faltando ou inválidos - verifique os erros e tente outra vez';
 
         //Make sure phone extension is valid
         if($vars['phone_ext'] ) {
@@ -1890,11 +1890,11 @@ class Ticket {
         //Make sure the due date is valid
         if($vars['duedate']) {
             if(!$vars['time'] || strpos($vars['time'],':')===false)
-                $errors['time']='Select time';
+                $errors['time']='Selecione o tempo';
             elseif(strtotime($vars['duedate'].' '.$vars['time'])===false)
-                $errors['duedate']='Invalid duedate';
+                $errors['duedate']='Data de vencimento inválida';
             elseif(strtotime($vars['duedate'].' '.$vars['time'])<=time())
-                $errors['duedate']='Due date must be in the future';
+                $errors['duedate']='A data de vencimento deve ser acima da atual';
         }
 
         //Any error above is fatal.
@@ -2046,10 +2046,10 @@ class Ticket {
         if(!$thisstaff || !$thisstaff->canCreateTickets()) return false;
 
         if($vars['source'] && !in_array(strtolower($vars['source']),array('email','phone','other')))
-            $errors['source']='Invalid source - '.Format::htmlchars($vars['source']);
+            $errors['source']='Origem inválida - '.Format::htmlchars($vars['source']);
 
         if(!$vars['issue'])
-            $errors['issue']='Summary of the issue required';
+            $errors['issue']='Um resumo da questão é requerido';
         else
             $vars['message']=$vars['issue'];
 
@@ -2075,7 +2075,7 @@ class Ticket {
         } elseif($vars['note']) { //Not assigned...save optional note if any
             $ticket->logNote('New Ticket', $vars['note'], $thisstaff, false);
         } else { //Not assignment and no internal note - log activity
-            $ticket->logActivity('New Ticket by Staff','Ticket created by staff -'.$thisstaff->getName());
+            $ticket->logActivity('Novo ticket do usuário','Ticket criado pelo usuário -'.$thisstaff->getName());
         }
 
         $ticket->reload();
@@ -2132,7 +2132,7 @@ class Ticket {
         if(($res=db_query($sql)) && db_num_rows($res)) {
             while(list($id)=db_fetch_row($res)) {
                 if(($ticket=Ticket::lookup($id)) && $ticket->markOverdue())
-                    $ticket->logActivity('Ticket Marked Overdue', 'Ticket flagged as overdue by the system.');
+                    $ticket->logActivity('Ticket marcado como vencido', 'Ticket fmarcado como vencido pelo sistema.');
             }
         } else {
             //TODO: Trigger escalation on already overdue tickets - make sure last overdue event > grace_period.

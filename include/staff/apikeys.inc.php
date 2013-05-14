@@ -43,7 +43,7 @@ else
  <h2>API Keys</h2>
 </div>
 <div style="float:right;text-align:right;padding-top:5px;padding-right:5px;">
- <b><a href="apikeys.php?a=add" class="Icon newapi">Add New API Key</a></b></div>
+ <b><a href="apikeys.php?a=add" class="Icon newapi">Adicionar nova API Key</a></b></div>
 <div class="clear"></div>
 <form action="apikeys.php" method="POST" name="keys">
  <?php csrf_token(); ?>
@@ -55,10 +55,10 @@ else
         <tr>
             <th width="7">&nbsp;</th>        
             <th width="320"><a <?php echo $key_sort; ?> href="apikeys.php?<?php echo $qstr; ?>&sort=key">API Key</a></th>
-            <th width="120"><a  <?php echo $ip_sort; ?> href="apikeys.php?<?php echo $qstr; ?>&sort=ip">IP Addr.</a></th>
+            <th width="120"><a  <?php echo $ip_sort; ?> href="apikeys.php?<?php echo $qstr; ?>&sort=ip">Endereço IP.</a></th>
             <th width="100"><a  <?php echo $status_sort; ?> href="apikeys.php?<?php echo $qstr; ?>&sort=status">Status</a></th>
-            <th width="150" nowrap><a  <?php echo $date_sort; ?>href="apikeys.php?<?php echo $qstr; ?>&sort=date">Date Added</a></th>
-            <th width="150" nowrap><a  <?php echo $updated_sort; ?>href="apikeys.php?<?php echo $qstr; ?>&sort=updated">Last Updated</a></th>
+            <th width="150" nowrap><a  <?php echo $date_sort; ?>href="apikeys.php?<?php echo $qstr; ?>&sort=date">Data de Criação</a></th>
+            <th width="150" nowrap><a  <?php echo $updated_sort; ?>href="apikeys.php?<?php echo $qstr; ?>&sort=updated">Última atualização</a></th>
         </tr>
     </thead>
     <tbody>
@@ -88,10 +88,10 @@ else
      <tr>
         <td colspan="7">
             <?php if($res && $num){ ?>
-            Select:&nbsp;
-            <a id="selectAll" href="#ckb">All</a>&nbsp;&nbsp;
-            <a id="selectNone" href="#ckb">None</a>&nbsp;&nbsp;
-            <a id="selectToggle" href="#ckb">Toggle</a>&nbsp;&nbsp;
+            Selecione:&nbsp;
+            <a id="selectAll" href="#ckb">Tudo</a>&nbsp;&nbsp;
+            <a id="selectNone" href="#ckb">Nenhum</a>&nbsp;&nbsp;
+            <a id="selectToggle" href="#ckb">Alternar</a>&nbsp;&nbsp;
             <?php }else{
                 echo 'No API keys found';
             } ?>
@@ -104,36 +104,36 @@ if($res && $num): //Show options..
     echo '<div>&nbsp;Page:'.$pageNav->getPageLinks().'&nbsp;</div>';
 ?>
 <p class="centered" id="actions">
-    <input class="button" type="submit" name="enable" value="Enable" >
-    <input class="button" type="submit" name="disable" value="Disable">
-    <input class="button" type="submit" name="delete" value="Delete">
+    <input class="button" type="submit" name="enable" value="Habilitar" >
+    <input class="button" type="submit" name="disable" value="Desabilitar">
+    <input class="button" type="submit" name="delete" value="Deletar">
 </p>
 <?php
 endif;
 ?>
 </form>
 <div style="display:none;" class="dialog" id="confirm-action">
-    <h3>Please Confirm</h3>
+    <h3>Por favor confirme</h3>
     <a class="close" href="">&times;</a>
     <hr/>
     <p class="confirm-action" style="display:none;" id="enable-confirm">
-        Are you sure want to <b>enable</b> selected API keys?
+        Tens a certeza de querer <b>habilitar</b> API keys selecionada?
     </p>
     <p class="confirm-action" style="display:none;" id="disable-confirm">
-        Are you sure want to <b>disable</b>  selected API keys?
+        Tens a certeza de querer <b>desabilitar</b> API keys selecionada?
     </p>
     <p class="confirm-action" style="display:none;" id="delete-confirm">
-        <font color="red"><strong>Are you sure you want to DELETE selected API keys?</strong></font>
-        <br><br>Deleted keys CANNOT be recovered.
+        <font color="red"><strong>Tens a certeza de querer DELETAR API keys selecionada?</strong></font>
+        <br><br>Chaves excluídas não podem ser recuperadas.
     </p>
-    <div>Please confirm to continue.</div>
+    <div>Por favor confirme para continuar.</div>
     <hr style="margin-top:1em"/>
     <p class="full-width">
         <span class="buttons" style="float:left">
-            <input type="button" value="No, Cancel" class="close">
+            <input type="button" value="Não, Cancelar" class="close">
         </span>
         <span class="buttons" style="float:right">
-            <input type="button" value="Yes, Do it!" class="confirm">
+            <input type="button" value="Sim, Confirmar!" class="confirm">
         </span>
      </p>
     <div class="clear"></div>

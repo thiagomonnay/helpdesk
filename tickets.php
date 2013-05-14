@@ -20,9 +20,9 @@ require_once(INCLUDE_DIR.'class.ticket.php');
 $ticket=null;
 if($_REQUEST['id']) {
     if(!($ticket=Ticket::lookupByExtId($_REQUEST['id']))) {
-        $errors['err']='Unknown or invalid ticket ID.';
+        $errors['err']='ID do ticket desconhecido ou inválido.';
     }elseif(!$ticket->checkClientAccess($thisclient)) {
-        $errors['err']='Unknown or invalid ticket ID.'; //Using generic message on purpose!
+        $errors['err']='ID do ticket desconhecido ou inválido.'; //Using generic message on purpose!
         $ticket=null;
     }
 }
@@ -33,10 +33,10 @@ if($_POST && is_object($ticket) && $ticket->getId()):
     switch(strtolower($_POST['a'])){
     case 'reply':
         if(!$ticket->checkClientAccess($thisclient)) //double check perm again!
-            $errors['err']='Access Denied. Possibly invalid ticket ID';
+            $errors['err']='Acesso negado. Possivelmente o ID do ticket é inválido';
 
         if(!$_POST['message'])
-            $errors['message']='Message required';
+            $errors['message']='A mensagem é requerida';
 
         if(!$errors) {
             //Everything checked out...do the magic.
@@ -45,17 +45,17 @@ if($_POST && is_object($ticket) && $ticket->getId()):
                 $vars['files'] = AttachmentFile::format($_FILES['attachments'], true);
 
             if(($msgid=$ticket->postMessage($vars, 'Web'))) {
-                $msg='Message Posted Successfully';
+                $msg='Mensagem postada com sucesso';
             } else {
-                $errors['err']='Unable to post the message. Try again';
+                $errors['err']='Não foi possível postar a mensagem. Tente novamente';
             }
 
         } elseif(!$errors['err']) {
-            $errors['err']='Error(s) occurred. Please try again';
+            $errors['err']='Oceorreu um erro fatal. Por favor tente novamente';
         }
         break;
     default:
-        $errors['err']='Unknown action';
+        $errors['err']='Ação desconhecida';
     }
     $ticket->reload();
 endif;

@@ -132,8 +132,8 @@ var autoLock = {
             $(window).unbind('beforeunload');
             //Only warn if we had a failed lock attempt.
             if(autoLock.warn && !autoLock.lockId && autoLock.lasteventTime) {
-                var answer=confirm('Unable to acquire a lock on the ticket. Someone else could be working on the same ticket. \
-                    Please confirm if you wish to continue anyways.');
+                var answer=confirm('Não é possível adquirir um bloqueio no ticket. Alguém poderia estar trabalhando no mesmo ticket. \
+                     Por favor, confirme se deseja continuar de qualquer maneira.');
                 if(!answer) {
                     e.returnValue=false;
                     e.cancelBubble=true;
@@ -232,7 +232,7 @@ var autoLock = {
                     autoLock.lockAttempts++;
                     if(warn && (!lock.retry || autoLock.lockAttempts>=autoLock.maxattempts)) {
                         autoLock.retry=false;
-                        alert('Unable to lock the ticket. Someone else could be working on the same ticket.'); 
+                        alert('Não é possível bloquear o ticket. Alguém poderia estar trabalhando no mesmo ticket.'); 
                     }
                 }   
                 break;
@@ -240,7 +240,7 @@ var autoLock = {
     },
     
     discardWarning: function(e) {
-        e.returnValue="Any changes or info you've entered will be discarded!";
+        e.returnValue="Quaisquer alterações ou informações feitas por você serão descartadas!";
     },
 
     //TODO: Monitor events and elapsed time and warn user when the lock is about to expire. 
@@ -355,7 +355,7 @@ jQuery(function($) {
             .parent('div').show().trigger('click');
 
         } else {
-            alert('Unknown action '+$(this).attr('href')+'- get technical help.');
+            alert('Ação desconhecida '+$(this).attr('href')+'- peça ajuda técnica.');
         }
 
         return false;

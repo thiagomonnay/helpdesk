@@ -5,16 +5,16 @@ if(!defined('OSTCLIENTINC') || !is_object($ticket)) die('Kwaheri rafiki!');
 <div style="margin:5px 100px 100px 0;">
     <?php echo Format::htmlchars($ticket->getName()); ?>,<br>
     <p>
-     Thank you for contacting us.<br>
-     A support ticket request has been created and a representative will be getting back to you shortly if necessary.</p>
+     Obrigado por nos contatar.<br>
+     Um pedido de ticket de suporte foi criado e um representante estará repondendo à você em breve, se necessário.</p>
           
     <?php if($cfg->autoRespONNewTicket()){ ?>
-    <p>An email with the ticket number has been sent to <b><?php echo $ticket->getEmail(); ?></b>.
-        You'll need the ticket number along with your email to view status and progress online. 
+    <p>Um e-mail com o número do ticket foi enviado para <b><?php echo $ticket->getEmail(); ?></b>.
+        Você precisa ter o número do ticket, juntamente com seu e-mail para ver status online do seu ticket.
     </p>
     <p>
-     If you wish to send additional comments or information regarding same issue, please follow the instructions on the email.
+     Se você deseja enviar comentários ou informações adicionais sobre mesmo assunto, por favor, siga as instruções no e-mail.
     </p>
     <?php } ?>
-    <p>Support Team </p>
+    <p>Equipe de Suporte </p>
 </div>

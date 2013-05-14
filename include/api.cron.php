@@ -7,7 +7,7 @@ class CronApiController extends ApiController {
     function execute() {
 
         if(!($key=$this->requireApiKey()) || !$key->canExecuteCron())
-            return $this->exerr(401, 'API key not authorized');
+            return $this->exerr(401, 'API key não autorizada');
 
         $this->run();
     }

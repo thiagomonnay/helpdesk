@@ -14,14 +14,14 @@
     vim: expandtab sw=4 ts=4 sts=4:
 **********************************************************************/
 
-function clientLoginPage($msg='Unauthorized') {
-    Http::response(403,'Must login: '.Format::htmlchars($msg));
+function clientLoginPage($msg='Não autorizado') {
+    Http::response(403,'Deve logar-se: '.Format::htmlchars($msg));
     exit;
 }
 
 require('client.inc.php');
 
-if(!defined('INCLUDE_DIR'))	Http::response(500, 'Server configuration error');
+if(!defined('INCLUDE_DIR'))	Http::response(500, 'Erro de configuração no servidor');
 require_once INCLUDE_DIR.'/class.dispatcher.php';
 require_once INCLUDE_DIR.'/class.ajax.php';
 

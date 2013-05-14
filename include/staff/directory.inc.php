@@ -60,12 +60,12 @@ $qstr.='&order='.($order=='DESC'?'ASC':'DESC');
 $query="$select $from $where GROUP BY staff.staff_id ORDER BY $order_by LIMIT ".$pageNav->getStart().",".$pageNav->getLimit();
 //echo $query;
 ?>
-<h2>Staff Members</h2>
+<h2>Membros - Funcionários</h2>
 <div style="width:700; float:left;">
     <form action="directory.php" method="GET" name="filter">
        <input type="text" name="q" value="<?php echo Format::htmlchars($_REQUEST['q']); ?>" >
         <select name="did" id="did">
-             <option value="0">&mdash; All Departments &mdash;</option>
+             <option value="0">&mdash; Todos os departamentos &mdash;</option>
              <?php
              $sql='SELECT dept.dept_id, dept.dept_name,count(staff.staff_id) as users  '.
                   'FROM '.DEPT_TABLE.' dept '.
@@ -95,12 +95,12 @@ else
     <caption><?php echo $showing; ?></caption>
     <thead>
         <tr>
-            <th width="160"><a <?php echo $name_sort; ?> href="directory.php?<?php echo $qstr; ?>&sort=name">Name</a></th>
-            <th width="150"><a  <?php echo $dept_sort; ?>href="directory.php?<?php echo $qstr; ?>&sort=dept">Department</a></th>
-            <th width="180"><a  <?php echo $email_sort; ?>href="directory.php?<?php echo $qstr; ?>&sort=email">Email Address</a></th>
-            <th width="120"><a <?php echo $phone_sort; ?> href="directory.php?<?php echo $qstr; ?>&sort=phone">Phone Number</a></th>
-            <th width="80"><a <?php echo $ext_sort; ?> href="directory.php?<?php echo $qstr; ?>&sort=ext">Phone Ext</a></th>
-            <th width="120"><a <?php echo $mobile_sort; ?> href="directory.php?<?php echo $qstr; ?>&sort=mobile">Mobile Number</a></th>
+            <th width="160"><a <?php echo $name_sort; ?> href="directory.php?<?php echo $qstr; ?>&sort=name">Nome</a></th>
+            <th width="150"><a  <?php echo $dept_sort; ?>href="directory.php?<?php echo $qstr; ?>&sort=dept">Departamento</a></th>
+            <th width="180"><a  <?php echo $email_sort; ?>href="directory.php?<?php echo $qstr; ?>&sort=email">E-mail</a></th>
+            <th width="120"><a <?php echo $phone_sort; ?> href="directory.php?<?php echo $qstr; ?>&sort=phone">Fone</a></th>
+            <th width="80"><a <?php echo $ext_sort; ?> href="directory.php?<?php echo $qstr; ?>&sort=ext">Ramal</a></th>
+            <th width="120"><a <?php echo $mobile_sort; ?> href="directory.php?<?php echo $qstr; ?>&sort=mobile">Celular</a></th>
         </tr>
     </thead>
     <tbody>

@@ -48,10 +48,10 @@ else
 
 ?>
 <div style="width:700;padding-top:5px; float:left;">
- <h2>Help Topics</h2>
+ <h2>Tópicos de Ajuda</h2>
  </div>
 <div style="float:right;text-align:right;padding-top:5px;padding-right:5px;">
-    <b><a href="helptopics.php?a=add" class="Icon newHelpTopic">Add New Help Topic</a></b></div>
+    <b><a href="helptopics.php?a=add" class="Icon newHelpTopic">Adicionar novo tópico de ajuda</a></b></div>
 <div class="clear"></div>
 <form action="helptopics.php" method="POST" name="topics">
  <?php csrf_token(); ?>
@@ -62,12 +62,12 @@ else
     <thead>
         <tr>
             <th width="7">&nbsp;</th>        
-            <th width="320"><a <?php echo $name_sort; ?> href="helptopics.php?<?php echo $qstr; ?>&sort=name">Help Topic</a></th>
+            <th width="320"><a <?php echo $name_sort; ?> href="helptopics.php?<?php echo $qstr; ?>&sort=name">Tópico de ajuda</a></th>
             <th width="80"><a  <?php echo $status_sort; ?> href="helptopics.php?<?php echo $qstr; ?>&sort=status">Status</a></th>
-            <th width="100"><a  <?php echo $type_sort; ?> href="helptopics.php?<?php echo $qstr; ?>&sort=type">Type</a></th>
-            <th width="100"><a  <?php echo $priority_sort; ?> href="helptopics.php?<?php echo $qstr; ?>&sort=priority">Priority</a></th>
-            <th width="200"><a  <?php echo $dept_sort; ?> href="helptopics.php?<?php echo $qstr; ?>&sort=dept">Department</a></th>
-            <th width="150" nowrap><a  <?php echo $updated_sort; ?>href="helptopics.php?<?php echo $qstr; ?>&sort=updated">Last Updated</a></th>
+            <th width="100"><a  <?php echo $type_sort; ?> href="helptopics.php?<?php echo $qstr; ?>&sort=type">Tipo</a></th>
+            <th width="100"><a  <?php echo $priority_sort; ?> href="helptopics.php?<?php echo $qstr; ?>&sort=priority">Prioridade</a></th>
+            <th width="200"><a  <?php echo $dept_sort; ?> href="helptopics.php?<?php echo $qstr; ?>&sort=dept">Departamento</a></th>
+            <th width="150" nowrap><a  <?php echo $updated_sort; ?>href="helptopics.php?<?php echo $qstr; ?>&sort=updated">Última atualização</a></th>
         </tr>
     </thead>
     <tbody>
@@ -99,10 +99,10 @@ else
      <tr>
         <td colspan="7">
             <?php if($res && $num){ ?>
-            Select:&nbsp;
-            <a id="selectAll" href="#ckb">All</a>&nbsp;&nbsp;
-            <a id="selectNone" href="#ckb">None</a>&nbsp;&nbsp;
-            <a id="selectToggle" href="#ckb">Toggle</a>&nbsp;&nbsp;
+            Selecione:&nbsp;
+            <a id="selectAll" href="#ckb">Todos</a>&nbsp;&nbsp;
+            <a id="selectNone" href="#ckb">Nenhum</a>&nbsp;&nbsp;
+            <a id="selectToggle" href="#ckb">Alternar</a>&nbsp;&nbsp;
             <?php }else{
                 echo 'No help topics found';
             } ?>
@@ -115,9 +115,9 @@ if($res && $num): //Show options..
     echo '<div>&nbsp;Page:'.$pageNav->getPageLinks().'&nbsp;</div>';
 ?>
 <p class="centered" id="actions">
-    <input class="button" type="submit" name="enable" value="Enable" >
-    <input class="button" type="submit" name="disable" value="Disable">
-    <input class="button" type="submit" name="delete" value="Delete">
+    <input class="button" type="submit" name="enable" value="Habilitar" >
+    <input class="button" type="submit" name="disable" value="Desabilitar">
+    <input class="button" type="submit" name="delete" value="Deletar">
 </p>
 <?php
 endif;
@@ -125,27 +125,27 @@ endif;
 </form>
 
 <div style="display:none;" class="dialog" id="confirm-action">
-    <h3>Please Confirm</h3>
+    <h3>Por favor confirme</h3>
     <a class="close" href="">&times;</a>
     <hr/>
     <p class="confirm-action" style="display:none;" id="enable-confirm">
-        Are you sure want to <b>enable</b> selected help topics?
+        Tens a certeza de querer <b>habilitar</b> os tópicos de ajuda selecionados?
     </p>
     <p class="confirm-action" style="display:none;" id="disable-confirm">
-        Are you sure want to <b>disable</b>  selected help topics?
+        Tens a certeza de querer <b>desabilitar</b>  os tópicos de ajuda selecionados?
     </p>
     <p class="confirm-action" style="display:none;" id="delete-confirm">
-        <font color="red"><strong>Are you sure you want to DELETE selected help topics?</strong></font>
-        <br><br>Deleted topics CANNOT be recovered.
+        <font color="red"><strong>Tens a certeza de querer DELETAR os tópicos de ajuda selecionados?</strong></font>
+        <br><br>Tópicos deletados, não podem ser recuperados.
     </p>
-    <div>Please confirm to continue.</div>
+    <div>Por favor confirme para continuar.</div>
     <hr style="margin-top:1em"/>
     <p class="full-width">
         <span class="buttons" style="float:left">
-            <input type="button" value="No, Cancel" class="close">
+            <input type="button" value="Não, Cancelar" class="close">
         </span>
         <span class="buttons" style="float:right">
-            <input type="button" value="Yes, Do it!" class="confirm">
+            <input type="button" value="Sim, Confirmar!" class="confirm">
         </span>
      </p>
     <div class="clear"></div>

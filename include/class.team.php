@@ -223,14 +223,14 @@ class Team {
     function save($id, $vars, &$errors) {
 
         if($id && $vars['id']!=$id)
-            $errors['err']='Missing or invalid team';
+            $errors['err']='Dados da equipe inválidos ou faltando';
             
         if(!$vars['name']) {
-            $errors['name']='Team name required';
+            $errors['name']='O nome da equipe é requerido';
         } elseif(strlen($vars['name'])<3) {
-            $errors['name']='Team name must be at least 3 chars.';
+            $errors['name']='Nome da equipe deve ter pelo menos 3 caracteres.';
         } elseif(($tid=Team::getIdByName($vars['name'])) && $tid!=$id) {
-            $errors['name']='Team name already exists';
+            $errors['name']='O nome da equipe já está em uso';
         }
         
         if($errors) return false;
@@ -245,13 +245,13 @@ class Team {
             if(db_query($sql) && db_affected_rows())
                 return true;
                     
-            $errors['err']='Unable to update the team. Internal error';
+            $errors['err']='Não é possível atualizar a equipe. Erro interno';
         } else {
             $sql='INSERT INTO '.TEAM_TABLE.' '.$sql.',created=NOW()';
             if(db_query($sql) && ($id=db_insert_id()))
                 return $id;
                 
-            $errors['err']='Unable to create the team. Internal error';
+            $errors['err']='Não é possível atualizar a equipe. Erro interno';
         }
         
         return false;

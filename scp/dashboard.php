@@ -28,25 +28,25 @@ require(STAFFINC_DIR.'header.inc.php');
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 <link rel="stylesheet" type="text/css" href="css/dashboard.css"/>
 
-<h2>Ticket Activity</h2>
-<p>Select the starting time and period for the system activity graph</p>
+<h2>Atividade do ticket</h2>
+<p>Selecione o intervalo de datas para exibir o gráfico de atividade do sistema</p>
 <form class="well form-inline" id="timeframe-form">
     <label>
-        Report timeframe:
+        De:
         <input type="text" class="dp input-medium search-query"
-            name="start" placeholder="Last month"/>
+            name="start" placeholder="Escolha o Mês - De:"/>
     </label>
     <label>
-        period:
+        Até:
         <select name="period">
-            <option value="now" selected="selected">Up to today</option>
-            <option value="+7 days">One Week</option>
-            <option value="+14 days">Two Weeks</option>
-            <option value="+1 month">One Month</option>
-            <option value="+3 months">One Quarter</option>
+            <option value="now" selected="selected">Até hoje</option>
+            <option value="+7 days">Uma semana</option>
+            <option value="+14 days">Duas semanas</option>
+            <option value="+1 month">Um mês</option>
+            <option value="+3 months">Um trimestre</option>
         </select>
     </label>
-    <button class="btn" type="submit">Refresh</button>
+    <button class="btn" type="submit">Atualizar</button>
 </form>
 
 <!-- Create a graph and fetch some data to create pretty dashboard -->
@@ -56,8 +56,8 @@ require(STAFFINC_DIR.'header.inc.php');
 </div>
 
 <hr/>
-<h2>Statistics</h2>
-<p>Statistics of tickets organized by department, help topic, and staff.</p>
+<h2>Estatísticas</h2>
+<p>Estatísticas dos tickets organizados por departamento, tópico de ajuda, e equipe.</p>
 <ul class="nav nav-tabs" id="tabular-navigation"></ul>
 
 <div id="table-here"></div>

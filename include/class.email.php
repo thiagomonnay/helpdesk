@@ -264,14 +264,14 @@ class Email {
             if(!isset($vars['postfetch']))
                 $errors['postfetch']='Indicate what to do with fetched emails';
             elseif(!strcasecmp($vars['postfetch'],'archive') && !$vars['mail_archivefolder'] )
-                $errors['postfetch']='Valid folder required';
+                $errors['postfetch']='Uma pasta válida é requerida';
         }
         
         if($vars['smtp_active']) {
             if(!$vars['smtp_host'])
-                $errors['smtp_host']='Host name required';
+                $errors['smtp_host']='O nome do host é requerido';
             if(!$vars['smtp_port'])
-                $errors['smtp_port']='Port required';
+                $errors['smtp_port']='A porta é requerida';
         }
 
         //abort on errors
@@ -284,7 +284,7 @@ class Email {
                 $sql.=' AND email_id!='.db_input($id);
                 
             if(db_num_rows(db_query($sql)))
-                $errors['userid']=$errors['host']='Host/userid combination already in-use.';
+                $errors['userid']=$errors['host']=' A combinação de Host/userid já está em uso .';
         }
         
         $passwd=$vars['passwd']?$vars['passwd']:$vars['cpasswd'];
@@ -305,7 +305,7 @@ class Email {
             }elseif($vars['mail_archivefolder'] && !$fetcher->checkMailbox($vars['mail_archivefolder'],true)) {
                  $errors['postfetch']='Invalid or unknown mail folder! >> '.$fetcher->getLastError().'';
                  if(!$errors['mail'])
-                     $errors['mail']='Invalid or unknown archive folder!';
+                     $errors['mail']='Arquivo desconhecido ou inválido na pasta!';
             }
         }
         
@@ -374,13 +374,13 @@ class Email {
             if(db_query($sql) && db_affected_rows())
                 return true;
                 
-            $errors['err']='Unable to update email. Internal error occurred';
+            $errors['err']='Não foi possível atualizar o e-mail. Ocorreu um erro interno';
         }else {
             $sql='INSERT INTO '.EMAIL_TABLE.' SET '.$sql.',created=NOW()';
             if(db_query($sql) && ($id=db_insert_id()))
                 return $id;
 
-            $errors['err']='Unable to add email. Internal error';
+            $errors['err']='Não foi possível adicionaro e-mail. Ocorreu um erro interno';
         }
         
         return false;

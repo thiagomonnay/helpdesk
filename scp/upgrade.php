@@ -23,13 +23,13 @@ if($_POST && $_POST['s'] && !$upgrader->isAborted()) {
     switch(strtolower($_POST['s'])) {
         case 'prereq':
             if(!$ost->isUpgradePending()) {
-                $errors['err']=' Nothing to do! System already upgraded to the current version';
+                $errors['err']=' Nada a fazer, sistema já atualizado para a versão atual';
             } elseif(!$upgrader->isUpgradable()) {
-                $errors['err']='The upgrader does NOT support upgrading from the current vesion!';
+                $errors['err']='O atualizador não suporta a atualização doa versão atual!';
             } elseif(!$upgrader->check_prereq()) {
-                $errors['prereq']='Minimum requirements not met! Refer to Release Notes for more information';
+                $errors['prereq']='Requisitos mínimos não identificados! Consulte as Notas de Lançamento para obter mais informações';
             } elseif(!strcasecmp(basename(CONFIG_FILE), 'settings.php')) {
-                $errors['err']='Config file rename required to continue!';
+                $errors['err']='Renomeie o qruivo Config renomear para continuar!';
             } else {
                 $upgrader->setState('upgrade');
             } 
@@ -69,9 +69,9 @@ switch(strtolower($upgrader->getState())) {
         elseif(!strcasecmp(basename(CONFIG_FILE), 'settings.php'))
             $inc='rename.inc.php';
         elseif(!$ost->isUpgradePending())
-            $errors['err']='Nothing to do! System already upgraded to <b>'.$ost->getVersion().'</b> with no pending patches to apply.';
+            $errors['err']='Nada a fazer! Sistema já atualizado para <b>'.$ost->getVersion().'</b> sem correções pendentes para aplicar.';
         elseif(!$upgrader->isUpgradable())
-            $errors['err']=sprintf('The upgrader does NOT support upgrading from the current patch [%s]!', $cfg->getSchemaSignature());
+            $errors['err']=sprintf('O atualizador não suporta a atualização do patch atual [%s]!', $cfg->getSchemaSignature());
 
 }
 

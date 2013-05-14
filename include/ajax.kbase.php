@@ -24,7 +24,7 @@ class KbaseAjaxAPI extends AjaxController {
         include_once(INCLUDE_DIR.'class.canned.php');
 
         if(!$id || !($canned=Canned::lookup($id)) || !$canned->isEnabled())
-            Http::response(404, 'No such premade reply');
+            Http::response(404, 'Sem resposta pré-definida');
 
         //Load ticket.
         if($_GET['tid']) {
@@ -62,9 +62,9 @@ class KbaseAjaxAPI extends AjaxController {
         $resp = sprintf(
                 '<div style="width:650px;">
                  <strong>%s</strong><p>%s</p>
-                 <div class="faded">Last updated %s</div>
+                 <div class="faded">Última atualização %s</div>
                  <hr>
-                 <a href="faq.php?id=%d">View</a> | <a href="faq.php?id=%d">Attachments (%s)</a>',
+                 <a href="faq.php?id=%d">Ver</a> | <a href="faq.php?id=%d">Anexos (%s)</a>',
                 $faq->getQuestion(), 
                 Format::safe_html($faq->getAnswer()),
                 Format::db_daydatetime($faq->getUpdateDate()),
@@ -72,7 +72,7 @@ class KbaseAjaxAPI extends AjaxController {
                 $faq->getId(),
                 $faq->getNumAttachments());
         if($thisstaff && $thisstaff->canManageFAQ()) {
-            $resp.=sprintf(' | <a href="faq.php?id=%d&a=edit">Edit</a>',$faq->getId());
+            $resp.=sprintf(' | <a href="faq.php?id=%d&a=edit">Editar</a>',$faq->getId());
 
         }
         $resp.='</div>';

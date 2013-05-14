@@ -1,13 +1,13 @@
         </div>
     </div>
     <div id="footer">
-        <p>Copyright &copy; <?php echo date('Y'); ?> <a href="http://osticket.com" target="_blank" title="osTicket">osTicket.com</a> - All rights reserved.</p>
-        <a id="poweredBy" href="http://osticket.com" target="_blank">Powered by osTicket</a>
+        <p>Copyright &copy; <?php echo date('Y'); ?> <a href="http://osticket.com" target="_blank" title="osTicket">osTicket.com</a> - Todos os direitos reservados</p>
+        <a id="poweredBy" href="http://osticket.com" target="_blank">Desenvolvido por osTicket -Adaptado para AETC</a>
     </div>
 <div id="overlay"></div>
 <div id="loading">
-    <h4>Please Wait!</h4>
-    <p>Please wait... it will take a second!</p>
+    <h4>Por favor aguarde!</h4>
+    <p>Por favor aguarde... apenas alguns segundos!</p>
 </div>    
 </body>
 </html>  

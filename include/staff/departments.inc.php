@@ -41,10 +41,10 @@ else
 
 ?>
 <div style="width:700;padding-top:5px; float:left;">
- <h2>Departments</h2>
+ <h2>Departamentos</h2>
  </div>
 <div style="float:right;text-align:right;padding-top:5px;padding-right:5px;">
-    <b><a href="departments.php?a=add" class="Icon newDepartment">Add New Department</a></b></div>
+    <b><a href="departments.php?a=add" class="Icon newDepartment">Adicionar novo departamento</a></b></div>
 <div class="clear"></div>
 <form action="departments.php" method="POST" name="depts">
  <?php csrf_token(); ?>
@@ -55,11 +55,11 @@ else
     <thead>
         <tr>
             <th width="7px">&nbsp;</th>        
-            <th width="180"><a <?php echo $name_sort; ?> href="departments.php?<?php echo $qstr; ?>&sort=name">Name</a></th>
-            <th width="80"><a  <?php echo $type_sort; ?> href="departments.php?<?php echo $qstr; ?>&sort=type">Type</a></th>
-            <th width="70"><a  <?php echo $users_sort; ?>href="departments.php?<?php echo $qstr; ?>&sort=users">Users</a></th>
-            <th width="300"><a  <?php echo $email_sort; ?> href="departments.php?<?php echo $qstr; ?>&sort=email">Email Address</a></th>
-            <th width="200"><a  <?php echo $manager_sort; ?> href="departments.php?<?php echo $qstr; ?>&sort=manager">Dept. Manager</a></th>
+            <th width="180"><a <?php echo $name_sort; ?> href="departments.php?<?php echo $qstr; ?>&sort=name">Nome</a></th>
+            <th width="80"><a  <?php echo $type_sort; ?> href="departments.php?<?php echo $qstr; ?>&sort=type">Tipo</a></th>
+            <th width="70"><a  <?php echo $users_sort; ?>href="departments.php?<?php echo $qstr; ?>&sort=users">Usuários</a></th>
+            <th width="300"><a  <?php echo $email_sort; ?> href="departments.php?<?php echo $qstr; ?>&sort=email">Endereço de e-mail</a></th>
+            <th width="200"><a  <?php echo $manager_sort; ?> href="departments.php?<?php echo $qstr; ?>&sort=manager">Gerente do departamento</a></th>
         </tr>
     </thead>
     <tbody>
@@ -101,10 +101,10 @@ else
      <tr>
         <td colspan="6">
             <?php if($res && $num){ ?>
-            Select:&nbsp;
-            <a id="selectAll" href="#ckb">All</a>&nbsp;&nbsp;
-            <a id="selectNone" href="#ckb">None</a>&nbsp;&nbsp;
-            <a id="selectToggle" href="#ckb">Toggle</a>&nbsp;&nbsp;
+            Selecione:&nbsp;
+            <a id="selectAll" href="#ckb">Todos</a>&nbsp;&nbsp;
+            <a id="selectNone" href="#ckb">Nenhum</a>&nbsp;&nbsp;
+            <a id="selectToggle" href="#ckb">Alternar</a>&nbsp;&nbsp;
             <?php }else{
                 echo 'No department found';
             } ?>
@@ -116,9 +116,9 @@ else
 if($res && $num): //Show options..
 ?>
 <p class="centered" id="actions">
-    <input class="button" type="submit" name="make_public" value="Make Public" >
-    <input class="button" type="submit" name="make_private" value="Make Private" >
-    <input class="button" type="submit" name="delete" value="Delete Dept(s)" >
+    <input class="button" type="submit" name="make_public" value="Público" >
+    <input class="button" type="submit" name="make_private" value="Privado" >
+    <input class="button" type="submit" name="delete" value="Deletar Dept(s)" >
 </p>
 <?php
 endif;
@@ -126,27 +126,27 @@ endif;
 </form>
 
 <div style="display:none;" class="dialog" id="confirm-action">
-    <h3>Please Confirm</h3>
+    <h3>Por favor confirme</h3>
     <a class="close" href="">&times;</a>
     <hr/>
     <p class="confirm-action" style="display:none;" id="make_public-confirm">
-        Are you sure want to make selected departments <b>public</b>?
+        Tem certeza que deseja editar os departamentos selecionado para <b>públicos</b>?
     </p>
     <p class="confirm-action" style="display:none;" id="make_private-confirm">
-        Are you sure want to make selected departments <b>private</b>?
+        Tem certeza que deseja editar os departamentos selecionado para <b>privados</b>?
     </p>
     <p class="confirm-action" style="display:none;" id="delete-confirm">
-        <font color="red"><strong>Are you sure you want to DELETE selected departments?</strong></font>
-        <br><br>Deleted departments CANNOT be recovered.
+        <font color="red"><strong>Tem certeza que deseja DELETAR os departamentos selecionados?</strong></font>
+        <br><br>Departamentos deletados não podem ser recuperados.
     </p>
-    <div>Please confirm to continue.</div>
+    <div>Por favor confirme para continuar.</div>
     <hr style="margin-top:1em"/>
     <p class="full-width">
         <span class="buttons" style="float:left">
-            <input type="button" value="No, Cancel" class="close">
+            <input type="button" value="Não, Cancelar" class="close">
         </span>
         <span class="buttons" style="float:right">
-            <input type="button" value="Yes, Do it!" class="confirm">
+            <input type="button" value="Sim, Confirmar!" class="confirm">
         </span>
      </p>
     <div class="clear"></div>

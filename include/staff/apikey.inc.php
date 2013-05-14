@@ -28,7 +28,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         <tr>
             <th colspan="2">
                 <h4><?php echo $title; ?></h4>
-                <em>API Key is auto-generated. Delete and re-add to change the key.</em>
+                <em>Chave API é auto-gerada. Exclua e adicione novamente para alterar a chave.</em>
             </th>
         </tr>
     </thead>
@@ -38,15 +38,15 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                 Status:
             </td>
             <td>
-                <input type="radio" name="isactive" value="1" <?php echo $info['isactive']?'checked="checked"':''; ?>><strong>Active</strong>
-                <input type="radio" name="isactive" value="0" <?php echo !$info['isactive']?'checked="checked"':''; ?>>Disabled
+                <input type="radio" name="isactive" value="1" <?php echo $info['isactive']?'checked="checked"':''; ?>><strong>Habilitado</strong>
+                <input type="radio" name="isactive" value="0" <?php echo !$info['isactive']?'checked="checked"':''; ?>>Desabilitado
                 &nbsp;<span class="error">*&nbsp;</span>
             </td>
         </tr>
         <?php if($api){ ?>
         <tr>
             <td width="150">
-                IP Address:
+                Endereço IP:
             </td>
             <td>
                 <?php echo $api->getIPAddr(); ?>
@@ -61,7 +61,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         <?php }else{ ?>
         <tr>
             <td width="150" class="required">
-               IP Address:
+               Endereço IP:
             </td>
             <td>
                 <input type="text" size="30" name="ipaddr" value="<?php echo $info['ipaddr']; ?>">
@@ -71,14 +71,14 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         <?php } ?>
         <tr>
             <th colspan="2">
-                <em><strong>Services:</strong>: Check applicable API services enabled for the key.</em>
+                <em><strong>Serviços:</strong>: Confira os serviços da API aplicáveis habilitados para a chave.</em>
             </th>
         </tr>
         <tr>
             <td colspan=2 style="padding-left:5px">
                 <label>
                     <input type="checkbox" name="can_create_tickets" value="1" <?php echo $info['can_create_tickets']?'checked="checked"':''; ?> >
-                    Can Create Tickets <em>(XML/JSON/EMAIL)</em>
+                    Pode criar tickets <em>(XML/JSON/EMAIL)</em>
                 </label>
             </td>
         </tr>
@@ -86,13 +86,13 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
             <td colspan=2 style="padding-left:5px">
                 <label>
                     <input type="checkbox" name="can_exec_cron" value="1" <?php echo $info['can_exec_cron']?'checked="checked"':''; ?> >
-                    Can Execute Cron
+                    Pode executar cron
                 </label>
             </td>
         </tr>
         <tr>
             <th colspan="2">
-                <em><strong>Admin Notes</strong>: Internal notes.&nbsp;</em>
+                <em><strong>Notas Administrativas</strong>: Notas Internas.&nbsp;</em>
             </th>
         </tr>
         <tr>
@@ -104,7 +104,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
 </table>
 <p style="padding-left:225px;">
     <input type="submit" name="submit" value="<?php echo $submit_text; ?>">
-    <input type="reset"  name="reset"  value="Reset">
-    <input type="button" name="cancel" value="Cancel" onclick='window.location.href="apikeys.php"'>
+    <input type="reset"  name="reset"  value="Limpar">
+    <input type="button" name="cancel" value="Cancelar" onclick='window.location.href="apikeys.php"'>
 </p>
 </form>

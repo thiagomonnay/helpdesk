@@ -3,7 +3,7 @@ if(!defined('OSTSTAFFINC') || !$category || !$thisstaff) die('Access Denied');
 
 ?>
 <div style="width:700;padding-top:10px; float:left;">
-  <h2>Frequently Asked Questions</h2>
+  <h2>Perguntas mais frequentes</h2>
 </div>
 <div style="float:right;text-align:right;padding-top:5px;padding-right:5px;">&nbsp;</div>
 <div class="clear"></div>
@@ -11,7 +11,7 @@ if(!defined('OSTSTAFFINC') || !$category || !$thisstaff) die('Access Denied');
 <div>
     <strong><?php echo $category->getName() ?></strong>
     <span>(<?php echo $category->isPublic()?'Public':'Internal'; ?>)</span>
-    <time>Last updated <?php echo Format::db_daydatetime($category->getUpdateDate()); ?></time>
+    <time>Últimas atualizações <?php echo Format::db_daydatetime($category->getUpdateDate()); ?></time>
 </div>
 <div class="cat-desc">
 <?php echo Format::safe_html($category->getDescription()); ?>

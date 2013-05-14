@@ -294,19 +294,19 @@ class TicketsAjaxAPI extends AjaxController {
 
         echo sprintf('
                 <tr>
-                    <th width="100">Ticket State:</th>
+                    <th width="100">Estado do ticket:</th>
                     <td>%s</td>
                 </tr>
                 <tr>
-                    <th>Create Date:</th>
+                    <th>Data de criação:</th>
                     <td>%s</td>
                 </tr>',$ticket_state,
                 Format::db_datetime($ticket->getCreateDate()));
         if($ticket->isClosed()) {
             echo sprintf('
                     <tr>
-                        <th>Close Date:</th>
-                        <td>%s   <span class="faded">by %s</span></td>
+                        <th>Data de fechamento:</th>
+                        <td>%s   <span class="faded">por %s</span></td>
                     </tr>',
                     Format::db_datetime($ticket->getCloseDate()),
                     ($staff?$staff->getName():'staff')
@@ -314,7 +314,7 @@ class TicketsAjaxAPI extends AjaxController {
         } elseif($ticket->getEstDueDate()) {
             echo sprintf('
                     <tr>
-                        <th>Due Date:</th>
+                        <th>Data de expiração:</th>
                         <td>%s</td>
                     </tr>',
                     Format::db_datetime($ticket->getEstDueDate()));
@@ -327,21 +327,21 @@ class TicketsAjaxAPI extends AjaxController {
         if($ticket->isOpen()) {
             echo sprintf('
                     <tr>
-                        <th width="100">Assigned To:</th>
+                        <th width="100">Atribuído para:</th>
                         <td>%s</td>
-                    </tr>',$ticket->isAssigned()?implode('/', $ticket->getAssignees()):' <span class="faded">&mdash; Unassigned &mdash;</span>');
+                    </tr>',$ticket->isAssigned()?implode('/', $ticket->getAssignees()):' <span class="faded">&mdash; Não atribuído &mdash;</span>');
         }
         echo sprintf(
             '   <tr>
-                    <th width="100">Department:</th>
+                    <th width="100">Departamento:</th>
                     <td>%s</td>
                 </tr>
                 <tr>
-                    <th>Help Topic:</th>
+                    <th>tópicp de ajuda:</th>
                     <td>%s</td>
                 </tr>
                 <tr>
-                    <th>From:</th>
+                    <th>De:</th>
                     <td>%s <span class="faded">%s</span></td>
                 </tr>',
             Format::htmlchars($ticket->getDeptName()),
@@ -352,13 +352,13 @@ class TicketsAjaxAPI extends AjaxController {
             </table>';
         $options[]=array('action'=>'Thread ('.$ticket->getThreadCount().')','url'=>"tickets.php?id=$tid");
         if($ticket->getNumNotes())
-            $options[]=array('action'=>'Notes ('.$ticket->getNumNotes().')','url'=>"tickets.php?id=$tid#notes");
+            $options[]=array('action'=>'Notas ('.$ticket->getNumNotes().')','url'=>"tickets.php?id=$tid#notes");
 
         if($ticket->isOpen())
             $options[]=array('action'=>'Reply','url'=>"tickets.php?id=$tid#reply");
 
         if($thisstaff->canAssignTickets())
-            $options[]=array('action'=>($ticket->isAssigned()?'Reassign':'Assign'),'url'=>"tickets.php?id=$tid#assign");
+            $options[]=array('action'=>($ticket->isAssigned()?'Reatribuir':'Atribuir'),'url'=>"tickets.php?id=$tid#assign");
 
         if($thisstaff->canTransferTickets())
             $options[]=array('action'=>'Transfer','url'=>"tickets.php?id=$tid#transfer");

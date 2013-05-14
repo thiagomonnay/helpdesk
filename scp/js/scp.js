@@ -13,15 +13,15 @@ function checkbox_checker(formObj, min, max) {
     var checked=$('input:checkbox:checked', formObj).length;
     var action= action?action:"process";
     if (max>0 && checked > max ){
-        msg="You're limited to only " + max + " selections.\n"
-        msg=msg + "You have made " + checked + " selections.\n"
-        msg=msg + "Please remove " + (checked-max) + " selection(s)."
+        msg="Você está limitado somente à " + max + " seleções.\n"
+        msg=msg + "Você fez " + checked + " seleções.\n"
+        msg=msg + "Por favor remova " + (checked-max) + " seleção(ões)."
         alert(msg)
         return (false);
     }
 
     if (checked< min ){
-        alert("Please make at least " + min + " selections. " + checked + " checked so far.")
+        alert("Por favor, faça pelo menos " + min + " seleções. " + checked + " verificado até agora.")
         return (false);
     }
 
@@ -129,7 +129,7 @@ $(document).ready(function(){
             fObj.data('changed', true);
             $('input[type=submit]', fObj).css('color', 'red');
             $(window).bind('beforeunload', function(e) {
-                return 'Are you sure you want to leave? Any changes or info you\'ve entered will be discarded!';
+                return 'Você tem a certeza que quer sair? Quaisquer alterações ou informações que você fez serão descartadas!';
              });
         }
     });
@@ -164,7 +164,7 @@ $(document).ready(function(){
     //Canned attachments.
     $('.canned_attachments, .faq_attachments').delegate('input:checkbox', 'click', function(e) {
         var elem = $(this);
-        if(!$(this).is(':checked') && confirm("Are you sure you want to remove this attachment?")==true) {
+        if(!$(this).is(':checked') && confirm("Você tem certeza que deseja remover este anexo?")==true) {
             elem.parent().addClass('strike');
         } else {
             elem.attr('checked', 'checked');
@@ -402,14 +402,14 @@ $(document).ready(function(){
                     } else if (resp.fail) {
                         $('#result-count').html('<div class="fail">' + resp.fail +'</div>');
                     } else {
-                        $('#result-count').html('<div class="fail">Unknown error</div>');
+                        $('#result-count').html('<div class="fail">Erro desconhecido</div>');
                     }
                 }
             })
             .done( function () {
              })
             .fail( function () {
-                $('#result-count').html('<div class="fail">Advanced search failed - try again!</div>');
+                $('#result-count').html('<div class="fail">A pesquisa avançada falhou - tente novamente!</div>');
             })
             .always( function () {
                 $('.spinner', elem).hide();

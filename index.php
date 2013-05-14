@@ -19,26 +19,26 @@ require(CLIENTINC_DIR.'header.inc.php');
 ?>
 
 <div id="landing_page">
-    <h1>Welcome to the Support Center</h1>
+    <h1>Bem vindo ao helpdesk - AETC/JP</h1>
     <p>
-        In order to streamline support requests and better serve you, we utilize a support ticket system. Every support request is assigned a unique ticket number which you can use to track the progress and responses online. For your reference we provide complete archives and history of all your support requests. A valid email address is required to submit a ticket.
+        A fim de agilizar o atendimento às requisições de suporte e melhor atendê-lo, nós utilizamos um sistema de tickets. A cada pedido de suporte é atribuído um número único que você pode usar para monitorar o progresso e as respostas online. Para sua referência, nós fornecemos arquivos completos e histórico de todos os seus pedidos de suporte. Um endereço de e-mail válido é necessário.
     </p>
 
     <div id="new_ticket">
-        <h3>Open A New Ticket</h3>
+        <h3>Abrir novo ticket</h3>
         <br>
-        <div>Please provide as much detail as possible so we can best assist you. To update a previously submitted ticket, please login.</div>
+        <div>Favor informar o máximo de detalhes possível para que possamos melhor atendê-lo. Para atualizar um ticket anterior, entre com usuário e senha..</div>
         <p>
-            <a href="open.php" class="green button">Open a New Ticket</a>
+            <a href="open.php" class="green button">Abrir Ticket !</a>
         </p>
     </div>
 
     <div id="check_status">
-        <h3>Check Ticket Status</h3>
+        <h3>Verificar status do seu ticket</h3>
         <br>
-        <div>We provide archives and history of all your current and past support requests complete with responses.</div>
+        <div>Nós possuímos o arquivo e histórico de todas as suas requisições de suporte, juntamente com suas respostas.</div>
         <p>
-            <a href="view.php" class="blue button">Check Ticket Status</a>
+            <a href="view.php" class="blue button">Verificar Ticket !</a>
         </p>
     </div>
 </div>
@@ -47,7 +47,7 @@ require(CLIENTINC_DIR.'header.inc.php');
 if($cfg && $cfg->isKnowledgebaseEnabled()){
     //FIXME: provide ability to feature or select random FAQs ??
 ?>
-<p>Be sure to browse our <a href="kb/index.php">Frequently Asked Questions (FAQs)</a>, before opening a ticket.</p>
+<p>Não se esqueça de consultar nossas <a href="kb/index.php">Perguntas mais frequentes (FAQs)</a>, antes de abrir um ticket.</p>
 </div>
 <?php
 } ?>

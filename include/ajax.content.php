@@ -22,13 +22,13 @@ class ContentAjaxAPI extends AjaxController {
 
         if($id && ($log=Log::lookup($id))) {
             $content=sprintf('<div style="width:500px;">&nbsp;<strong>%s</strong><br><p>%s</p>
-                    <hr><strong>Log Date:</strong> <em>%s</em> <strong>IP Address:</strong> <em>%s</em></div>',
+                    <hr><strong>Log Date:</strong> <em>%s</em> <strong>Endereço de IP:</strong> <em>%s</em></div>',
                     $log->getTitle(),
                     Format::display(str_replace(',',', ',$log->getText())),
                     Format::db_daydatetime($log->getCreateDate()),
                     $log->getIP());
         }else {
-            $content='<div style="width:295px;">&nbsp;<strong>Error:</strong>Unknown or invalid log ID</div>';
+            $content='<div style="width:295px;">&nbsp;<strong>Erro:</strong>ID do log inválido ou desconhecido</div>';
         }
 
         return $content;
@@ -38,45 +38,45 @@ class ContentAjaxAPI extends AjaxController {
 
         $content='
 <div style="width:680px;">
-    <h2>Ticket Variables</h2>
-    Please note that non-base variables depends on the context of use. Visit osTicket Wiki for up to date documentation.
+    <h2>Variáveis do Ticket</h2>
+    Por favor, note que as variáveis definidas depende do contexto de uso. Visite osTicket Wiki para documentação.
     <br/>
     <table width="100%" border="0" cellspacing=1 cellpadding=2>
-        <tr><td width="55%" valign="top"><b>Base Variables</b></td><td><b>Other Variables</b></td></tr>
+        <tr><td width="55%" valign="top"><b>Variáveis base</b></td><td><b>Other Variables</b></td></tr>
         <tr>
             <td width="55%" valign="top">
                 <table width="100%" border="0" cellspacing=1 cellpadding=1>
-                    <tr><td width="130">%{ticket.id}</td><td>Ticket ID (internal ID)</td></tr>
-                    <tr><td>%{ticket.number}</td><td>Ticket number (external ID)</td></tr>
-                    <tr><td>%{ticket.email}</td><td>Email address</td></tr>
-                    <tr><td>%{ticket.name}</td><td>Full name</td></tr>
-                    <tr><td>%{ticket.subject}</td><td>Subject</td></tr>
-                    <tr><td>%{ticket.phone}</td><td>Phone number | ext</td></tr>
+                    <tr><td width="130">%{ticket.id}</td><td>ID do Ticket(ID interno)</td></tr>
+                    <tr><td>%{ticket.number}</td><td>Número do Ticket(ID externo)</td></tr>
+                    <tr><td>%{ticket.email}</td><td>Endereço de e-mail</td></tr>
+                    <tr><td>%{ticket.name}</td><td>Nome completo</td></tr>
+                    <tr><td>%{ticket.subject}</td><td>Assunto</td></tr>
+                    <tr><td>%{ticket.phone}</td><td>Fone | Ramal</td></tr>
                     <tr><td>%{ticket.status}</td><td>Status</td></tr>
-                    <tr><td>%{ticket.priority}</td><td>Priority</td></tr>
-                    <tr><td>%{ticket.assigned}</td><td>Assigned staff and/or team</td></tr>
-                    <tr><td>%{ticket.create_date}</td><td>Date created</td></tr>
-                    <tr><td>%{ticket.due_date}</td><td>Due date</td></tr>
-                    <tr><td>%{ticket.close_date}</td><td>Date closed</td></tr>
-                    <tr><td>%{ticket.auth_token}</td><td>Auth. token used for auto-login</td></tr>
-                    <tr><td>%{ticket.client_link}</td><td>Client\'s ticket view link</td></tr>
-                    <tr><td>%{ticket.staff_link}</td><td>Staff\'s ticket view link</td></tr>
-                    <tr><td colspan="2" style="padding:5px 0 5px 0;"><em>Expandable Variables (See Wiki)</em></td></tr>
-                    <tr><td>%{ticket.<b>topic</b>}</td><td>Help topic</td></tr>
-                    <tr><td>%{ticket.<b>dept</b>}</td><td>Department</td></tr>
-                    <tr><td>%{ticket.<b>staff</b>}</td><td>Assigned/closing staff</td></tr>
-                    <tr><td>%{ticket.<b>team</b>}</td><td>Assigned/closing team</td></tr>
+                    <tr><td>%{ticket.priority}</td><td>Prioridade</td></tr>
+                    <tr><td>%{ticket.assigned}</td><td>Usuário e/ou equpe atribuída</td></tr>
+                    <tr><td>%{ticket.create_date}</td><td>Data de criação</td></tr>
+                    <tr><td>%{ticket.due_date}</td><td>Data de expiração</td></tr>
+                    <tr><td>%{ticket.close_date}</td><td>Data de fechamento</td></tr>
+                    <tr><td>%{ticket.auth_token}</td><td>Auth. token usado para auto-login</td></tr>
+                    <tr><td>%{ticket.client_link}</td><td>Ligação de visualização para o ticket do cliente</td></tr>
+                    <tr><td>%{ticket.staff_link}</td><td>Ligação de visualização para o ticket da equipe</td></tr>
+                    <tr><td colspan="2" style="padding:5px 0 5px 0;"><em>Variáveis expansíveis (Veja o Wiki)</em></td></tr>
+                    <tr><td>%{ticket.<b>topic</b>}</td><td>Tópicos de ajuda</td></tr>
+                    <tr><td>%{ticket.<b>dept</b>}</td><td>Departamento</td></tr>
+                    <tr><td>%{ticket.<b>staff</b>}</td><td>Usuário Atribuído/Fechado</td></tr>
+                    <tr><td>%{ticket.<b>team</b>}</td><td>Equipe Atribuída/Fechada</td></tr>
                 </table>
             </td>
             <td valign="top">
                 <table width="100%" border="0" cellspacing=1 cellpadding=1>
-                    <tr><td width="100">%{message}</td><td>Incoming message</td></tr>
-                    <tr><td>%{response}</td><td>Outgoing response</td></tr>
-                    <tr><td>%{comments}</td><td>Assign/transfer comments</td></tr>
-                    <tr><td>%{note}</td><td>Internal note <em>(expandable)</em></td></tr>
-                    <tr><td>%{assignee}</td><td>Assigned staff/team</td></tr>
-                    <tr><td>%{assigner}</td><td>Staff assigning the ticket</td></tr>
-                    <tr><td>%{url}</td><td>osTicket\'s base url (FQDN)</td></tr>
+                    <tr><td width="100">%{message}</td><td>Mensagem recebida</td></tr>
+                    <tr><td>%{response}</td><td>Mensagem enviada</td></tr>
+                    <tr><td>%{comments}</td><td>Comentários Atribuídos/Transferidos</td></tr>
+                    <tr><td>%{note}</td><td>Nota interna <em>(expansível)</em></td></tr>
+                    <tr><td>%{assignee}</td><td>Usuário/Equipe atribuída</td></tr>
+                    <tr><td>%{assigner}</td><td>Equipe atribuída ao ticket</td></tr>
+                    <tr><td>%{url}</td><td>osTicket\'s URL base (FQDN)</td></tr>
                 </table>
             </td>
         </tr>

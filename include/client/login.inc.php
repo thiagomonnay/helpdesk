@@ -1,17 +1,17 @@
 <?php
-if(!defined('OSTCLIENTINC')) die('Access Denied');
+if(!defined('OSTCLIENTINC')) die('Acesso Negado');
 
 $email=Format::input($_POST['lemail']?$_POST['lemail']:$_GET['e']);
 $ticketid=Format::input($_POST['lticket']?$_POST['lticket']:$_GET['t']);
 ?>
-<h1>Check Ticket Status</h1>
-<p>To view the status of a ticket, provide us with the login details below.</p>
+<h1>Verificar status do ticket</h1>
+<p>Para visualizar o status de um ticket, digite os seguintes campos com os detalhes de login abaixo.</p>
 <form action="login.php" method="post" id="clientLogin">
     <?php csrf_token(); ?>
     <strong><?php echo Format::htmlchars($errors['login']); ?></strong>
     <br>
     <div>
-        <label for="email">E-Mail Address:</label>
+        <label for="email">Endereço de E-Mail:</label>
         <input id="email" type="text" name="lemail" size="30" value="<?php echo $email; ?>">
     </div>
     <div>
@@ -19,10 +19,10 @@ $ticketid=Format::input($_POST['lticket']?$_POST['lticket']:$_GET['t']);
         <input id="ticketno" type="text" name="lticket" size="16" value="<?php echo $ticketid; ?>"></td>
     </div>
     <p>
-        <input class="btn" type="submit" value="View Status">
+        <input class="btn" type="submit" value="Verificar Status">
     </p>
 </form>
 <br>
 <p>
-If this is your first time contacting us or you've lost the ticket ID, please <a href="open.php">open a new ticket</a>.    
+Se este é o seu primeiro contato ou você perdeu o ID do ticket, por favor <a href="open.php">abra um novo ticket</a>.    
 </p>

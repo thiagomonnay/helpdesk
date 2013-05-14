@@ -106,18 +106,18 @@ class Validator {
                 break;
             case 'password':
                 if(strlen($this->input[$k])<5)
-                    $this->errors[$k]=$field['error'].' (5 chars min)';
+                    $this->errors[$k]=$field['error'].' (min 5 caract.)';
                 break;
             case 'username':
                 if(strlen($this->input[$k])<2)
-                    $this->errors[$k]=$field['error'].' (2 chars min)';
+                    $this->errors[$k]=$field['error'].' (min 2 caract.)';
                 break;
             case 'zipcode':
                 if(!is_numeric($this->input[$k]) || (strlen($this->input[$k])!=5))
                     $this->errors[$k]=$field['error'];   
                 break;
             default://If param type is not set...or handle..error out...
-                $this->errors[$k]=$field['error'].' (type not set)';
+                $this->errors[$k]=$field['error'].' (tipo não informado)';
             endswitch;
         }
         return ($this->errors)?(FALSE):(TRUE);

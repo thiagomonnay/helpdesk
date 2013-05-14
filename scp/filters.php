@@ -28,24 +28,24 @@ if($_POST){
     switch(strtolower($_POST['do'])){
         case 'update':
             if(!$filter){
-                $errors['err']='Unknown or invalid filter.';
+                $errors['err']='Filtro desconhecido ou inválido.';
             }elseif($filter->update($_POST,$errors)){
-                $msg='Filter updated successfully';
+                $msg='Filtro atualizado com sucesso';
             }elseif(!$errors['err']){
-                $errors['err']='Error updating filter. Try again!';
+                $errors['err']='Erro na atualzação do filtro. Tente novamente!';
             }
             break;
         case 'add':
             if((Filter::create($_POST,$errors))){
-                $msg='Filter added successfully';
+                $msg='Filtro adicionado com sucesso';
                 $_REQUEST['a']=null;
             }elseif(!$errors['err']){
-                $errors['err']='Unable to add filter. Correct error(s) below and try again.';
+                $errors['err']='Não foi possível adicionar o filtro. Corrija o(s) erro(s) abaixo e tente novamente.';
             }
             break;
         case 'mass_process':
             if(!$_POST['ids'] || !is_array($_POST['ids']) || !count($_POST['ids'])) {
-                $errors['err'] = 'You must select at least one filter to process.';
+                $errors['err'] = 'Você deve selecionar pelo menos um filtro para processar.';
             } else {
                 $count=count($_POST['ids']);
                 switch(strtolower($_POST['a'])) {
@@ -54,11 +54,11 @@ if($_POST){
                             .' WHERE id IN ('.implode(',', db_input($_POST['ids'])).')';
                         if(db_query($sql) && ($num=db_affected_rows())) {
                             if($num==$count)
-                                $msg = 'Selected filters enabled';
+                                $msg = 'Filtros selecionados habilitado';
                             else
-                                $warn = "$num of $count selected filters enabled";
+                                $warn = "$num de $count filtros selecionados habilitado";
                         } else {
-                            $errors['err'] = 'Unable to enable selected filters';
+                            $errors['err'] = 'Não foi possível permitir os filtros selecionados';
                         }
                         break;
                     case 'disable':
@@ -66,11 +66,11 @@ if($_POST){
                             .' WHERE id IN ('.implode(',', db_input($_POST['ids'])).')';
                         if(db_query($sql) && ($num=db_affected_rows())) {
                             if($num==$count)
-                                $msg = 'Selected filters disabled';
+                                $msg = 'Filtros selecionados desativado';
                             else
-                                $warn = "$num of $count selected filters disabled";
+                                $warn = "$num de $count filtros selecionados desativado";
                         } else {
-                            $errors['err'] = 'Unable to disable selected filters';
+                            $errors['err'] = 'Não foiu possível desativar os filtros selecionados';
                         }
                         break;
                     case 'delete':
@@ -81,19 +81,19 @@ if($_POST){
                         }
                         
                         if($i && $i==$count)
-                            $msg = 'Selected filters deleted successfully';
+                            $msg = 'Filtros selecionados excluído com sucesso';
                         elseif($i>0)
-                            $warn = "$i of $count selected filters deleted";
+                            $warn = "$i de $count filtros selecionados excluídos";
                         elseif(!$errors['err'])
-                            $errors['err'] = 'Unable to delete selected filters';
+                            $errors['err'] = 'Não é possível excluir filtros selecionados';
                         break;
                     default:
-                        $errors['err']='Unknown action - get technical help';
+                        $errors['err']='Ação deconhecida - peça ajuda ao suporte técnico';
                 }
             }
             break;
         default:
-            $errors['err']='Unknown commande/action';
+            $errors['err']='Ação/comando desconhecido.';
             break;
     }
 }

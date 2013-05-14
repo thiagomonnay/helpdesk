@@ -27,20 +27,20 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
  <input type="hidden" name="do" value="<?php echo $action; ?>">
  <input type="hidden" name="a" value="<?php echo Format::htmlchars($_REQUEST['a']); ?>">
  <input type="hidden" name="id" value="<?php echo $info['id']; ?>">
- <h2>Ticket Filter</h2>
+ <h2>Filtro do Ticket</h2>
  <table class="form_table" width="940" border="0" cellspacing="0" cellpadding="2">
     <thead>
         <tr>
             <th colspan="2">
                 <h4><?php echo $title; ?></h4>
-                <em>Filters are executed based on execution order. Filter can target specific ticket source.</em>
+                <em>Filtros são executados com base na ordem de execução. O filtro pode direcionar o ticket específico.</em>
             </th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td width="180" class="required">
-              Filter Name:
+              Nome do filtro:
             </td>
             <td>
                 <input type="text" size="30" name="name" value="<?php echo $info['name']; ?>">
@@ -49,7 +49,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <td width="180" class="required">
-              Execution Order:
+              Ordem de execução:
             </td>
             <td>
                 <input type="text" size="6" name="execorder" value="<?php echo $info['execorder']; ?>">
@@ -57,26 +57,26 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                 &nbsp;<span class="error">*&nbsp;<?php echo $errors['execorder']; ?></span>
                 &nbsp;&nbsp;&nbsp;
                 <input type="checkbox" name="stop_onmatch" value="1" <?php echo $info['stop_onmatch']?'checked="checked"':''; ?> >
-                <strong>Stop</strong> processing further on match!
+                <strong>Pare</strong> processando tratamento!
             </td>
         </tr>
         <tr>
             <td width="180" class="required">
-                Filter Status:
+                Status do filtro:
             </td>
             <td>
-                <input type="radio" name="isactive" value="1" <?php echo $info['isactive']?'checked="checked"':''; ?>><strong>Active</strong>
-                <input type="radio" name="isactive" value="0" <?php echo !$info['isactive']?'checked="checked"':''; ?>>Disabled
+                <input type="radio" name="isactive" value="1" <?php echo $info['isactive']?'checked="checked"':''; ?>><strong>Habilitado</strong>
+                <input type="radio" name="isactive" value="0" <?php echo !$info['isactive']?'checked="checked"':''; ?>>Desabilitado
                 &nbsp;<span class="error">*&nbsp;</span>
             </td>
         </tr>
         <tr>
             <td width="180" class="required">
-                Target:
+                Alvo:
             </td>
             <td>
                 <select name="target">
-                   <option value="">&mdash; Select a Target &dash;</option>
+                   <option value="">&mdash; Selecione um alvo &dash;</option>
                    <?php
                    foreach(Filter::getTargets() as $k => $v) {
                        echo sprintf('<option value="%s" %s>%s</option>',
@@ -101,18 +101,18 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <th colspan="2">
-                <em><strong>Filter Rules</strong>: Rules are applied based on the criteria.&nbsp;<span class="error">*&nbsp;<?php echo $errors['rules']; ?></span></em>
+                <em><strong>Regras dos filtro</strong>: As regras são aplicadas com base nos critérios.&nbsp;<span class="error">*&nbsp;<?php echo $errors['rules']; ?></span></em>
             </th>
         </tr>
         <tr>
             <td colspan=2>
-               <em>Rules Matching Criteria:</em>
+               <em>Regras Critérios de correspondência:</em>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="radio" name="match_all_rules" value="1" <?php echo $info['match_all_rules']?'checked="checked"':''; ?>>Match All
+                <input type="radio" name="match_all_rules" value="1" <?php echo $info['match_all_rules']?'checked="checked"':''; ?>>Todos
                 &nbsp;&nbsp;&nbsp;
-                <input type="radio" name="match_all_rules" value="0" <?php echo !$info['match_all_rules']?'checked="checked"':''; ?>>Match Any
+                <input type="radio" name="match_all_rules" value="0" <?php echo !$info['match_all_rules']?'checked="checked"':''; ?>>Qualque um
                 &nbsp;<span class="error">*&nbsp;</span>
-                <em>(case-insensitive comparison)</em>
+                <em>(comparação case-insensitive)</em>
 
             </td>
         </tr>
@@ -123,7 +123,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
             <td colspan="2">
                 <div  style="width:700; float:left;">
                     <select name="rule_w<?php echo $i; ?>">
-                        <option value="">&mdash; Select One &dash;</option>
+                        <option value="">&mdash; Selecione um &dash;</option>
                         <?php
                         foreach($matches as $k=>$v){
                             $sel=($info["rule_w$i"]==$k)?'selected="selected"':'';
@@ -132,7 +132,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                         ?>
                     </select>
                     <select name="rule_h<?php echo $i; ?>">
-                        <option value="0">&mdash; Select One &dash;</option>
+                        <option value="0">&mdash; Selecione um &dash;</option>
                         <?php
                         foreach($match_types as $k=>$v){
                             $sel=($info["rule_h$i"]==$k)?'selected="selected"':'';
@@ -145,7 +145,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                 </div>
                 <?php
                 if($info["rule_w$i"] || $info["rule_h$i"] || $info["rule_v$i"]){ ?>
-                <div style="float:right;text-align:right;padding-right:20px;"><a href="#" class="clearrule">(clear)</a></div>
+                <div style="float:right;text-align:right;padding-right:20px;"><a href="#" class="clearrule">(limpar)</a></div>
                 <?php
                 } ?>
                 <div class="clear"></div>
@@ -157,43 +157,43 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         } ?>
         <tr>
             <th colspan="2">
-                <em><strong>Filter Actions</strong>: Can be overwriten by other filters depending on processing order.&nbsp;</em>
+                <em><strong>Ações do filtro</strong>: Pode ser substituído por outros filtros, dependendo ordem de processamento.&nbsp;</em>
             </th>
         </tr>
         <tr>
             <td width="180">
-                Reject Ticket:
+                Ticket rejeitado:
             </td>
             <td>
                 <input type="checkbox" name="reject_ticket" value="1" <?php echo $info['reject_ticket']?'checked="checked"':''; ?> >
-                    <strong><font class="error">Reject Ticket</font></strong> <em>(All other actions and filters are ignored)</em>
+                    <strong><font class="error">ticket rejeitado</font></strong> <em>(Todas as outras ações e filtros são ignorados)</em>
             </td>
         </tr>
         <tr>
             <td width="180">
-                Reply-To Email:
+                Responder para e-mail:
             </td>
             <td>
                 <input type="checkbox" name="use_replyto_email" value="1" <?php echo $info['use_replyto_email']?'checked="checked"':''; ?> >
-                    <strong>Use</strong> Reply-To Email <em>(if available)</em>
+                    <strong>Usar</strong> Reposta para e-mail <em>(se disponível)</em>
             </td>
         </tr>
         <tr>
             <td width="180">
-                Ticket auto-response:
+                Auto-resposta do ticket:
             </td>
             <td>
                 <input type="checkbox" name="disable_autoresponder" value="1" <?php echo $info['disable_autoresponder']?'checked="checked"':''; ?> >
-                    <strong>Disable</strong> auto-response. <em>(Overwrites Dept. settings)</em>
+                    <strong>Desabilitar</strong> auto-resposta. <em>(Substitui as configurações do departamento)</em>
             </td>
         </tr>
         <tr>
             <td width="180">
-                Canned Response:
+                Respostas pré-determindas:
             </td>
                 <td>
                 <select name="canned_response_id">
-                    <option value="">&mdash; None &mdash;</option>
+                    <option value="">&mdash; Nenhuma &mdash;</option>
                     <?php
                     $sql='SELECT canned_id,title FROM '.CANNED_TABLE
                         .' WHERE isenabled ORDER by title';
@@ -208,16 +208,16 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                     }
                     ?>
                 </select>
-                <em>(Automatically respond with this canned response)</em>
+                <em>(Responder automaticamente com esta resposta pré-determinada)</em>
             </td>
         </tr>
         <tr>
             <td width="180">
-                Department:
+                Departamento:
             </td>
             <td>
                 <select name="dept_id">
-                    <option value="">&mdash; Default &mdash;</option>
+                    <option value="">&mdash; Padrão &mdash;</option>
                     <?php
                     $sql='SELECT dept_id,dept_name FROM '.DEPT_TABLE.' dept ORDER by dept_name';
                     if(($res=db_query($sql)) && db_num_rows($res)){
@@ -233,11 +233,11 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <td width="180">
-                Priority:
+                Prioridade:
             </td>
             <td>
                 <select name="priority_id">
-                    <option value="">&mdash; Default &mdash;</option>
+                    <option value="">&mdash; Padrão &mdash;</option>
                     <?php
                     $sql='SELECT priority_id,priority_desc FROM '.PRIORITY_TABLE.' pri ORDER by priority_urgency DESC';
                     if(($res=db_query($sql)) && db_num_rows($res)){
@@ -249,16 +249,16 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                     ?>
                 </select>
                 &nbsp;<span class="error">*&nbsp;<?php echo $errors['priority_id']; ?></span>
-                <em>(Overwrites department's priority)</em>
+                <em>(Substitui as prioridades do departamento</em>
             </td>
         </tr>
         <tr>
             <td width="180">
-                SLA Plan:
+                Planos SLA:
             </td>
             <td>
                 <select name="sla_id">
-                    <option value="0">&mdash; System Default &mdash;</option>
+                    <option value="0">&mdash; Padrão do sistema &mdash;</option>
                     <?php
                     if($slas=SLA::getSLAs()) {
                         foreach($slas as $id =>$name) {
@@ -269,16 +269,16 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                     ?>
                 </select>
                 &nbsp;<span class="error">&nbsp;<?php echo $errors['sla_id']; ?></span>
-                <em>(Overwrites department's SLA)</em>
+                <em>(Substitui a SLA do departamento)</em>
             </td>
         </tr>
         <tr>
             <td width="180">
-                Auto-assign To:
+                Atribuir automaticamente para:
             </td>
             <td>
                 <select name="assign">
-                    <option value="0">&mdash; Unassigned &mdash;</option>
+                    <option value="0">&mdash; Não atribuído &mdash;</option>
 
 
                     <?php
@@ -318,7 +318,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
         </tr>
         <tr>
             <th colspan="2">
-                <em><strong>Admin Notes</strong>: Internal notes.&nbsp;</em>
+                <em><strong>Notas administrativas</strong>: Notas internas.&nbsp;</em>
             </th>
         </tr>
         <tr>
@@ -330,7 +330,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
 </table>
 <p style="padding-left:225px;">
     <input type="submit" name="submit" value="<?php echo $submit_text; ?>">
-    <input type="reset"  name="reset"  value="Reset">
-    <input type="button" name="cancel" value="Cancel" onclick='window.location.href="filters.php"'>
+    <input type="reset"  name="reset"  value="Resetar">
+    <input type="button" name="cancel" value="Cancelar" onclick='window.location.href="filters.php"'>
 </p>
 </form>

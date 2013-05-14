@@ -4,9 +4,9 @@ if(!defined('OSTSTAFFINC') || !$faq || !$thisstaff) die('Access Denied');
 $category=$faq->getCategory();
 
 ?>
-<h2>Frequently Asked Questions</h2>
+<h2>Perguntas mais frequentes</h2>
 <div id="breadcrumbs">
-    <a href="kb.php">All Categories</a> 
+    <a href="kb.php">Todas categorias</a> 
     &raquo; <a href="kb.php?cid=<?php echo $category->getId(); ?>"><?php echo $category->getName(); ?></a>
     <span class="faded">(<?php echo $category->isPublic()?'Public':'Internal'; ?>)</span>
 </div>
@@ -27,12 +27,12 @@ if($thisstaff->canManageFAQ()) {
 <?php echo Format::safe_html($faq->getAnswer()); ?>
 </p>
 <p>
- <div><span class="faded"><b>Attachments:</b></span> <?php echo $faq->getAttachmentsLinks(); ?></div>
- <div><span class="faded"><b>Help Topics:</b></span> 
+ <div><span class="faded"><b>Anexos:</b></span> <?php echo $faq->getAttachmentsLinks(); ?></div>
+ <div><span class="faded"><b>Tópicos de ajuda:</b></span> 
     <?php echo ($topics=$faq->getHelpTopics())?implode(', ',$topics):' '; ?>
     </div>
 </p>
-<div class="faded">&nbsp;Last updated <?php echo Format::db_daydatetime($category->getUpdateDate()); ?></div>
+<div class="faded">&nbsp;Últimas atualizações <?php echo Format::db_daydatetime($category->getUpdateDate()); ?></div>
 <hr>
 <?php
 if($thisstaff->canManageFAQ()) {
@@ -44,21 +44,21 @@ if($thisstaff->canManageFAQ()) {
         <input type="hidden" name="id" value="<?php echo  $faq->getId(); ?>">
         <input type="hidden" name="do" value="manage-faq">
         <div>
-            <strong>Options: </strong>
+            <strong>Opções: </strong>
             <select name="a" style="width:200px;">
-                <option value="">Select Action</option>
+                <option value="">Selecione a ação</option>
                 <?php
                 if($faq->isPublished()) { ?>
-                <option value="unpublish">Unpublish FAQ</option>
+                <option value="unpublish">Despublicar FAQ</option>
                 <?php
                 }else{ ?>
-                <option value="publish">Publish FAQ</option>
+                <option value="publish">Publicar FAQ</option>
                 <?php
                 } ?>
-                <option value="edit">Edit FAQ</option>
-                <option value="delete">Delete FAQ</option>
+                <option value="edit">Editar FAQ</option>
+                <option value="delete">Deletar FAQ</option>
             </select>
-            &nbsp;&nbsp;<input type="submit" name="submit" value="Go">
+            &nbsp;&nbsp;<input type="submit" name="submit" value="Confirmar!">
         </div>
     </form>
    </div>

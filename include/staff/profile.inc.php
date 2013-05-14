@@ -9,27 +9,27 @@ $info['id']=$staff->getId();
  <?php csrf_token(); ?>
  <input type="hidden" name="do" value="update">
  <input type="hidden" name="id" value="<?php echo $info['id']; ?>">
- <h2>My Account Profile</h2>
+ <h2>Meu Perfil da Conta</h2>
  <table class="form_table" width="940" border="0" cellspacing="0" cellpadding="2">
     <thead>
         <tr>
             <th colspan="2">
-                <h4>Account Information</h4>
-                <em>Contact information.</em>
+                <h4>Informações da conta.</h4>
+                <em>Informações de contato.</em>
             </th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td width="180" class="required">
-                Username:
+                Nome do Usuário:
             </td>
             <td><b><?php echo $staff->getUserName(); ?></b></td>
         </tr>
 
         <tr>
             <td width="180" class="required">
-                First Name:
+                Nome:
             </td>
             <td>
                 <input type="text" size="34" name="firstname" value="<?php echo $info['firstname']; ?>">
@@ -38,7 +38,7 @@ $info['id']=$staff->getId();
         </tr>
         <tr>
             <td width="180" class="required">
-                Last Name:
+                Sobrenome:
             </td>
             <td>
                 <input type="text" size="34" name="lastname" value="<?php echo $info['lastname']; ?>">
@@ -47,7 +47,7 @@ $info['id']=$staff->getId();
         </tr>
         <tr>
             <td width="180" class="required">
-                Email Address:
+                E-mail:
             </td>
             <td>
                 <input type="text" size="34" name="email" value="<?php echo $info['email']; ?>">
@@ -56,18 +56,18 @@ $info['id']=$staff->getId();
         </tr>
         <tr>
             <td width="180">
-                Phone Number:
+                Fone:
             </td>
             <td>
                 <input type="text" size="22" name="phone" value="<?php echo $info['phone']; ?>">
                 &nbsp;<span class="error">&nbsp;<?php echo $errors['phone']; ?></span>
-                Ext <input type="text" size="5" name="phone_ext" value="<?php echo $info['phone_ext']; ?>">
+                Ramal <input type="text" size="5" name="phone_ext" value="<?php echo $info['phone_ext']; ?>">
                 &nbsp;<span class="error">&nbsp;<?php echo $errors['phone_ext']; ?></span>
             </td>
         </tr>
         <tr>
             <td width="180">
-                Mobile Number:
+                Celular:
             </td>
             <td>
                 <input type="text" size="22" name="mobile" value="<?php echo $info['mobile']; ?>">
@@ -76,16 +76,16 @@ $info['id']=$staff->getId();
         </tr>
         <tr>
             <th colspan="2">
-                <em><strong>Preferences</strong>: Profile preferences and settings.</em>
+                <em><strong>Preferências</strong>: Preferências e configurações do meu perfil.</em>
             </th>
         </tr>
         <tr>
             <td width="180" class="required">
-                Time Zone:
+                Zona do tempo:
             </td>
             <td>
                 <select name="timezone_id" id="timezone_id">
-                    <option value="0">&mdash; Select Time Zone &mdash;</option>
+                    <option value="0">&mdash; Selecione a zona do tempo &mdash;</option>
                     <?php
                     $sql='SELECT id, offset,timezone FROM '.TIMEZONE_TABLE.' ORDER BY id';
                     if(($res=db_query($sql)) && db_num_rows($res)){
@@ -101,67 +101,67 @@ $info['id']=$staff->getId();
         </tr>
         <tr>
             <td width="180">
-               Daylight Saving:
+               Horário de Verão:
             </td>
             <td>
                 <input type="checkbox" name="daylight_saving" value="1" <?php echo $info['daylight_saving']?'checked="checked"':''; ?>>
-                Observe daylight saving
-                <em>(Current Time: <strong><?php echo Format::date($cfg->getDateTimeFormat(),Misc::gmtime(),$info['tz_offset'],$info['daylight_saving']); ?></strong>)</em>
+                Verificar horário de verão
+                <em>(Hora: <strong><?php echo Format::date($cfg->getDateTimeFormat(),Misc::gmtime(),$info['tz_offset'],$info['daylight_saving']); ?></strong>)</em>
             </td>
         </tr>
         <tr>
-            <td width="180">Maximum Page size:</td>
+            <td width="180">Tamanho Máximo da Página:</td>
             <td>
                 <select name="max_page_size">
-                    <option value="0">&mdash; system default &mdash;</option>
+                    <option value="0">&mdash; padrão do sistema &mdash;</option>
                     <?php
                     $pagelimit=$info['max_page_size']?$info['max_page_size']:$cfg->getPageSize();
                     for ($i = 5; $i <= 50; $i += 5) {
                         $sel=($pagelimit==$i)?'selected="selected"':'';
-                         echo sprintf('<option value="%d" %s>show %s records</option>',$i,$sel,$i);
+                         echo sprintf('<option value="%d" %s>Mostrar %s registros</option>',$i,$sel,$i);
                     } ?>
-                </select> per page.
+                </select> por página.
             </td>
         </tr>
         <tr>
-            <td width="180">Auto Refresh Rate:</td>
+            <td width="180">Atualizar taxa:</td>
             <td>
                 <select name="auto_refresh_rate">
-                  <option value="0">&mdash; disable &mdash;</option>
+                  <option value="0">&mdash; desabilitado &mdash;</option>
                   <?php
                   $y=1;
                    for($i=1; $i <=30; $i+=$y) {
                      $sel=($info['auto_refresh_rate']==$i)?'selected="selected"':'';
-                     echo sprintf('<option value="%d" %s>Every %s %s</option>',$i,$sel,$i,($i>1?'mins':'min'));
+                     echo sprintf('<option value="%d" %s>A cada %s %s</option>',$i,$sel,$i,($i>1?'mins':'min'));
                      if($i>9)
                         $y=2;
                    } ?>
                 </select>
-                <em>(Tickets page refresh rate in minutes.)</em>
+                <em>(Atualização de taxas.)</em>
             </td>
         </tr>
         <tr>
-            <td width="180">Default Signature:</td>
+            <td width="180">Assinatura padrão:</td>
             <td>
                 <select name="default_signature_type">
-                  <option value="none" selected="selected">&mdash; None &mdash;</option>
+                  <option value="none" selected="selected">&mdash; Nenhum &mdash;</option>
                   <?php
-                  $options=array('mine'=>'My Signature','dept'=>'Dept. Signature (if set)');
+                  $options=array('mine'=>'Minha Assinatura','dept'=>'Assinatura do Dept. (se existir)');
                   foreach($options as $k=>$v) {
                       echo sprintf('<option value="%s" %s>%s</option>',
                                 $k,($info['default_signature_type']==$k)?'selected="selected"':'',$v);
                   }
                   ?>
                 </select>
-                <em>(You can change selection on ticket page)</em>
+                <em>(Você pode alterar a assinatura do ticket)</em>
                 &nbsp;<span class="error">&nbsp;<?php echo $errors['default_signature_type']; ?></span>
             </td>
         </tr>
         <tr>
-            <td width="180">Default Paper Size:</td>
+            <td width="180">Tamanho padrão da página:</td>
             <td>
                 <select name="default_paper_size">
-                  <option value="none" selected="selected">&mdash; None &mdash;</option>
+                  <option value="none" selected="selected">&mdash; Nenhum &mdash;</option>
                   <?php
                   $options=array('Letter', 'Legal', 'A4', 'A3');
                   foreach($options as $v) {
@@ -170,7 +170,7 @@ $info['id']=$staff->getId();
                   }
                   ?>
                 </select>
-                <em>Paper size used when printing tickets to PDF</em>
+                <em>(O tamanho do papel usado na impressão dos tickets em PDF)</em>
                 &nbsp;<span class="error">&nbsp;<?php echo $errors['default_paper_size']; ?></span>
             </td>
         </tr>
@@ -178,21 +178,21 @@ $info['id']=$staff->getId();
         //Show an option to show assigned tickets to admins & managers.
         if($staff->isAdmin() || $staff->isManager()){ ?>
         <tr>
-            <td>Show Assigned Tickets:</td>
+            <td>Mostrar Tickets Atribuídos:</td>
             <td>
                 <input type="checkbox" name="show_assigned_tickets" <?php echo $info['show_assigned_tickets']?'checked="checked"':''; ?>>
-                <em>Show assigned tickets on open queue.</em>
+                <em>Mostrar tickets atribuídos em fila aberto.</em>
             </td>
         </tr>
         <?php } ?>
         <tr>
             <th colspan="2">
-                <em><strong>Password</strong>: To reset your password, provide your current password and a new password below.&nbsp;<span class="error">&nbsp;<?php echo $errors['passwd']; ?></span></em>
+                <em><strong>Senha</strong>: Para redefinir sua senha, forneça sua senha atual e a nova senha abaixo.&nbsp;<span class="error">&nbsp;<?php echo $errors['passwd']; ?></span></em>
             </th>
         </tr>
         <tr>
             <td width="180">
-                Current Password:
+                Senha atual:
             </td>
             <td>
                 <input type="password" size="18" name="cpasswd" value="<?php echo $info['cpasswd']; ?>">
@@ -201,7 +201,7 @@ $info['id']=$staff->getId();
         </tr>
         <tr>
             <td width="180">
-                New Password:
+                Nova Senha:
             </td>
             <td>
                 <input type="password" size="18" name="passwd1" value="<?php echo $info['passwd1']; ?>">
@@ -210,7 +210,7 @@ $info['id']=$staff->getId();
         </tr>
         <tr>
             <td width="180">
-                Confirm New Password:
+                Confirmar Nova Senha:
             </td>
             <td>
                 <input type="password" size="18" name="passwd2" value="<?php echo $info['passwd2']; ?>">
@@ -219,21 +219,21 @@ $info['id']=$staff->getId();
         </tr>
         <tr>
             <th colspan="2">
-                <em><strong>Signature</strong>: Optional signature used on outgoing emails.
+                <em><strong>Assinatura</strong>: A assinatura poderá ser usada nos email enviados.
                 &nbsp;<span class="error">&nbsp;<?php echo $errors['signature']; ?></span></em>
             </th>
         </tr>
         <tr>
             <td colspan=2>
                 <textarea name="signature" cols="21" rows="5" style="width: 60%;"><?php echo $info['signature']; ?></textarea>
-                <br><em>Signature is made available as a choice, on ticket reply.</em>
+                <br><em>Assinatura é disponibilizada como uma escolha, em resposta ao ticket.</em>
             </td>
         </tr>
     </tbody>
 </table>
 <p style="padding-left:200px;">
-    <input type="submit" name="submit" value="Save Changes">
-    <input type="reset"  name="reset"  value="Reset Changes">
-    <input type="button" name="cancel" value="Cancel Changes" onclick='window.location.href="index.php"'>
+    <input type="submit" name="submit" value="Salvar Alterações">
+    <input type="reset"  name="reset"  value="Resetar Alterações">
+    <input type="button" name="cancel" value="Cancelar Alterações" onclick='window.location.href="index.php"'>
 </p>
 </form>

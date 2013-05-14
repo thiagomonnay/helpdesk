@@ -25,9 +25,9 @@ if($_POST):
         $vars['email']=$thisclient->getEmail();
     } elseif($cfg->isCaptchaEnabled()) {
         if(!$_POST['captcha'])
-            $errors['captcha']='Enter text shown on the image';
+            $errors['captcha']='Digite o texto mostrado na imagem';
         elseif(strcmp($_SESSION['captcha'],md5($_POST['captcha'])))
-            $errors['captcha']='Invalid - try again!';
+            $errors['captcha']='Inválido - tente novamente!';
     }
 
     if(!$errors && $cfg->allowOnlineAttachments() && $_FILES['attachments'])
@@ -35,7 +35,7 @@ if($_POST):
 
     //Ticket::create...checks for errors..
     if(($ticket=Ticket::create($vars, $errors, SOURCE))){
-        $msg='Support ticket request created';
+        $msg='Solicitação de ticket de suporte criado.';
         //Logged in...simply view the newly created ticket.
         if($thisclient && $thisclient->isValid()) {
             if(!$cfg->showRelatedTickets())
@@ -47,7 +47,7 @@ if($_POST):
         //Thank the user and promise speedy resolution!
         $inc='thankyou.inc.php';
     }else{
-        $errors['err']=$errors['err']?$errors['err']:'Unable to create a ticket. Please correct errors below and try again!';
+        $errors['err']=$errors['err']?$errors['err']:'Não é possível criar um ticket. Corrija os erros abaixo e tente novamente!';
     }
 endif;
 

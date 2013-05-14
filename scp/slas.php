@@ -18,30 +18,30 @@ include_once(INCLUDE_DIR.'class.sla.php');
 
 $sla=null;
 if($_REQUEST['id'] && !($sla=SLA::lookup($_REQUEST['id'])))
-    $errors['err']='Unknown or invalid API key ID.';
+    $errors['err']='API key ID inválida ou desconhecida.';
 
 if($_POST){
     switch(strtolower($_POST['do'])){
         case 'update':
             if(!$sla){
-                $errors['err']='Unknown or invalid SLA plan.';
+                $errors['err']='Plano ce SLA inválida ou desconhecida.';
             }elseif($sla->update($_POST,$errors)){
-                $msg='SLA plan updated successfully';
+                $msg='Plano ce SLA atualizado com sucesso';
             }elseif(!$errors['err']){
-                $errors['err']='Error updating SLA plan. Try again!';
+                $errors['err']='Erro ao atualizar o plano de SLA. Tente novamente!';
             }
             break;
         case 'add':
             if(($id=SLA::create($_POST,$errors))){
-                $msg='SLA plan added successfully';
+                $msg='Plano de SLA adicionado com sucesso';
                 $_REQUEST['a']=null;
             }elseif(!$errors['err']){
-                $errors['err']='Unable to add SLA plan. Correct error(s) below and try again.';
+                $errors['err']='Não é possível adicionar plano de SLA. Corrigir erro (s) abaixo e tente novamente.';
             }
             break;
         case 'mass_process':
             if(!$_POST['ids'] || !is_array($_POST['ids']) || !count($_POST['ids'])) {
-                $errors['err'] = 'You must select at least one plan.';
+                $errors['err'] = 'Você deve selecionar pelo menos um plano de SLA.';
             } else {
                 $count=count($_POST['ids']);
                 switch(strtolower($_POST['a'])) {
@@ -51,11 +51,11 @@ if($_POST){
                     
                         if(db_query($sql) && ($num=db_affected_rows())) {
                             if($num==$count)
-                                $msg = 'Selected SLA plans enabled';
+                                $msg = 'Plano de SLA selecionado habilitado';
                             else
-                                $warn = "$num of $count selected SLA plans enabled";
+                                $warn = "$num de $count Plano de SLA selecionado habilitado";
                         } else {
-                            $errors['err'] = 'Unable to enable selected SLA plans.';
+                            $errors['err'] = 'Não foi possível habilitar o plano de SLA selecionado.';
                         }
                         break;
                     case 'disable':
@@ -63,11 +63,11 @@ if($_POST){
                             .' WHERE id IN ('.implode(',', db_input($_POST['ids'])).')';
                         if(db_query($sql) && ($num=db_affected_rows())) {
                             if($num==$count)
-                                $msg = 'Selected SLA plans disabled';
+                                $msg = 'Plano de SLA selecionado desabilitado';
                             else
-                                $warn = "$num of $count selected SLA plans disabled";
+                                $warn = "$num de $count Plano de SLA selecionado desabilitado";
                         } else {
-                            $errors['err'] = 'Unable to disable selected SLA plans';
+                            $errors['err'] = 'Não foi possível desabilitar o plano de SLA selecionado';
                         }
                         break;
                     case 'delete':
@@ -78,19 +78,19 @@ if($_POST){
                         }
 
                         if($i && $i==$count)
-                            $msg = 'Selected SLA plans deleted successfully';
+                            $msg = 'Plano de SLA selecionado deletado com sucesso';
                         elseif($i>0)
-                            $warn = "$i of $count selected SLA plans deleted";
+                            $warn = "$i de $count plano de SLA selecionado deletado";
                         elseif(!$errors['err'])
-                            $errors['err'] = 'Unable to delete selected SLA plans';
+                            $errors['err'] = 'Não foi possível detelar o plano de SLA selecionado';
                         break;
                     default:
-                        $errors['err']='Unknown action - get technical help.';
+                        $errors['err']='Ação desconhecida. Peça ajuda técnica';
                 }
             }
             break;
         default:
-            $errors['err']='Unknown action/command';
+            $errors['err']='Ação/Comando desconhecido';
             break;
     }
 }

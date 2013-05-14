@@ -1,5 +1,5 @@
 <?php
-$title=($cfg && is_object($cfg) && $cfg->getTitle())?$cfg->getTitle():'osTicket :: Support Ticket System';
+$title=($cfg && is_object($cfg) && $cfg->getTitle())?$cfg->getTitle():'osTicket :: Sistema de Suporte para Tickets';
 header("Content-Type: text/html; charset=UTF-8\r\n");
 ?>
 <!DOCTYPE html>
@@ -28,13 +28,13 @@ header("Content-Type: text/html; charset=UTF-8\r\n");
                  ?>
                 <?php
                 if($cfg->showRelatedTickets()) {?>
-                <a href="<?php echo ROOT_PATH; ?>tickets.php">My Tickets <b>(<?php echo $thisclient->getNumTickets(); ?>)</b></a> -
+                <a href="<?php echo ROOT_PATH; ?>tickets.php">Meus tickets <b>(<?php echo $thisclient->getNumTickets(); ?>)</b></a> -
                 <?php
                 } ?>
-                <a href="<?php echo ROOT_PATH; ?>logout.php?auth=<?php echo $ost->getLinkToken(); ?>">Log Out</a>
+                <a href="<?php echo ROOT_PATH; ?>logout.php?auth=<?php echo $ost->getLinkToken(); ?>">Sair</a>
              <?php
              }elseif($nav){ ?>
-                 Guest User - <a href="<?php echo ROOT_PATH; ?>login.php">Log In</a>
+                 Usuário Convidado - <a href="<?php echo ROOT_PATH; ?>login.php">Logar-se</a>
               <?php
              } ?>
             </p>

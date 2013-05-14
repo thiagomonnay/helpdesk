@@ -40,10 +40,10 @@ else
 
 ?>
 <div style="width:700;padding-top:5px; float:left;">
- <h2>User Groups</h2>
+ <h2>Grupos de Usuários</h2>
  </div>
 <div style="float:right;text-align:right;padding-top:5px;padding-right:5px;">
-    <b><a href="groups.php?a=add" class="Icon newgroup">Add New Group</a></b></div>
+    <b><a href="groups.php?a=add" class="Icon newgroup">Adicionar novo grupo</a></b></div>
 <div class="clear"></div>
 <form action="groups.php" method="POST" name="groups">
  <?php csrf_token(); ?>
@@ -54,12 +54,12 @@ else
     <thead>
         <tr>
             <th width="7px">&nbsp;</th>        
-            <th width="200"><a <?php echo $name_sort; ?> href="groups.php?<?php echo $qstr; ?>&sort=name">Group Name</a></th>
+            <th width="200"><a <?php echo $name_sort; ?> href="groups.php?<?php echo $qstr; ?>&sort=name">Nome do grupo</a></th>
             <th width="80"><a  <?php echo $status_sort; ?> href="groups.php?<?php echo $qstr; ?>&sort=status">Status</a></th>
-            <th width="80" style="text-align:center;"><a  <?php echo $users_sort; ?>href="groups.php?<?php echo $qstr; ?>&sort=users">Members</a></th>
-            <th width="80" style="text-align:center;"><a  <?php echo $depts_sort; ?>href="groups.php?<?php echo $qstr; ?>&sort=depts">Departments</a></th>
-            <th width="100"><a  <?php echo $created_sort; ?> href="groups.php?<?php echo $qstr; ?>&sort=created">Created On</a></th>
-            <th width="120"><a  <?php echo $updated_sort; ?> href="groups.php?<?php echo $qstr; ?>&sort=updated">Last Updated</a></th>
+            <th width="80" style="text-align:center;"><a  <?php echo $users_sort; ?>href="groups.php?<?php echo $qstr; ?>&sort=users">Membros</a></th>
+            <th width="80" style="text-align:center;"><a  <?php echo $depts_sort; ?>href="groups.php?<?php echo $qstr; ?>&sort=depts">Departamentos</a></th>
+            <th width="100"><a  <?php echo $created_sort; ?> href="groups.php?<?php echo $qstr; ?>&sort=created">Data de criação</a></th>
+            <th width="120"><a  <?php echo $updated_sort; ?> href="groups.php?<?php echo $qstr; ?>&sort=updated">Última Atualização</a></th>
         </tr>
     </thead>
     <tbody>
@@ -98,10 +98,10 @@ else
      <tr>
         <td colspan="7">
             <?php if($res && $num){ ?>
-            Select:&nbsp;
-            <a id="selectAll" href="#ckb">All</a>&nbsp;&nbsp;
-            <a id="selectNone" href="#ckb">None</a>&nbsp;&nbsp;
-            <a id="selectToggle" href="#ckb">Toggle</a>&nbsp;&nbsp;
+            Selecione:&nbsp;
+            <a id="selectAll" href="#ckb">Todos</a>&nbsp;&nbsp;
+            <a id="selectNone" href="#ckb">Nenhum</a>&nbsp;&nbsp;
+            <a id="selectToggle" href="#ckb">Alternar</a>&nbsp;&nbsp;
             <?php }else{
                 echo 'No groups found!';
             } ?>
@@ -113,9 +113,9 @@ else
 if($res && $num): //Show options..
 ?>
 <p class="centered" id="actions">
-    <input class="button" type="submit" name="enable" value="Enable" >
-    <input class="button" type="submit" name="disable" value="Disable" >
-    <input class="button" type="submit" name="delete" value="Delete">
+    <input class="button" type="submit" name="enable" value="Habilitar" >
+    <input class="button" type="submit" name="disable" value="Desabilitar" >
+    <input class="button" type="submit" name="delete" value="Deletar">
 </p>
 <?php
 endif;

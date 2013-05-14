@@ -18,30 +18,30 @@ include_once(INCLUDE_DIR.'class.email.php');
 
 $email=null;
 if($_REQUEST['id'] && !($email=Email::lookup($_REQUEST['id'])))
-    $errors['err']='Unknown or invalid email ID.';
+    $errors['err']='ID do e-mail inválido ou desconhecido.';
 
 if($_POST){
     switch(strtolower($_POST['do'])){
         case 'update':
             if(!$email){
-                $errors['err']='Unknown or invalid email.';
+                $errors['err']='E-mail inválido ou desconhecido.';
             }elseif($email->update($_POST,$errors)){
                 $msg='Email updated successfully';
             }elseif(!$errors['err']){
-                $errors['err']='Error updating email. Try again!';
+                $errors['err']='Erro ao atualizar e-mail. Tente novamente!';
             }
             break;
         case 'create':
             if(($id=Email::create($_POST,$errors))){
-                $msg='Email address added successfully';
+                $msg='E-mail adixcionado com sucesso';
                 $_REQUEST['a']=null;
             }elseif(!$errors['err']){
-                $errors['err']='Unable to add email. Correct error(s) below and try again.';
+                $errors['err']='Não foi possível adicionar o e-mail. Corrija o(s) erro(s) abaixo e tente novamente';
             }
             break;
         case 'mass_process':
             if(!$_POST['ids'] || !is_array($_POST['ids']) || !count($_POST['ids'])) {
-                $errors['err'] = 'You must select at least one email address';
+                $errors['err'] = 'Você deve selecionar pelo menos um e-mail';
             } else {
                 $count=count($_POST['ids']);
 
@@ -51,7 +51,7 @@ if($_POST){
 
                 list($depts)=db_fetch_row(db_query($sql));
                 if($depts>0) {
-                    $errors['err'] = 'One or more of the selected emails is being used by a department. Remove association first!';
+                    $errors['err'] = 'Um ou mais e-mails selecionados já estão em uso. Remova a associação primeiro!';
                 } elseif(!strcasecmp($_POST['a'], 'delete')) {
                     $i=0;
                     foreach($_POST['ids'] as $k=>$v) {
@@ -60,19 +60,19 @@ if($_POST){
                     }
 
                     if($i && $i==$count)
-                        $msg = 'Selected emails deleted successfully';
+                        $msg = 'Os e-mails selecionados foram deletados com sucesso';
                     elseif($i>0)
-                        $warn = "$i of $count selected emails deleted";
+                        $warn = "$i de $count e-mails selecionados, forma deletados";
                     elseif(!$errors['err'])
-                        $errors['err'] = 'Unable to delete selected emails';
+                        $errors['err'] = 'Não foi possível deletetar os e-mails selecionados';
                     
                 } else {
-                    $errors['err'] = 'Unknown action - get technical help';
+                    $errors['err'] = 'Ação desconhecido - peça ajuda técnica';
                 }
             }
             break;
         default:
-            $errors['err'] = 'Unknown action/command';
+            $errors['err'] = 'Ação/comando desconhecido';
             break;
     }
 }

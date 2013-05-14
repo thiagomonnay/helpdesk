@@ -74,7 +74,7 @@ class Upgrader extends SetupWizard {
         if($email) {
             $email->sendAlert($thisstaff->getEmail(), $subject, $error);
         } else {//no luck - try the system mail.
-            Mailer::sendmail($thisstaff->getEmail(), $subject, $error, sprintf('"osTicket Alerts"<%s>', $thisstaff->getEmail()));
+            Mailer::sendmail($thisstaff->getEmail(), $subject, $error, sprintf('"osTicket - Alertas"<%s>', $thisstaff->getEmail()));
         }
 
     }
@@ -166,7 +166,7 @@ class Upgrader extends SetupWizard {
             if($task['status']) //Progress report...
                 $action.=' ('.$task['status'].')';
         } elseif($this->isUpgradable() && ($nextversion = $this->getNextVersion())) {
-            $action = "Upgrade to $nextversion";
+            $action = "Atualizado para $nextversion";
         }
 
         return $action;
@@ -223,8 +223,8 @@ class Upgrader extends SetupWizard {
 
         $c = count($tasks);
         $ost->logDebug(
-                sprintf('Upgrader - %s (%d pending tasks).', $this->getShash(), $c),
-                sprintf('There are %d pending upgrade tasks for %s patch', $c, $this->getShash())
+                sprintf('Atualização - %s (%d tarefas pendentes).', $this->getShash(), $c),
+                sprintf('Essas são as tarefas pendentes %d para o patch %s', $c, $this->getShash())
                 );
         $start_time = Misc::micro_time();
         foreach($tasks as $k => $task) {
@@ -261,11 +261,11 @@ class Upgrader extends SetupWizard {
             $shash = substr($phash, 9, 8);
 
             //Log the patch info
-            $logMsg = "Patch $phash applied successfully ";
+            $logMsg = "Patch $phash aplicado com sucesso ";
             if(($info = $this->readPatchInfo($patch)) && $info['version'])
                 $logMsg.= ' ('.$info['version'].') ';
 
-            $ost->logDebug("Upgrader - $shash applied", $logMsg);
+            $ost->logDebug("Atualização - $shash aplicada", $logMsg);
             $this->signature = $shash; //Update signature to the *new* HEAD
 
             //Check if the said patch has scripted tasks
@@ -297,19 +297,19 @@ class Upgrader extends SetupWizard {
         switch($phash) { //Add  patch specific scripted tasks.
             case 'c00511c7-7be60a84': //V1.6 ST- 1.7 * {{MD5('1.6 ST') -> c00511c7c1db65c0cfad04b4842afc57}}
                 $tasks[] = array('func' => 'migrateSessionFile2DB',
-                                 'desc' => 'Transitioning to db-backed sessions');
+                                 'desc' => 'Transitando para sessão db-backed');
                 break;
             case '98ae1ed2-e342f869': //v1.6 RC1-4 -> v1.6 RC5
                 $tasks[] = array('func' => 'migrateAPIKeys',
-                                 'desc' => 'Migrating API keys to a new table');
+                                 'desc' => 'MIgrando API keys para uma nova tabela');
                 break;
             case '435c62c3-2e7531a2':
                 $tasks[] = array('func' => 'migrateGroupDeptAccess',
-                                 'desc' => 'Migrating group\'s department access to a new table');
+                                 'desc' => 'Migrando departamento grupos\'s  para acessar uma nova tabela');
                 break;
             case '15b30765-dd0022fb':
                 $tasks[] = array('func' => 'migrateAttachments2DB',
-                                 'desc' => 'Migrating attachments to database, it might take a while depending on the number of files.');
+                                 'desc' => 'Migrando anexos para o banco de dados, isso pode levar um tempo, dependendo do número de arquivos.');
                 break;
         }
 

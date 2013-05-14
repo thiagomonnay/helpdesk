@@ -46,18 +46,18 @@ $qstr.='&order='.($order=='DESC'?'ASC':'DESC');
 $query="$select $from $where ORDER BY $order_by LIMIT ".$pageNav->getStart().",".$pageNav->getLimit();
 //echo $query;
 ?>
-<h2>Banned Email Addresses</h2>
+<h2>Lista dos E-mails Banidos</h2>
 <div style="width:600; float:left;padding-top:5px;">
     <form action="banlist.php" method="GET" name="filter">
      <input type="hidden" name="a" value="filter" >
      <div>
-       Query: <input name="q" type="text" size="20" value="<?php echo Format::htmlchars($_REQUEST['q']); ?>">
+       Consulta: <input name="q" type="text" size="20" value="<?php echo Format::htmlchars($_REQUEST['q']); ?>">
         &nbsp;&nbsp;
-        <input type="submit" name="submit" value="Search"/>
+        <input type="submit" name="submit" value="Pesquisar"/>
      </div>
     </form>
  </div>
-<div style="float:right;text-align:right;padding-right:5px;"><b><a href="banlist.php?a=add" class="Icon newstaff">Ban New Email</a></b></div>
+<div style="float:right;text-align:right;padding-right:5px;"><b><a href="banlist.php?a=add" class="Icon newstaff">Banir novo e-mail</a></b></div>
 <div class="clear"></div>
 <?php
 if(($res=db_query($query)) && ($num=db_num_rows($res)))
@@ -78,10 +78,10 @@ if($search)
     <thead>
         <tr>
             <th width="7px">&nbsp;</th>        
-            <th width="350"><a <?php echo $email_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=email">Email Address</a></th>
-            <th width="200"><a  <?php echo $status_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=status">Ban Status</a></th>
-            <th width="120"><a <?php echo $created_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=created">Date Added</a></th>
-            <th width="120"><a <?php echo $updated_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=updated">Last Updated</a></th>
+            <th width="350"><a <?php echo $email_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=email">Endereços de e-mail</a></th>
+            <th width="200"><a  <?php echo $status_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=status">Status</a></th>
+            <th width="120"><a <?php echo $created_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=created">Data de criação</a></th>
+            <th width="120"><a <?php echo $updated_sort; ?> href="staff.php?<?php echo $qstr; ?>&sort=updated">Última atualização</a></th>
         </tr>
     </thead>
     <tbody>
@@ -109,10 +109,10 @@ if($search)
      <tr>
         <td colspan="5">
             <?php if($res && $num){ ?>
-            Select:&nbsp;
-            <a id="selectAll" href="#ckb">All</a>&nbsp;&nbsp;
-            <a id="selectNone" href="#ckb">None</a>&nbsp;&nbsp;
-            <a id="selectToggle" href="#ckb">Toggle</a>&nbsp;&nbsp;
+            Selecione:&nbsp;
+            <a id="selectAll" href="#ckb">Tudo</a>&nbsp;&nbsp;
+            <a id="selectNone" href="#ckb">Nenhum</a>&nbsp;&nbsp;
+            <a id="selectToggle" href="#ckb">Alternar</a>&nbsp;&nbsp;
             <?php }else{
                 echo 'No banned emails found!';
             } ?>
@@ -125,11 +125,11 @@ if($res && $num): //Show options..
     echo '<div>&nbsp;Page:'.$pageNav->getPageLinks().'&nbsp;</div>';
 ?>
 <p class="centered" id="actions">
-    <input class="button" type="submit" name="enable" value="Enable" >
+    <input class="button" type="submit" name="enable" value="Habilitar" >
     &nbsp;&nbsp;
-    <input class="button" type="submit" name="disable" value="Disable" >
+    <input class="button" type="submit" name="disable" value="Desabilitar" >
     &nbsp;&nbsp;
-    <input class="button" type="submit" name="delete" value="Delete">
+    <input class="button" type="submit" name="delete" value="Deletar">
 </p>
 <?php
 endif;
@@ -137,26 +137,26 @@ endif;
 </form>
 
 <div style="display:none;" class="dialog" id="confirm-action">
-    <h3>Please Confirm</h3>
+    <h3>Por favor confirme</h3>
     <a class="close" href="">&times;</a>
     <hr/>
     <p class="confirm-action" style="display:none;" id="enable-confirm">
-        Are you sure want to <b>enable</b> selected ban rules?
+        Tens a certeza de querer <b>habilitar</b> a regra selecionada?
     </p>
     <p class="confirm-action" style="display:none;" id="disable-confirm">
-        Are you sure want to <b>disable</b>  selected ban rules?
+        Tens a certeza de querer <b>desabilitar</b> a regra selecionada?
     </p>
     <p class="confirm-action" style="display:none;" id="delete-confirm">
-        <font color="red"><strong>Are you sure you want to DELETE selected ban rules?</strong></font>
+        <font color="red"><strong>Tens a certeza de querer DELETAR a regra selecionada?</strong></font>
     </p>
-    <div>Please confirm to continue.</div>
+    <div>Por favor confirme para continuar.</div>
     <hr style="margin-top:1em"/>
     <p class="full-width">
         <span class="buttons" style="float:left">
-            <input type="button" value="No, Cancel" class="close">
+            <input type="button" value="Não, Cancelar" class="close">
         </span>
         <span class="buttons" style="float:right">
-            <input type="button" value="Yes, Do it!" class="confirm">
+            <input type="button" value="Sim, Confirmar!" class="confirm">
         </span>
      </p>
     <div class="clear"></div>

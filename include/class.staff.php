@@ -401,49 +401,49 @@ class Staff {
         $vars['signature']=Format::striptags($vars['signature']);
 
         if($this->getId()!=$vars['id'])
-            $errors['err']='Internal Error';
+            $errors['err']='Erro interno';
 
         if(!$vars['firstname'])
-            $errors['firstname']='First name required';
+            $errors['firstname']='O nome é requerido';
         
         if(!$vars['lastname'])
-            $errors['lastname']='Last name required';
+            $errors['lastname']='O sobrenome é requerido';
 
         if(!$vars['email'] || !Validator::is_email($vars['email']))
-            $errors['email']='Valid email required';
+            $errors['email']='Um e-mail válido é requerido';
         elseif(Email::getIdByEmail($vars['email']))
-            $errors['email']='Already in-use as system email';
+            $errors['email']='Já está em uso como e-mail do sistema';
         elseif(($uid=Staff::getIdByEmail($vars['email'])) && $uid!=$this->getId())
-            $errors['email']='Email already in-use by another staff member';
+            $errors['email']='O e-mail da equipe já está em uso por outro usuário';
 
         if($vars['phone'] && !Validator::is_phone($vars['phone']))
-            $errors['phone']='Valid number required';
+            $errors['phone']='Um número de telefone válido é requerido';
 
         if($vars['mobile'] && !Validator::is_phone($vars['mobile']))
-            $errors['mobile']='Valid number required';
+            $errors['mobile']='Um número de telefone válido é requerido';
 
         if($vars['passwd1'] || $vars['passwd2'] || $vars['cpasswd']) {
 
             if(!$vars['passwd1'])
-                $errors['passwd1']='New password required';
+                $errors['passwd1']='A nova senha é requerida';
             elseif($vars['passwd1'] && strlen($vars['passwd1'])<6)
-                $errors['passwd1']='Must be at least 6 characters';
+                $errors['passwd1']='A senha tem que ter pelo menos 6 caracteres';
             elseif($vars['passwd1'] && strcmp($vars['passwd1'], $vars['passwd2']))
-                $errors['passwd2']='Password(s) do not match';
+                $errors['passwd2']='Senha(s) não corresponderem';
             
             if(!$vars['cpasswd'])
-                $errors['cpasswd']='Current password required';
+                $errors['cpasswd']='A senha atual é requerida';
             elseif(!$this->cmp_passwd($vars['cpasswd']))
-                $errors['cpasswd']='Invalid current password!';
+                $errors['cpasswd']='A senha atual é inválida!';
             elseif(!strcasecmp($vars['passwd1'], $vars['cpasswd']))
-                $errors['passwd1']='New password MUST be different from the current password!';
+                $errors['passwd1']='A nova senha tem que ser diferente da atual!';
         }
 
         if(!$vars['timezone_id'])
-            $errors['timezone_id']='Time zone required';
+            $errors['timezone_id']='A zona do tempo é requerida';
 
         if($vars['default_signature_type']=='mine' && !$vars['signature'])
-            $errors['default_signature_type'] = "You don't have a signature";
+            $errors['default_signature_type'] = "Você não tem uma assinatura";
 
         if($errors) return false;
 
@@ -585,7 +585,7 @@ class Staff {
         }
 
         if(!$username || !$passwd)
-            $errors['err'] = 'Username and password required';
+            $errors['err'] = 'Usuário e senha são requeridos';
 
         if($errors) return false;
    
@@ -651,50 +651,50 @@ class Staff {
         $vars['signature']=Format::striptags($vars['signature']);
 
         if($id && $id!=$vars['id'])
-            $errors['err']='Internal Error';
+            $errors['err']='Erro interno';
             
         if(!$vars['firstname'])
-            $errors['firstname']='First name required';
+            $errors['firstname']='O nome é requerido';
         if(!$vars['lastname'])
-            $errors['lastname']='Last name required';
+            $errors['lastname']='O sobrenome é requerido';
             
         if(!$vars['username'] || strlen($vars['username'])<2)
-            $errors['username']='Username required';
+            $errors['username']='O nome do usuário é requerido';
         elseif(($uid=Staff::getIdByUsername($vars['username'])) && $uid!=$id)
-            $errors['username']='Username already in-use';
+            $errors['username']='O nome do usuário já está em uso';
         
         if(!$vars['email'] || !Validator::is_email($vars['email']))
-            $errors['email']='Valid email required';
+            $errors['email']='Um e-mail válido é requerido';
         elseif(Email::getIdByEmail($vars['email']))
-            $errors['email']='Already in-use system email';
+            $errors['email']='O e-mail já está em uso pelo sistema';
         elseif(($uid=Staff::getIdByEmail($vars['email'])) && $uid!=$id)
-            $errors['email']='Email already in-use by another staff member';
+            $errors['email']='O e-mail está em uso por outro usuário do sistema';
 
         if($vars['phone'] && !Validator::is_phone($vars['phone']))
-            $errors['phone']='Valid number required';
+            $errors['phone']='Um número válido é requerido';
         
         if($vars['mobile'] && !Validator::is_phone($vars['mobile']))
-            $errors['mobile']='Valid number required';
+            $errors['mobile']='Um número válido é requerido';
 
         if($vars['passwd1'] || $vars['passwd2'] || !$id) {
             if(!$vars['passwd1'] && !$id) {
-                $errors['passwd1']='Temp. password required';
-                $errors['temppasswd']='Required';
+                $errors['passwd1']='A senha temp. é requerida';
+                $errors['temppasswd']='Requerido';
             } elseif($vars['passwd1'] && strlen($vars['passwd1'])<6) {
-                $errors['passwd1']='Must be at least 6 characters';
+                $errors['passwd1']='Deve ter pelo menos 6 caracteres';
             } elseif($vars['passwd1'] && strcmp($vars['passwd1'], $vars['passwd2'])) {
-                $errors['passwd2']='Password(s) do not match';
+                $errors['passwd2']='Senha(s) não correspondem';
             }
         }
         
         if(!$vars['dept_id'])
-            $errors['dept_id']='Department required';
+            $errors['dept_id']='Departamento é requerido';
             
         if(!$vars['group_id'])
-            $errors['group_id']='Group required';
+            $errors['group_id']='Grupo é requerido';
 
         if(!$vars['timezone_id'])
-            $errors['timezone_id']='Time zone required';
+            $errors['timezone_id']='A zona do tempo é requerida';
 
         if($errors) return false;
 
@@ -730,13 +730,13 @@ class Staff {
             if(db_query($sql) && db_affected_rows())
                 return true;
                 
-            $errors['err']='Unable to update the user. Internal error occurred';
+            $errors['err']='Não foi possível atualizar o usuário. Ocorreu um erro interno';
         } else {
             $sql='INSERT INTO '.STAFF_TABLE.' '.$sql.', created=NOW()';
             if(db_query($sql) && ($uid=db_insert_id()))
                 return $uid;
                 
-            $errors['err']='Unable to create user. Internal error';
+            $errors['err']='Não foi possível criar o usuário. Ocorreu um erro interno';
         }
 
         return false;

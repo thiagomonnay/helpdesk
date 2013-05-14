@@ -21,7 +21,7 @@ class Mcrypt {
         //if mcrypt extension is not installed--simply return unencryted text and log a warning (if enabled).
         if(!function_exists('mcrypt_encrypt') || !function_exists('mcrypt_decrypt')) {
             if($ost) {
-                $msg='Cryptography extension mcrypt is not enabled or installed. Important text/data is being stored as plain text in database.';
+                $msg='A extensão de criptografia  não está habilitada/instalada. O texto/dados estarão sendo armazenado como texto simples no banco de dados.';
                 $ost->logWarning('mcrypt module missing', $msg);
             }
 

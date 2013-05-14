@@ -23,34 +23,34 @@ if($_POST){
     switch(strtolower($_POST['do'])){
         case 'updatetpl':
             if(!$template){
-                $errors['err']='Unknown or invalid template';
+                $errors['err']='Template inválido ou desconhecido';
             }elseif($template->updateMsgTemplate($_POST,$errors)){
                 $template->reload();
-                $msg='Message template updated successfully';
+                $msg='Template atualizado com sucesso';
             }elseif(!$errors['err']){
-                $errors['err']='Error updating message template. Try again!';
+                $errors['err']='Erro ao atualizar o template. Tente novamente!';
             }
             break;
         case 'update':
             if(!$template){
-                $errors['err']='Unknown or invalid template';
+                $errors['err']='Template inválido ou desconhecido';
             }elseif($template->update($_POST,$errors)){
-                $msg='Template updated successfully';
+                $msg='Template atualizado com sucesso';
             }elseif(!$errors['err']){
-                $errors['err']='Error updating template. Try again!';
+                $errors['err']='Erro ao atualizar o template. Tente novamente!';
             }
             break;
         case 'add':
             if((Template::create($_POST,$errors))){
-                $msg='Template added successfully';
+                $msg='Template adicionado com sucesso';
                 $_REQUEST['a']=null;
             }elseif(!$errors['err']){
-                $errors['err']='Unable to add template. Correct error(s) below and try again.';
+                $errors['err']='Não foi possível adicionar o template. Corrija o(s) erro(s) abaixo e tente novamente!';
             }
             break;
         case 'mass_process':
             if(!$_POST['ids'] || !is_array($_POST['ids']) || !count($_POST['ids'])) {
-                $errors['err']='You must select at least one template to process.';
+                $errors['err']='Você deve selecionar pelo menos um template.';
             } else {
                 $count=count($_POST['ids']);
                 switch(strtolower($_POST['a'])) {
@@ -59,11 +59,11 @@ if($_POST){
                             .' WHERE tpl_id IN ('.implode(',', db_input($_POST['ids'])).')';
                         if(db_query($sql) && ($num=db_affected_rows())){
                             if($num==$count)
-                                $msg = 'Selected templates enabled';
+                                $msg = 'Template selecionado habilitado';
                             else
-                                $warn = "$num of $count selected templates enabled";
+                                $warn = "$num de $count templates selecionados habilitados";
                         } else {
-                            $errors['err'] = 'Unable to enable selected templates';
+                            $errors['err'] = 'Não foi possível habilitar o template selecioando';
                         }
                         break;
                     case 'disable':
@@ -73,11 +73,11 @@ if($_POST){
                                 $i++;
                         }
                         if($i && $i==$count)
-                            $msg = 'Selected templates disabled';
+                            $msg = 'Templates selecionados desabilitados';
                         elseif($i)
-                            $warn = "$i of $count selected templates disabled (in-use templates can't be disabled)";
+                            $warn = "$i de $count templates selecionados desativada (templates em uso não pode ser desativado)";
                         else
-                            $errors['err'] = "Unable to disable selected templates (in-use or default template can't be disabled)";
+                            $errors['err'] = "Não foi possível desativar templates selecionados (em uso ou template padrão não pode ser desativado)";
                         break;
                     case 'delete':
                         $i=0;
@@ -87,19 +87,19 @@ if($_POST){
                         }
 
                         if($i && $i==$count)
-                            $msg = 'Selected templates deleted successfully';
+                            $msg = 'Templates selecionados atualizados com sucesso';
                         elseif($i>0)
-                            $warn = "$i of $count selected templates deleted";
+                            $warn = "$i de$count templates selecionados deletados";
                         elseif(!$errors['err'])
-                            $errors['err'] = 'Unable to delete selected templates';
+                            $errors['err'] = 'Não foi possível deletarv os templates selecionados';
                         break;
                     default:
-                        $errors['err']='Unknown template action';
+                        $errors['err']='Ação desconhecida';
                 }
             }
             break;
         default:
-            $errors['err']='Unknown action';
+            $errors['err']='Ação desconhecida';
             break;
     }
 }

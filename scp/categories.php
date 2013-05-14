@@ -25,30 +25,30 @@ if(!$thisstaff || !$thisstaff->canManageFAQ()) {
 
 $category=null;
 if($_REQUEST['id'] && !($category=Category::lookup($_REQUEST['id'])))
-    $errors['err']='Unknown or invalid category ID.';
+    $errors['err']='ID da categoria inválido ou desconhecido';
 
 if($_POST){
     switch(strtolower($_POST['do'])) {
         case 'update':
             if(!$category) {
-                $errors['err']='Unknown or invalid category.';
+                $errors['err']='Categoria inválida ou desconhecida.';
             } elseif($category->update($_POST,$errors)) {
-                $msg='Category updated successfully';
+                $msg='Categoria atualizada com sucesso';
             } elseif(!$errors['err']) {
-                $errors['err']='Error updating category. Try again!';
+                $errors['err']='Erro ao atualizar a categoria. Tente novamente!';
             }
             break;
         case 'create':
             if(($id=Category::create($_POST,$errors))) {
-                $msg='Category added successfully';
+                $msg='Categoria adicionada com sucesso';
                 $_REQUEST['a']=null;
             } elseif(!$errors['err']) {
-                $errors['err']='Unable to add category. Correct error(s) below and try again.';
+                $errors['err']='Não foi possível adicionar a categoria. Corrija os erros e tente novamente';
             }
             break;
         case 'mass_process':
             if(!$_POST['ids'] || !is_array($_POST['ids']) || !count($_POST['ids'])) {
-                $errors['err']='You must select at least one category';
+                $errors['err']='Você deve selecionar pelo menos uma categoria';
             } else {
                 $count=count($_POST['ids']);
                 switch(strtolower($_POST['a'])) {
@@ -58,11 +58,11 @@ if($_POST){
                     
                         if(db_query($sql) && ($num=db_affected_rows())) {
                             if($num==$count)
-                                $msg = 'Selected categories made PUBLIC';
+                                $msg = 'Categorias selecionadas, foram transformadas em pública';
                             else
-                                $warn = "$num of $count selected categories made PUBLIC";
+                                $warn = "$num of $count selecionadas foram transformadas em pública";
                         } else {
-                            $errors['err'] = 'Unable to enable selected categories public.';
+                            $errors['err'] = 'Não foi possível habilitar as categorias selecionadas para pública.';
                         }
                         break;
                     case 'make_private':
@@ -71,11 +71,11 @@ if($_POST){
 
                         if(db_query($sql) && ($num=db_affected_rows())) {
                             if($num==$count)
-                                $msg = 'Selected categories made PRIVATE';
+                                $msg = 'Categorias selecionadas, foram transformadas em privada';
                             else
-                                $warn = "$num of $count selected categories made PRIVATE";
+                                $warn = "$num of $count selecionadas foram transformadas em privada";
                         } else {
-                            $errors['err'] = 'Unable to disable selected categories PRIVATE';
+                            $errors['err'] = 'Não foi possível habilitar as categorias selecionadas para privada.';
                         }
                         break;
                     case 'delete':
@@ -86,19 +86,19 @@ if($_POST){
                         }
 
                         if($i==$count)
-                            $msg = 'Selected categories deleted successfully';
+                            $msg = 'Categorias selecionadas deletadas com sucesso';
                         elseif($i>0)
-                            $warn = "$i of $count selected categories deleted";
+                            $warn = "$i of $count categorias foram deletadas";
                         elseif(!$errors['err'])
-                            $errors['err'] = 'Unable to delete selected categories';
+                            $errors['err'] = 'Não foi possível deletar as categorias selecionadas';
                         break;
                     default:
-                        $errors['err']='Unknown action/command';
+                        $errors['err']='Ação/comando desconhecido';
                 }
             }
             break;
         default:
-            $errors['err']='Unknown action';
+            $errors['err']='Ação desconhecida';
             break;
     }
 }

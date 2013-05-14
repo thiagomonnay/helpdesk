@@ -16,30 +16,29 @@
 require('admin.inc.php');
 $team=null;
 if($_REQUEST['id'] && !($team=Team::lookup($_REQUEST['id'])))
-    $errors['err']='Unknown or invalid team ID.';
+    $errors['err']='ID da equipe inválido ou desconhecido.';
 
 if($_POST){
     switch(strtolower($_POST['do'])){
         case 'update':
             if(!$team){
-                $errors['err']='Unknown or invalid team.';
+                $errors['err']='Equié inválida ou desconhecida.';
             }elseif($team->update($_POST,$errors)){
-                $msg='Team updated successfully';
+                $msg='Equipe atualizada com sucesso.';
             }elseif(!$errors['err']){
-                $errors['err']='Unable to update team. Correct any error(s) below and try again!';
+                $errors['err']='Não foi possível atualizar a equipe. Corrija o(s) erro(s) abaixo e tente novamente!';
             }
             break;
         case 'create':
             if(($id=Team::create($_POST,$errors))){
-                $msg=Format::htmlchars($_POST['team']).' added successfully';
+                $msg=Format::htmlchars($_POST['team']).' adicionado com sucesso';
                 $_REQUEST['a']=null;
             }elseif(!$errors['err']){
-                $errors['err']='Unable to add team. Correct any error(s) below and try again.';
-            }
+                $errors['err']='Não foi possível adicionar a equipe. Corrija o(s) erro(s) abaixo e tente novamente!';            }
             break;
         case 'mass_process':
             if(!$_POST['ids'] || !is_array($_POST['ids']) || !count($_POST['ids'])) {
-                $errors['err']='You must select at least one team.';
+                $errors['err']='Você deve selecionar pelo menos uma equipe.';
             } else {
                 $count=count($_POST['ids']);
                 switch(strtolower($_POST['a'])) {
@@ -49,11 +48,11 @@ if($_POST){
 
                         if(db_query($sql) && ($num=db_affected_rows())) {
                             if($num==$count)
-                                $msg = 'Selected teams activated';
+                                $msg = 'Equipe selecionada ativada.';
                             else
-                                $warn = "$num of $count selected teams activated";
+                                $warn = "$num de $count selecinada ativada.";
                         } else {
-                            $errors['err'] = 'Unable to activate selected teams';
+                            $errors['err'] = 'Não foi possível ativar a equipe selecionada.';
                         }
                         break;
                     case 'disable':
@@ -62,11 +61,11 @@ if($_POST){
 
                         if(db_query($sql) && ($num=db_affected_rows())) {
                             if($num==$count)
-                                $msg = 'Selected teams disabled';
+                                $msg = 'Equipe selecionada desativada';
                             else
-                                $warn = "$num of $count selected teams disabled";
+                                $warn = "$num de $count equipes selecionadas desativadas";
                         } else {
-                            $errors['err'] = 'Unable to disable selected teams';
+                            $errors['err'] = 'Não foi possível desabilitar a equipe selecionada';
                         }
                         break;
                     case 'delete':
@@ -75,19 +74,19 @@ if($_POST){
                                 $i++;
                         }
                         if($i && $i==$count)
-                            $msg = 'Selected teams deleted successfully';
+                            $msg = 'Equipes selecionadas deletadas com sucesso';
                         elseif($i>0)
-                            $warn = "$i of $count selected teams deleted";
+                            $warn = "$i de $count equipes selecionadas deletadas";
                         elseif(!$errors['err'])
-                            $errors['err'] = 'Unable to delete selected teams';
+                            $errors['err'] = 'Não foi possível deletar a equipe selecionada';
                         break;
                     default:
-                        $errors['err'] = 'Unknown action. Get technical help!';
+                        $errors['err'] = 'Ação desconhecida. Peça ajuda técnica!';
                 }
             }
             break;
         default:
-            $errors['err']='Unknown action/command';
+            $errors['err']='Ação/Comando desconhecido';
             break;
     }
 }

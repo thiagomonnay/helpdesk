@@ -24,24 +24,24 @@ if($_POST){
     switch(strtolower($_POST['do'])){
         case 'update':
             if(!$api){
-                $errors['err']='Unknown or invalid API key.';
+                $errors['err']='Chave da API desconhecida ou inválida.';
             }elseif($api->update($_POST,$errors)){
-                $msg='API key updated successfully';
+                $msg='Chave API atualizada com sucesso';
             }elseif(!$errors['err']){
-                $errors['err']='Error updating API key. Try again!';
+                $errors['err']='Erro na atualização da chave de API, tente novamente!';
             }
             break;
         case 'add':
             if(($id=API::add($_POST,$errors))){
-                $msg='API key added successfully';
+                $msg='Chave API adicionada com sucesso!';
                 $_REQUEST['a']=null;
             }elseif(!$errors['err']){
-                $errors['err']='Unable to add an API key. Correct error(s) below and try again.';
+                $errors['err']='Não é possível adicionar uma chave API. Corrija o(s) erro(s) abaixo e tente novamente.';
             }
             break;
         case 'mass_process':
             if(!$_POST['ids'] || !is_array($_POST['ids']) || !count($_POST['ids'])) {
-                $errors['err'] = 'You must select at least one API key';
+                $errors['err'] = 'Você deve selecionar pelo menos uma chave de API';
             } else {
                 $count=count($_POST['ids']);
                 switch(strtolower($_POST['a'])) {
@@ -50,11 +50,11 @@ if($_POST){
                             .' WHERE id IN ('.implode(',', db_input($_POST['ids'])).')';
                         if(db_query($sql) && ($num=db_affected_rows())) {
                             if($num==$count)
-                                $msg = 'Selected API keys enabled';
+                                $msg = 'Chaves API selecionados habilitada';
                             else
-                                $warn = "$num of $count selected API keys enabled";
+                                $warn = "$num of $count Selecione habilitar na chave API";
                         } else {
-                            $errors['err'] = 'Unable to enable selected API keys.';
+                            $errors['err'] = 'Não foi possível permitir chaves API selecionadas.';
                         }
                         break;
                     case 'disable':
@@ -62,11 +62,11 @@ if($_POST){
                             .' WHERE id IN ('.implode(',', db_input($_POST['ids'])).')';
                         if(db_query($sql) && ($num=db_affected_rows())) {
                             if($num==$count)
-                                $msg = 'Selected API keys disabled';
+                                $msg = 'Seleciona desabilitar na chave API';
                             else
-                                $warn = "$num of $count selected API keys disabled";
+                                $warn = "$num of $count seleciona na chave API, desabilitar";
                         } else {
-                            $errors['err']='Unable to disable selected API keys';
+                            $errors['err']='Não foi possível permitir chaves API selecionadas';
                         }
                         break;
                     case 'delete':
@@ -76,19 +76,19 @@ if($_POST){
                                 $i++;
                         }
                         if($i && $i==$count)
-                            $msg = 'Selected API keys deleted successfully';
+                            $msg = 'Chave API selecionada, foi desabilitada com sucesso';
                         elseif($i>0)
                             $warn = "$i of $count selected API keys deleted";
                         elseif(!$errors['err'])
-                            $errors['err'] = 'Unable to delete selected API keys';
+                            $errors['err'] = 'Não foi possível excluir chaves API selecionados';
                         break;
                     default:
-                        $errors['err']='Unknown action - get technical help';
+                        $errors['err']='Ação desconhecida - obter ajuda técnica';
                 }
             }
             break;
         default:
-            $errors['err']='Unknown action/command';
+            $errors['err']='Ação/Comando desconecido';
             break;
     }
 }

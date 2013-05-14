@@ -22,16 +22,16 @@ $info = ($_POST && $errors)?Format::htmlchars($_POST):array();
 </head>
 <body id="loginBody">
 <div id="loginBox">
-    <h1 id="logo"><a href="index.php">osTicket Staff Control Panel</a></h1>
+    <h1 id="logo"><a href="index.php">osTicket - Painel de Controle do Usuário</a></h1>
     <h3><?php echo Format::htmlchars($msg); ?></h3>
     <form action="login.php" method="post">
         <?php csrf_token(); ?>
         <input type="hidden" name="do" value="scplogin">
         <fieldset>
-            <input type="text" name="username" id="name" value="<?php echo $info['username']; ?>" placeholder="username" autocorrect="off" autocapitalize="off">
-            <input type="password" name="passwd" id="pass" placeholder="password" autocorrect="off" autocapitalize="off">
+            <input type="text" name="username" id="name" value="<?php echo $info['username']; ?>" placeholder="Nome do Usuário" autocorrect="off" autocapitalize="off">
+            <input type="password" name="passwd" id="pass" placeholder="Senha" autocorrect="off" autocapitalize="off">
         </fieldset>
-        <input class="submit" type="submit" name="submit" value="Log In">
+        <input class="submit" type="submit" name="submit" value="Autenticar-se">
     </form>
 </div>
 <div id="copyRights">Copyright &copy; <a href='http://www.osticket.com' target="_blank">osTicket.com</a></div>

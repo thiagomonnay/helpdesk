@@ -14,7 +14,7 @@
     vim: expandtab sw=4 ts=4 sts=4:
 **********************************************************************/
 if(!strcasecmp(basename($_SERVER['SCRIPT_NAME']),basename(__FILE__))) die('Kwaheri!');
-if(!file_exists('client.inc.php')) die('Fatal Error.');
+if(!file_exists('client.inc.php')) die('Erro Fatal.');
 require_once('client.inc.php');
 
 //Client Login page: Ajax interface can pre-declare the function to trap logins.

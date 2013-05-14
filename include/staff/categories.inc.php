@@ -41,10 +41,10 @@ else
 
 ?>
 <div style="width:700;padding-top:5px; float:left;">
- <h2>FAQ Categories</h2>
+ <h2>Categorias das FAQs</h2>
  </div>
 <div style="float:right;text-align:right;padding-top:5px;padding-right:5px;">
-    <b><a href="categories.php?a=add" class="Icon newCategory">Add New Category</a></b></div>
+    <b><a href="categories.php?a=add" class="Icon newCategory">Adicionar nova categoria</a></b></div>
 <div class="clear"></div>
 <form action="categories.php" method="POST" name="cat">
  <?php csrf_token(); ?>
@@ -55,10 +55,10 @@ else
     <thead>
         <tr>
             <th width="7">&nbsp;</th>
-            <th width="500"><a <?php echo $name_sort; ?> href="categories.php?<?php echo $qstr; ?>&sort=name">Name</a></th>
-            <th width="150"><a  <?php echo $type_sort; ?> href="categories.php?<?php echo $qstr; ?>&sort=type">Type</a></th>
+            <th width="500"><a <?php echo $name_sort; ?> href="categories.php?<?php echo $qstr; ?>&sort=name">Nome</a></th>
+            <th width="150"><a  <?php echo $type_sort; ?> href="categories.php?<?php echo $qstr; ?>&sort=type">Tipo</a></th>
             <th width="80"><a  <?php echo $faqs_sort; ?> href="categories.php?<?php echo $qstr; ?>&sort=faqs">FAQs</a></th>
-            <th width="150" nowrap><a  <?php echo $updated_sort; ?>href="categories.php?<?php echo $qstr; ?>&sort=updated">Last Updated</a></th>
+            <th width="150" nowrap><a  <?php echo $updated_sort; ?>href="categories.php?<?php echo $qstr; ?>&sort=updated">Última Atualização</a></th>
         </tr>
     </thead>
     <tbody>
@@ -92,10 +92,10 @@ else
      <tr>
         <td colspan="5">
             <?php if($res && $num){ ?>
-            Select:&nbsp;
-            <a id="selectAll" href="#ckb">All</a>&nbsp;&nbsp;
-            <a id="selectNone" href="#ckb">None</a>&nbsp;&nbsp;
-            <a id="selectToggle" href="#ckb">Toggle</a>&nbsp;&nbsp;
+            Selecione:&nbsp;
+            <a id="selectAll" href="#ckb">Tudo</a>&nbsp;&nbsp;
+            <a id="selectNone" href="#ckb">Nenhum</a>&nbsp;&nbsp;
+            <a id="selectToggle" href="#ckb">Alternar</a>&nbsp;&nbsp;
             <?php }else{
                 echo 'No FAQ categories found.';
             } ?>
@@ -108,36 +108,36 @@ if($res && $num): //Show options..
     echo '<div>&nbsp;Page:'.$pageNav->getPageLinks().'&nbsp;</div>';
 ?>
 <p class="centered" id="actions">
-    <input class="button" type="submit" name="make_public" value="Make Public">
-    <input class="button" type="submit" name="make_private" value="Make Internal">
-    <input class="button" type="submit" name="delete" value="Delete" >
+    <input class="button" type="submit" name="make_public" value="Pública">
+    <input class="button" type="submit" name="make_private" value="Interna">
+    <input class="button" type="submit" name="delete" value="Deletar" >
 </p>
 <?php
 endif;
 ?>
 </form>
 <div style="display:none;" class="dialog" id="confirm-action">
-    <h3>Please Confirm</h3>
+    <h3>Por favor confirme</h3>
     <a class="close" href="">&times;</a>
     <hr/>
     <p class="confirm-action" style="display:none;" id="make_public-confirm">
-        Are you sure want to make selected categories <b>public</b>?
+        Tem certeza de que deseja editar as categorias selecionadas para <b>públicas</b>?
     </p>
     <p class="confirm-action" style="display:none;" id="make_private-confirm">
-        Are you sure want to make selected categories <b>private</b> (internal)?
+        Tem certeza de que deseja editar as categorias selecionadas para <b>privadas</b> (internas)?
     </p>
     <p class="confirm-action" style="display:none;" id="delete-confirm">
-        <font color="red"><strong>Are you sure you want to DELETE selected categories?</strong></font>
-        <br><br>Deleted entries CANNOT be recovered, including any associated FAQs.
+        <font color="red"><strong>Tem certeza de que deseja DELETE as categorias seleciondas?</strong></font>
+        <br><br>Entradas excluídas não podem ser recuperadas, incluindo qualquer FAQs associada.
     </p>
-    <div>Please confirm to continue.</div>
+    <div>Por favor confirme para continuar.</div>
     <hr style="margin-top:1em"/>
     <p class="full-width">
         <span class="buttons" style="float:left">
-            <input type="button" value="No, Cancel" class="close">
+            <input type="button" value="Não, Cancelar" class="close">
         </span>
         <span class="buttons" style="float:right">
-            <input type="button" value="Yes, Do it!" class="confirm">
+            <input type="button" value="Sim, Confirmar!" class="confirm">
         </span>
      </p>
     <div class="clear"></div>
