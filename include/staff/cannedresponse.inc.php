@@ -116,7 +116,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
  <?php } ?>
 <p style="padding-left:225px;">
     <input type="submit" name="submit" value="<?php echo $submit_text; ?>">
-    <input type="reset"  name="reset"  value="Resetar">
+    <input type="reset"  name="reset"  value="Limpar">
     <input type="button" name="cancel" value="Cancelar" onclick='window.location.href="canned.php"'>
 </p>
 </form>
