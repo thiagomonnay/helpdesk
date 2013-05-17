@@ -15,7 +15,7 @@
     vim: expandtab sw=4 ts=4 sts=4:
 **********************************************************************/
 require('secure.inc.php');
-if(!is_object($thisclient) || !$thisclient->isValid()) die('Access denied'); //Double check again.
+if(!is_object($thisclient) || !$thisclient->isValid()) die('Acesso Negado'); //Double check again.
 require_once(INCLUDE_DIR.'class.ticket.php');
 $ticket=null;
 if($_REQUEST['id']) {
