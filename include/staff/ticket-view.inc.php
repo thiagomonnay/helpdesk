@@ -3,14 +3,14 @@
 if(!defined('OSTSCPINC') || !$thisstaff || !is_object($ticket) || !$ticket->getId()) die('Path Inválido');
 
 //Make sure the staff is allowed to access the page.
-if(!@$thisstaff->isStaff() || !$ticket->checkStaffAccess($thisstaff)) die('Access Denied');
+if(!@$thisstaff->isStaff() || !$ticket->checkStaffAccess($thisstaff)) die('Acesso Inválido');
 
 //Re-use the post info on error...savekeyboards.org (Why keyboard? -> some people care about objects than users!!)
 $info=($_POST && $errors)?Format::input($_POST):array();
 
 //Auto-lock the ticket if locking is enabled.. If already locked by the user then it simply renews.
 if($cfg->getLockTime() && !$ticket->acquireLock($thisstaff->getId(),$cfg->getLockTime()))
-    $warn.='Unable to obtain a lock on the ticket';
+    $warn.='Não é possível obter um bloqueio para o bilhete';
 
 //Get the goodies.
 $dept  = $ticket->getDept();  //Dept
@@ -25,7 +25,7 @@ if($ticket->isAssigned() && (
             ($staff && $staff->getId()!=$thisstaff->getId())
          || ($team && !$team->hasMember($thisstaff))
         ))
-    $warn.='&nbsp;&nbsp;<span class="Icon assignedTicket">Ticket is assigned to '.implode('/', $ticket->getAssignees()).'</span>';
+    $warn.='&nbsp;&nbsp;<span class="Icon assignedTicket">O ticket está atribuído para '.implode('/', $ticket->getAssignees()).'</span>';
 if(!$errors['err'] && ($lock && $lock->getStaffId()!=$thisstaff->getId()))
     $errors['err']='Este ticket foi fechado por '.$lock->getStaffName();
 if(!$errors['err'] && ($emailBanned=TicketFilter::isBanned($ticket->getEmail())))
@@ -34,7 +34,7 @@ if(!$errors['err'] && ($emailBanned=TicketFilter::isBanned($ticket->getEmail()))
 $unbannable=($emailBanned) ? BanList::includes($ticket->getEmail()) : false;
 
 if($ticket->isOverdue())
-    $warn.='&nbsp;&nbsp;<span class="Icon overdueTicket">Marcar como vencido!</span>';
+    $warn.='&nbsp;&nbsp;<span class="Icon overdueTicket">O ticket esá marcado como vencido!</span>';
 
 ?>
 <table width="940" cellpadding="2" cellspacing="0" border="0">
@@ -91,12 +91,12 @@ if($ticket->isOverdue())
                     }
                     
                     if(!$ticket->isOverdue()) { ?>
-                        <li><a id="ticket-overdue" href="#overdue"><i class="icon-bell"></i> Marcado como vencido</a></li>
+                        <li><a id="ticket-overdue" href="#overdue"><i class="icon-bell"></i> Marcar como vencido</a></li>
                     <?php
                     }
                     
                     if($ticket->isAnswered()) { ?>
-                        <li><a id="ticket-unanswered" href="#unanswered"><i class="icon-circle-arrow-left"></i> Marcado como não respondido</a></li>
+                        <li><a id="ticket-unanswered" href="#unanswered"><i class="icon-circle-arrow-left"></i> Marcar como não respondido</a></li>
                     <?php
                     } else { ?>
                         <li><a id="ticket-answered" href="#answered"><i class="icon-circle-arrow-right"></i> Marcar como respondido</a></li>

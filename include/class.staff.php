@@ -620,17 +620,17 @@ class Staff {
         //If we get to this point we know the login failed.
         $_SESSION['_staff']['strikes']+=1;
         if(!$errors && $_SESSION['_staff']['strikes']>$cfg->getStaffMaxLogins()) {
-            $errors['err']='Forgot your login info? Contact Admin.';
+            $errors['err']='Deseja informações sobre o login? Contate o administrador.';
             $_SESSION['_staff']['laststrike']=time();
-            $alert='Excessive login attempts by a staff member?'."\n".
-                   'Username: '.$username."\n".'IP: '.$_SERVER['REMOTE_ADDR']."\n".'TIME: '.date('M j, Y, g:i a T')."\n\n".
-                   'Attempts #'.$_SESSION['_staff']['strikes']."\n".'Timeout: '.($cfg->getStaffLoginTimeout()/60)." minutes \n\n";
-            $ost->logWarning('Excessive login attempts ('.$username.')', $alert, ($cfg->alertONLoginError()));
+            $alert='Logins execedidos por membros de equipes?'."\n".
+                   'Nome do usuário: '.$username."\n".'IP: '.$_SERVER['REMOTE_ADDR']."\n".'TIME: '.date('M j, Y, g:i a T')."\n\n".
+                   'Tentativas #'.$_SESSION['_staff']['strikes']."\n".'Tempo Limite: '.($cfg->getStaffLoginTimeout()/60)." minutos \n\n";
+            $ost->logWarning('Excedeu as tentativas de login ('.$username.')', $alert, ($cfg->alertONLoginError()));
     
         } elseif($_SESSION['_staff']['strikes']%2==0) { //Log every other failed login attempt as a warning.
-            $alert='Username: '.$username."\n".'IP: '.$_SERVER['REMOTE_ADDR'].
-                   "\n".'TIME: '.date('M j, Y, g:i a T')."\n\n".'Attempts #'.$_SESSION['_staff']['strikes'];
-            $ost->logWarning('Failed staff login attempt ('.$username.')', $alert, false);
+            $alert='Nome do usuário: '.$username."\n".'IP: '.$_SERVER['REMOTE_ADDR'].
+                   "\n".'Tempo: '.date('M j, Y, g:i a T')."\n\n".'Tentativas #'.$_SESSION['_staff']['strikes'];
+            $ost->logWarning('Falha em tentativas de login ('.$username.')', $alert, false);
         }
 
         return false;

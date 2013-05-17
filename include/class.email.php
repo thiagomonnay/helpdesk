@@ -219,57 +219,57 @@ class Email {
         $vars['email']=trim($vars['email']);
 
         if($id && $id!=$vars['id'])
-            $errors['err']='Internal error. Get technical help.';
+            $errors['err']='Erro interno. Peça ajuda técnica.';
 
         if(!$vars['email'] || !Validator::is_email($vars['email'])) {
-            $errors['email']='Valid email required';
+            $errors['email']='Um e-mail válido é requerido';
         }elseif(($eid=Email::getIdByEmail($vars['email'])) && $eid!=$id) {
-            $errors['email']='Email already exits';
+            $errors['email']='O e-mail já existe';
         }elseif($cfg && !strcasecmp($cfg->getAdminEmail(), $vars['email'])) {
-            $errors['email']='Email already used as admin email!';
+            $errors['email']='E-mail está sendo usado pelo administrador!';
         }elseif(Staff::getIdByEmail($vars['email'])) { //make sure the email doesn't belong to any of the staff 
-            $errors['email']='Email in-use by a staff member';
+            $errors['email']='E-mail está sendo usado por um usuário!';
         }
 
         if(!$vars['name'])
-            $errors['name']='Email name required';
+            $errors['name']='O nome do e-mail é requerido';
 
         if($vars['mail_active'] || ($vars['smtp_active'] && $vars['smtp_auth'])) {
             if(!$vars['userid'])
-                $errors['userid']='Username missing';
+                $errors['userid']='Faltando o nome do usuário';
                 
             if(!$id && !$vars['passwd'])
-                $errors['passwd']='Password required';
+                $errors['passwd']='A senha é requerida';
         }
         
         if($vars['mail_active']) {
             //Check pop/imapinfo only when enabled.
             if(!function_exists('imap_open'))
-                $errors['mail_active']= 'IMAP doesn\'t exist. PHP must be compiled with IMAP enabled.';
+                $errors['mail_active']= 'IMAP não existe. Habilita o IMAP/PHP para poder compilar.';
             if(!$vars['mail_host'])
-                $errors['mail_host']='Host name required';
+                $errors['mail_host']='O nome do host é requerido';
             if(!$vars['mail_port'])
-                $errors['mail_port']='Port required';
+                $errors['mail_port']='A porta é requerida';
             if(!$vars['mail_protocol'])
-                $errors['mail_protocol']='Select protocol';
+                $errors['mail_protocol']='Selecione o protocolo';
             if(!$vars['mail_fetchfreq'] || !is_numeric($vars['mail_fetchfreq']))
-                $errors['mail_fetchfreq']='Fetch interval required';
+                $errors['mail_fetchfreq']='O intervalo de pesquisa é requerido';
             if(!$vars['mail_fetchmax'] || !is_numeric($vars['mail_fetchmax']))
-                $errors['mail_fetchmax']='Maximum emails required';
+                $errors['mail_fetchmax']='Máximo de e-mails ee requerido';
             if(!$vars['dept_id'] || !is_numeric($vars['dept_id']))
-                $errors['dept_id']='You must select a Dept.';
+                $errors['dept_id']='Selecione um departamento';
             if(!$vars['priority_id'])
-                $errors['priority_id']='You must select a priority';
+                $errors['priority_id']='Selecione uma prioridade';
 
             if(!isset($vars['postfetch']))
-                $errors['postfetch']='Indicate what to do with fetched emails';
+                $errors['postfetch']='Indique o que fazer com e-mails pesquisados';
             elseif(!strcasecmp($vars['postfetch'],'archive') && !$vars['mail_archivefolder'] )
                 $errors['postfetch']='Uma pasta válida é requerida';
         }
         
         if($vars['smtp_active']) {
             if(!$vars['smtp_host'])
-                $errors['smtp_host']='O nome do host é requerido';
+                $errors['smtp_host']='O nome do host_smtp é requerido';
             if(!$vars['smtp_port'])
                 $errors['smtp_port']='A porta é requerida';
         }
@@ -303,7 +303,7 @@ class Email {
                 $errors['err']='Invalid login. Check '.Format::htmlchars($vars['mail_protocol']).' settings';
                 $errors['mail']='<br>'.$fetcher->getLastError();
             }elseif($vars['mail_archivefolder'] && !$fetcher->checkMailbox($vars['mail_archivefolder'],true)) {
-                 $errors['postfetch']='Invalid or unknown mail folder! >> '.$fetcher->getLastError().'';
+                 $errors['postfetch']='Pasat de e-mail inválida ou desconhecida! >> '.$fetcher->getLastError().'';
                  if(!$errors['mail'])
                      $errors['mail']='Arquivo desconhecido ou inválido na pasta!';
             }
@@ -322,7 +322,7 @@ class Email {
                            ));
             $mail = $smtp->connect();
             if(PEAR::isError($mail)) {
-                $errors['err']='Unable to login. Check SMTP settings.';
+                $errors['err']='Não foi possível fazer o login. Verfique as configurações SMTP.';
                 $errors['smtp']='<br>'.$mail->getMessage();
             }else{
                 $smtp->disconnect(); //Thank you, sir!

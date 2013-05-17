@@ -39,12 +39,12 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$ticket->getUpdateInfo());
         </tr>
         <tr>
             <td width="160">
-                Phone Number:
+                Telefone:
             </td>
             <td>
                 <input type="text" size="20" name="phone" value="<?php echo $info['phone']; ?>">
                 &nbsp;<span class="error">&nbsp;<?php echo $errors['phone']; ?></span>
-                Ext <input type="text" size="6" name="phone_ext" value="<?php echo $info['phone_ext']; ?>">
+                Ramal <input type="text" size="6" name="phone_ext" value="<?php echo $info['phone_ext']; ?>">
                 &nbsp;<span class="error">&nbsp;<?php echo $errors['phone_ext']; ?></span>
             </td>
         </tr>

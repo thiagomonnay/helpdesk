@@ -793,8 +793,8 @@ class Ticket {
         global $ost, $cfg;
 
         //Log the limit notice as a warning for admin.
-        $msg=sprintf('Max open tickets (%d) reached  for %s ', $cfg->getMaxOpenTickets(), $this->getEmail());
-        $ost->logWarning('Max. Open Tickets Limit ('.$this->getEmail().')', $msg);
+        $msg=sprintf('Máximo de tickets abertos (%d) de %s ', $cfg->getMaxOpenTickets(), $this->getEmail());
+        $ost->logWarning('Limite máximo de tickets abertos ('.$this->getEmail().')', $msg);
 
         if(!$sendNotice || !$cfg->sendOverLimitNotice()) return true;
 
@@ -818,11 +818,11 @@ class Ticket {
         $client= $this->getClient();
 
         //Alert admin...this might be spammy (no option to disable)...but it is helpful..I think.
-        $alert='Max. open tickets reached for '.$this->getEmail()."\n"
-              .'Open ticket: '.$client->getNumOpenTickets()."\n"
-              .'Max Allowed: '.$cfg->getMaxOpenTickets()."\n\nNotice sent to the user.";
+        $alert='Máximo de tickets abertos para '.$this->getEmail()."\n"
+              .'Ticket Aberto: '.$client->getNumOpenTickets()."\n"
+              .'Máximo perimitido: '.$cfg->getMaxOpenTickets()."\n\n Alerta enviado para o usuário.";
 
-        $ost->alertAdmin('Overlimit Notice', $alert);
+        $ost->alertAdmin('Alertas de limites', $alert);
 
         return true;
     }
@@ -889,11 +889,11 @@ class Ticket {
 
         $this->reload();
 
-        $comments = $comments?$comments:'Ticket assignment';
-        $assigner = $thisstaff?$thisstaff:'SYSTEM (Auto Assignment)';
+        $comments = $comments?$comments:'Atribuição de ticket ';
+        $assigner = $thisstaff?$thisstaff:'SYSTEM (Auto-atribuído)';
 
         //Log an internal note - no alerts on the internal note.
-        $this->logNote('Ticket Assigned to '.$assignee->getName(), $comments, $assigner, false);
+        $this->logNote('Ticket atribuído para '.$assignee->getName(), $comments, $assigner, false);
 
         //See if we need to send alerts
         if(!$alert || !$cfg->alertONAssignment()) return true; //No alerts!
@@ -1826,7 +1826,7 @@ class Ticket {
                     && ($openTickets=$client->getNumOpenTickets())
                     && ($openTickets>=$cfg->getMaxOpenTickets()) ) {
 
-                $errors['err']="Você alcancou o número máximo de ticket abertos permitidos.";
+                $errors['err']="Você alcançou o número máximo de ticket abertos permitidos.";
                 $ost->logWarning('Ticket negado -'.$vars['email'],
                         sprintf('Máximo de tickets abertos (%d) alcançado para %s ',
                             $cfg->getMaxOpenTickets(), $vars['email']));
@@ -1882,9 +1882,9 @@ class Ticket {
         //Make sure phone extension is valid
         if($vars['phone_ext'] ) {
             if(!is_numeric($vars['phone_ext']) && !$errors['phone'])
-                $errors['phone']='Invalid phone ext.';
+                $errors['phone']='Ramal do telefone inválido.';
             elseif(!$vars['phone']) //make sure they just didn't enter ext without phone # XXX: reconsider allowing!
-                $errors['phone']='Phone number required';
+                $errors['phone']='Número do telefone é requerido';
         }
 
         //Make sure the due date is valid
@@ -2132,7 +2132,7 @@ class Ticket {
         if(($res=db_query($sql)) && db_num_rows($res)) {
             while(list($id)=db_fetch_row($res)) {
                 if(($ticket=Ticket::lookup($id)) && $ticket->markOverdue())
-                    $ticket->logActivity('Ticket marcado como vencido', 'Ticket fmarcado como vencido pelo sistema.');
+                    $ticket->logActivity('Ticket marcado como vencido', 'Ticket marcado como vencido pelo sistema.');
             }
         } else {
             //TODO: Trigger escalation on already overdue tickets - make sure last overdue event > grace_period.

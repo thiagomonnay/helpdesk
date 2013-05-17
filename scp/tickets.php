@@ -28,7 +28,7 @@ if($_REQUEST['id']) {
     if(!($ticket=Ticket::lookup($_REQUEST['id'])))
          $errors['err']='ID do ticket inválido ou desconhecido';
     elseif(!$ticket->checkStaffAccess($thisstaff)) {
-        $errors['err']='Accesso negaod. Contate o administrador, se você acredita que isso é um erro';
+        $errors['err']='Accesso negado. Contate o administrador, se você acredita que isso é um erro!';
         $ticket=null; //Clear ticket obj.
     }
 }
@@ -39,7 +39,7 @@ if($_POST && !$errors):
         //More coffee please.
         $errors=array();
         $lock=$ticket->getLock(); //Ticket lock if any
-        $statusKeys=array('open'=>'Aberto','Reopen'=>'Aberto','Close'=>'Fechado');
+        $statusKeys=array('open'=>'Aberto','Reopen'=>'Reaberto','Close'=>'Fechado');
         switch(strtolower($_POST['a'])):
         case 'reply':
             if(!$thisstaff->canPostReply())
@@ -82,17 +82,17 @@ if($_POST && !$errors):
 
                 //Check target dept.
                 if(!$_POST['deptId'])
-                    $errors['deptId'] = 'Selecione departamento';
+                    $errors['deptId'] = 'Selecione o departamento';
                 elseif($_POST['deptId']==$ticket->getDeptId())
-                    $errors['deptId'] = 'Ticket já está atribuído no departamento';
+                    $errors['deptId'] = 'Ticket já está atribuído ao departamento';
                 elseif(!($dept=Dept::lookup($_POST['deptId'])))
                     $errors['deptId'] = 'Departamento inválido ou desconhecido';
 
                 //Transfer message - required.
                 if(!$_POST['transfer_comments'])
-                    $errors['transfer_comments'] = 'Comentários de transferência exigido';
+                    $errors['transfer_comments'] = 'O comentário de transferência é exigido';
                 elseif(strlen($_POST['transfer_comments'])<5)
-                    $errors['transfer_comments'] = 'Comentários de transferência muito curto!';
+                    $errors['transfer_comments'] = 'O comentário de transferência está muito curto!';
 
                 //If no errors - them attempt the transfer.
                 if(!$errors && $ticket->transfer($_POST['deptId'], $_POST['transfer_comments'])) {
@@ -102,7 +102,7 @@ if($_POST && !$errors):
                         $ticket=null;
 
                 } elseif(!$errors['transfer']) {
-                    $errors['err'] = 'Não foi possível completar trasnferêncian do ticket';
+                    $errors['err'] = 'Não foi possível completar a trasnferência do ticket';
                     $errors['transfer']='Corrija o(s) erro(s) abaixo e tente novamente!';
                 }
             }
@@ -131,13 +131,13 @@ if($_POST && !$errors):
                  if($claim && !$_POST['assign_comments'])
                      $_POST['assign_comments'] = 'Ticket reinvidicado por '.$thisstaff->getName();
                  elseif(!$_POST['assign_comments'])
-                     $errors['assign_comments'] = 'A atribuição do comentário é exigida';
+                     $errors['assign_comments'] = ' O comentário da atribuição é exigido';
                  elseif(strlen($_POST['assign_comments'])<5)
-                         $errors['assign_comments'] = 'Comentário muito curto';
+                         $errors['assign_comments'] = 'O Comentário está muito curto';
 
                  if(!$errors && $ticket->assign($_POST['assignId'], $_POST['assign_comments'], !$claim)) {
                      if($claim) {
-                         $msg = 'O ticket fo atribuído AGORA para você!';
+                         $msg = 'O ticket foi atribuído AGORA para você!';
                      } else {
                          $msg='Ticket atribuído com sucesso para '.$ticket->getAssigned();
                          TicketLock::removeStaffLocks($thisstaff->getId(), $ticket->getId());
@@ -176,7 +176,7 @@ if($_POST && !$errors):
                 if(!$errors['err'])
                     $errors['err'] = 'Não foi possível postar nota interna - dados inválidos ou faltando.';
 
-                $errors['postnote'] = 'Não foi possível postar a nota. Corrigir o(s) erro(s) abaixo e tente novamente!';
+                $errors['postnote'] = 'Não foi possível postar a nota interna. Corrigir o(s) erro(s) abaixo e tente novamente!';
             }
             break;
         case 'edit':
@@ -201,7 +201,7 @@ if($_POST && !$errors):
                     } elseif($ticket->isClosed()) {
                         $errors['err'] = 'O ticket já está fechado!';
                     } elseif($ticket->close()) {
-                        $msg='Ticket #'.$ticket->getExtId().' foi mudado para fechado';
+                        $msg='Ticket #'.$ticket->getExtId().' foi alterado para fechado';
                         //Log internal note
                         if($_POST['ticket_status_notes'])
                             $note = $_POST['ticket_status_notes'];
@@ -221,7 +221,7 @@ if($_POST && !$errors):
                 case 'reopen':
                     //if staff can close or create tickets ...then assume they can reopen.
                     if(!$thisstaff->canCloseTickets() && !$thisstaff->canCreateTickets()) {
-                        $errors['err']='Permissão negada. Você não está permitido para reabrir o ticket.';
+                        $errors['err']='Permissão negada. Você não tem permissão para reabrir o ticket.';
                     } elseif($ticket->isOpen()) {
                         $errors['err'] = 'Ticket já está aberto!';
                     } elseif($ticket->reopen()) {
@@ -250,13 +250,13 @@ if($_POST && !$errors):
                     break;
                 case 'claim':
                     if(!$thisstaff->canAssignTickets()) {
-                        $errors['err'] = 'Permissão negada. Você não tem permissão para atribuir/reivindicar bilhetes.';
+                        $errors['err'] = 'Permissão negada. Você não tem permissão para atribuir/reivindicar os tickets.';
                     } elseif(!$ticket->isOpen()) {
-                        $errors['err'] = 'Somente bilhetes em aberto pode ser atribuído';
+                        $errors['err'] = 'Somente ticket em aberto pode ser atribuído';
                     } elseif($ticket->isAssigned()) {
-                        $errors['err'] = 'Ticket já está atribuído a '.$ticket->getAssigned();
+                        $errors['err'] = 'O ticket já está atribuído para '.$ticket->getAssigned();
                     } elseif($ticket->assignToStaff($thisstaff->getId(), ('Ticket reinvidicado por '.$thisstaff->getName()), false)) {
-                        $msg = 'Ticket agora está atribuído a você!';
+                        $msg = 'Ticket agora está atribuído à você!';
                     } else {
                         $errors['err'] = 'Problemas ao atribuir o ticket. Tente novamente';
                     }
@@ -264,10 +264,10 @@ if($_POST && !$errors):
                 case 'overdue':
                     $dept = $ticket->getDept();
                     if(!$dept || !$dept->isManager($thisstaff)) {
-                        $errors['err']='Permissão negada. Você não está permitido para setar tickets vencidos';
+                        $errors['err']='Permissão negada. Você não está permitido para editar tickets vencidos';
                     } elseif($ticket->markOverdue()) {
                         $msg='Ticket está vencido';
-                        $ticket->logActivity('Ticket colocado como vencido',($msg.' por '.$thisstaff->getName()));
+                        $ticket->logActivity('Ticket alterado para vencido',($msg.' por '.$thisstaff->getName()));
                     } else {
                         $errors['err']='Ocorreu problemas ao marcar o ticket como vencido. Tente novamente';
                     }
@@ -291,14 +291,14 @@ if($_POST && !$errors):
                         $msg='Ticket marcado como respondido';
                         $ticket->logActivity('Ticket marcado como sem resposta',($msg.' por '.$thisstaff->getName()));
                     } else {
-                        $errors['err']='Ocorreu probelmas ao marcar o ticket como sem reposta. Tente novamente';
+                        $errors['err']='Ocorreu probelmas ao marcar o ticket como "sem reposta". Tente novamente';
                     }
                     break;
                 case 'banemail':
                     if(!$thisstaff->canBanEmails()) {
                         $errors['err']='Permissão negada. Você não pode bloquear e-mails.';
                     } elseif(BanList::includes($ticket->getEmail())) {
-                        $errors['err']='Email já está bloqueado';
+                        $errors['err']='E-mail já está bloqueado';
                     } elseif(Banlist::add($ticket->getEmail(),$thisstaff->getName())) {
                         $msg='O e-mail ('.$ticket->getEmail().') foi adcionado na lista de bloqueios.';
                     } else {
@@ -365,7 +365,7 @@ if($_POST && !$errors):
                                 if($i==$count)
                                     $msg = "O ticket selecionado ($i) foi reaberto com sucesso.";
                                 elseif($i)
-                                    $warn = "$i of $count tickets selecionados foram reabertos.";
+                                    $warn = "$i de $count tickets selecionados foram reabertos.";
                                 else
                                     $errors['err'] = 'Não foi possível reabrir o ticket selecionado.';
                             } else {
@@ -378,12 +378,12 @@ if($_POST && !$errors):
                                 foreach($_POST['tids'] as $k=>$v) {
                                     if(($t=Ticket::lookup($v)) && $t->isOpen() && @$t->close()) {
                                         $i++;
-                                        $t->logNote('Ticket Closed', $note, $thisstaff);
+                                        $t->logNote('Ticket Fechado', $note, $thisstaff);
                                     }
                                 }
 
                                 if($i==$count)
-                                    $msg ="O ticket selecionado ($i) foi fechado com sucesso.";
+                                    $msg ="O ticket ($i) selecionado foi fechado com sucesso.";
                                 elseif($i)
                                     $warn = "$i de $count tickets selecionados foram fechados com sucesso..";
                                 else
@@ -402,7 +402,7 @@ if($_POST && !$errors):
                             }
 
                             if($i==$count)
-                                $msg = "Os tickets selecionados ($i) foram marcados como vencidos";
+                                $msg = "Os tickets ($i) selecionados foram marcados como vencidos";
                             elseif($i)
                                 $warn = "$i de $count tickets selecionados foram marcados como vencidos.";
                             else
@@ -423,7 +423,7 @@ if($_POST && !$errors):
                                 }
 
                                 if($i==$count)
-                                    $msg = "O ticket selecionado ($i) foi deletado com sucesso.";
+                                    $msg = "O ticket ($i) selecionado foi deletado com sucesso.";
                                 elseif($i)
                                     $warn = "$i de $count tickets selecionados foram deletados.";
                                 else
