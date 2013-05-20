@@ -93,11 +93,11 @@ class OverviewReportAjaxAPI extends AjaxController {
 
         $queries=array(
             array(5, 'SELECT '.$info['fields'].',
-                COUNT(*)-COUNT(NULLIF(A1.state, "Abertos")) AS Opened,
-                COUNT(*)-COUNT(NULLIF(A1.state, "Atribuídos")) AS Assigned,
-                COUNT(*)-COUNT(NULLIF(A1.state, "Vencidos")) AS Overdue,
-                COUNT(*)-COUNT(NULLIF(A1.state, "Fechados")) AS Closed,
-                COUNT(*)-COUNT(NULLIF(A1.state, "Reabertos")) AS Reopened
+                COUNT(*)-COUNT(NULLIF(A1.state, "created")) AS Opened,
+                COUNT(*)-COUNT(NULLIF(A1.state, "assigned")) AS Assigned,
+                COUNT(*)-COUNT(NULLIF(A1.state, "overdue")) AS Overdue,
+                COUNT(*)-COUNT(NULLIF(A1.state, "closed")) AS Closed,
+                COUNT(*)-COUNT(NULLIF(A1.state, "reopened")) AS Reopened
             FROM '.$info['table'].' T1 
                 LEFT JOIN '.TICKET_EVENT_TABLE.' A1 
                     ON (A1.'.$info['pk'].'=T1.'.$info['pk'].'
