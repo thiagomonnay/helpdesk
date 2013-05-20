@@ -38,7 +38,7 @@ class Dispatcher {
                 return $matcher->dispatch($url, $args);
             }
         }
-        Http::response(400, "URL not supported");
+        Http::response(400, "URL não suportada");
     }
     /**
      * Returns the url for the given function and arguments (arguments

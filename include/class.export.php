@@ -36,14 +36,14 @@ class Export {
         return self::dumpQuery($sql,
             array(
                 'ticketID' =>       'Ticket Id',
-                'created' =>        'Date',
-                'subject' =>        'Subject',
-                'name' =>           'From',
-                'priority_desc' =>  'Priority',
-                'dept_name' =>      'Department',
-                'helptopic' =>      'Help Topic',
-                'source' =>         'Source',
-                'status' =>         'Current Status'
+                'created' =>        'Data',
+                'subject' =>        'Assunto',
+                'name' =>           'De',
+                'priority_desc' =>  'Prioridade',
+                'dept_name' =>      'Departamento',
+                'helptopic' =>      'Tópico de Ajuda',
+                'source' =>         'Origem',
+                'status' =>         'Status Atual'
             ),
             $how);
     }

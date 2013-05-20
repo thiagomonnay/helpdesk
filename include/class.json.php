@@ -37,19 +37,19 @@ class JsonDataParser {
     function lastError() {
         if (function_exists("json_last_error")) {
             $errors = array(
-            JSON_ERROR_NONE => 'No errors',
-            JSON_ERROR_DEPTH => 'Maximum stack depth exceeded',
-            JSON_ERROR_STATE_MISMATCH => 'Underflow or the modes mismatch',
-            JSON_ERROR_CTRL_CHAR => 'Unexpected control character found',
-            JSON_ERROR_SYNTAX => 'Syntax error, malformed JSON',
-            JSON_ERROR_UTF8 => 'Malformed UTF-8 characters, possibly incorrectly encoded'
+            JSON_ERROR_NONE => 'Sem erros',
+            JSON_ERROR_DEPTH => 'Profundidade máxima da pilha ultrapassado',
+            JSON_ERROR_STATE_MISMATCH => 'Underflow ou os modos incompatibilidade',
+            JSON_ERROR_CTRL_CHAR => 'Caractere de controle inesperado encontrado',
+            JSON_ERROR_SYNTAX => 'Erro de sintaxe, JSON',
+            JSON_ERROR_UTF8 => 'UTF-8 malformado, possivelmente codificado incorretamente'
             );
             if ($message = $errors[json_last_error()])
                 return $message;
-            return "Unknown error";
+            return "Erro desconhecido";
         } else {
             # Doesn't look like Servies_JSON supports errors for decode()
-            return "Unknown JSON parsing error";
+            return "Erro de análise JSON desconhecido";
         }
     }
 }
