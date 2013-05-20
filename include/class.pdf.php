@@ -63,7 +63,7 @@ class Ticket2PDF extends FPDF
         $this->Cell(0, 3, '', "B", 2, 'L');
         $this->SetFont('Arial', 'I',10);
         $this->Cell(0, 5, 'Gerado no dia '.Format::date($cfg->getDateTimeFormat(), Misc::gmtime(), $_SESSION['TZ_OFFSET'], $_SESSION['TZ_DST']), 0, 0, 'L');
-        $this->Cell(0, 5, 'Data e Hora é baseado em GMT '.$_SESSION['TZ_OFFSET'], 0, 1, 'R');
+        $this->Cell(0, 5, 'A Data e Hora são baseados em GMT '.$_SESSION['TZ_OFFSET'], 0, 1, 'R');
 		$this->Ln(10);
 	}
 
