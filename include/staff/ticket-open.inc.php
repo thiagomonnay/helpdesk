@@ -244,7 +244,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$info);
                         ?>
                     </select>
                     &nbsp;&nbsp;&nbsp;
-                    <label><input type='checkbox' value='1' name="append" id="append">Anexar</label>
+                    <label><input type='checkbox' value='1' name="append" id="append" checked="checked">Anexar</label>
                 </div>
             <?php
             } ?>

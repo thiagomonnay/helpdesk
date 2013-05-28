@@ -1063,6 +1063,7 @@ class Ticket {
         $vars = array_merge($vars, array('ticket' => $this));
 
         return $ost->replaceTemplateVariables($input, $vars);
+        //return $ost->replaceTemplateVars($text);
     }
 
     function markUnAnswered() {
@@ -1137,7 +1138,7 @@ class Ticket {
             $this->selectSLAId();
 
         /*** log the transfer comments as internal note - with alerts disabled - ***/
-        $title='Ticket transfered from '.$currentDept.' to '.$this->getDeptName();
+        $title='Ticket transferido de '.$currentDept.' para '.$this->getDeptName();
         $comments=$comments?$comments:$title;
         $this->logNote($title, $comments, $thisstaff, false);
 
@@ -1155,10 +1156,12 @@ class Ticket {
          if(!($email=$cfg->getAlertEmail()))
              $email =$cfg->getDefaultEmail();
 
-         //Get the message template
-         if($tpl && ($msg=$tpl->getTransferAlertMsgTemplate()) && $email) {
+         //Get the message template - variavel $recipients adicionada e as variaveis do array
+         if($email && $tpl && ($msg=$tpl->getTransferAlertMsgTemplate()) ) {
 
-             $msg = $this->replaceVars($msg, array('comments' => $comments, 'staff' => $thisstaff));
+             $msg = $this->replaceVars($msg, 
+             		array('comments' => $comments,
+             			  'staff' => $thisstaff));
             //recipients
             $recipients=array();
             //Assigned staff or team... if any

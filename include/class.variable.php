@@ -44,7 +44,8 @@ class VariableReplacer {
     }
     
     function getObj($tag) {
-        return @$this->objects[$tag];
+        //return @$this->objects[$tag];
+        return $this->objects[$tag]; //código alterado
     }
 
     function assign($var, $val='') {
@@ -114,7 +115,7 @@ class VariableReplacer {
             return $this->variables[$parts[0]];
 
         //Unknown object or variable - leavig it alone.
-        $this->setError('Unknown obj for "'.$var.'" tag ');
+        $this->setError('Objeto desconhecido para a tag "'.$var.'"');
         return false;
     }
 

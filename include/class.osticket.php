@@ -145,7 +145,49 @@ class osTicket {
 
         return ($ext && is_array($allowed) && in_array(".$ext", $allowed));
     }
-
+	/* Pegando a mensagem enviada pelo usuário*/
+    function getOriginalMessage() {
+    
+    	$original_message = "";
+    
+    	$sql = "SELECT message FROM ".TICKET_MESSAGE_TABLE." WHERE ticket_id LIKE ".db_input($this->getId());
+    
+    	if(($res=db_query($sql)) && db_num_rows($res))
+    		list($original_message)=db_fetch_row($res);
+    
+    	return $original_message;
+    
+    }
+    
+    /* Função replace das variáveis do template de e-mails v1.6 */
+    
+    function replaceTemplateVars($text){
+    	global $cfg;
+    
+    	$dept = $this->getDept();
+    	$staff= $this->getStaff();
+    
+    	$search = array('/%id/','/%ticket/','/%email/','/%name/','/%subject/','/%topic/','/%phone/','/%status/','/%priority/',
+    			'/%dept/','/%assigned_staff/','/%createdate/','/%duedate/','/%closedate/','/%url/','/%message/');
+    	$replace = array($this->getId(),
+    			$this->getExtId(),
+    			$this->getEmail(),
+    			$this->getName(),
+    			$this->getSubject(),
+    			$this->getHelpTopic(),
+    			$this->getPhoneNumber(),
+    			$this->getStatus(),
+    			$this->getPriority(),
+    			($dept?$dept->getName():''),
+    			($staff?$staff->getName():''),
+    			Format::db_daydatetime($this->getCreateDate()),
+    			Format::db_daydatetime($this->getDueDate()),
+    			Format::db_daydatetime($this->getCloseDate()),
+    			$cfg->getBaseUrl(),
+    			$this->getOriginalMessage());
+    	return preg_replace($search,$replace,$text);
+    }
+    
     /* Replace Template Variables */
     function replaceTemplateVariables($input, $vars=array()) {
 
