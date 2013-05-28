@@ -536,7 +536,7 @@ if(!$cfg->showNotesInline()) { ?>
                     <textarea name="note" id="internal_note" cols="80" rows="9" wrap="soft"><?php echo $info['note']; ?></textarea><br>
                     <div>
                         <span class="faded">Título da nota - Resumo da nota (opcional)</span>&nbsp;
-                        <span class="error"&nbsp;<?php echo $errors['title']; ?>></span>
+                        <span class="error">&nbsp;<?php echo $errors['title']; ?></span>
                     </div>
                     <input type="text" name="title" id="title" size="60" value="<?php echo $info['title']; ?>" >
                 </td>
